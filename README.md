@@ -80,4 +80,4 @@ Here are some ideas to get you started:
 <br>
 
 ## My GitHub Stats 😎
-![Ayesha's GitHub stats](https://github-readme-stats.vercel.app/api?username=AyeshaSahar&theme=cobalt&show_icons=true)
+![Ayesha's GitHub stats](https://github-readme-stats.vercel.app/api?username=ShahrukhYousafzai&theme=cobalt&show_icons=true)
