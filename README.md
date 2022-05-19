@@ -1,5 +1,5 @@
 <!--
-**AyeshaSahar/AyeshaSahar** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+**ShahrukhYousafzai/ShahrukhYousafzai** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
 
@@ -16,12 +16,10 @@ Here are some ideas to get you started:
 <img align='right' src="https://acegif.com/wp-content/uploads/cat-typing-2.gif" width="230">
 
 ## About me
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> I write articles on Python, C++, UI/UX Design and Web Development to make your learning journey easier :)<br>
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> I believe in learning by building and being consistent in what I do. <br>
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> I actually like C++ but not as much as I like python though😉<br>
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> Full stack Web developer 👩‍💻 <br>
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> Hoping to make some projects using Machine Learning by the end of this year ✨<br>
-<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> When I'm not coding, I am probably exploring new concepts, or thinking about my next project. 
+<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> Full Stack Developer 👨🏻‍💻 | Content Creator ✍️ <br>
+<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> Sharing tips, tricks and resources on Web Dev, Game Dev, App Dev & UI/UX to make your learning journey easier <br>
+<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> One of my favourite programming language is C# and I love it <br>
+<img height="20" src="https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-30.gif"> What I say is to don't lose hope. Try again and try again until you get success 💻 <br>
 
 <br>
 
