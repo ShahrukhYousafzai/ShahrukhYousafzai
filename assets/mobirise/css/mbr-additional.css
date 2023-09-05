@@ -1046,6 +1046,9 @@ a {
     left: -1rem;
   }
 }
+.cid-s48OLK6784 .navbar .navbar-toggler .hamburger {
+  color: #f2f1f1;
+}
 .cid-tubtaKSg0Q {
   background-color: #00020d;
 }
@@ -1115,7 +1118,7 @@ a {
 }
 .cid-ttt6NnZAtZ .mbr-iconfont {
   font-size: 2rem;
-  color: #6592e6;
+  color: #ff9966;
   padding-right: 1.5rem;
 }
 .cid-tOMKWEuPXn {
@@ -2622,6 +2625,9 @@ a {
     max-width: calc(100% + 2rem);
     left: -1rem;
   }
+}
+.cid-s48OLK6784 .navbar .navbar-toggler .hamburger {
+  color: #f2f1f1;
 }
 .cid-tON8LLAU8t {
   padding-top: 5rem;
