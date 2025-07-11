@@ -2,7 +2,6 @@ import {
   Code,
   Gamepad2,
   Brush,
-  Search,
   Check,
   Users,
   Briefcase,
@@ -15,9 +14,8 @@ import {
   Wallet,
   Network,
   Cpu,
-  Star,
 } from "lucide-react";
-import { IconFiverr, IconUpwork, IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconAdobeXD } from "@/components/icons";
+import { IconFiverr, IconUpwork, IconUnity } from "@/components/icons";
 
 export const navLinks = [
   { href: "#services", label: "Services" },
@@ -40,8 +38,8 @@ export const about = {
 };
 
 export const stats = [
-    { value: "$70K+", label: "Total Earnings", icon: Check },
-    { value: "23+", label: "Total Jobs", icon: Users },
+    { value: "$128K+", label: "Total Earnings", icon: Check },
+    { value: "166+", label: "Total Jobs", icon: Users },
     { value: "7+", label: "Years of Experience", icon: Briefcase },
 ];
 
