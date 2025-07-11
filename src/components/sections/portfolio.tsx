@@ -1,6 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { projects } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -26,52 +25,41 @@ const PortfolioSection = () => {
           </TabsList>
           {categories.map((category) => (
             <TabsContent key={category} value={category}>
-              <Carousel
-                opts={{ align: "start", loop: true }}
-                className="w-full mt-8"
-              >
-                <CarouselContent>
-                  {projects.filter(p => p.category === category).map((project, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1">
-                        <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-                           <CardHeader className="p-0">
-                             <div className="aspect-video relative">
-                              <Image 
-                                src={project.image} 
-                                alt={project.title} 
-                                fill
-                                className="object-cover"
-                                data-ai-hint={project.aiHint}
-                              />
-                             </div>
-                           </CardHeader>
-                          <div className="p-6 flex-grow flex flex-col">
-                            <CardTitle className="font-headline">{project.title}</CardTitle>
-                            <div className="flex flex-wrap gap-2 my-4">
-                              {project.tags.map(tag => (
-                                <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
-                              ))}
-                            </div>
-                            <CardDescription className="text-muted-foreground flex-grow">
-                              {project.description}
-                            </CardDescription>
-                          </div>
-                          <CardFooter>
-                            <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-                               <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
-                               </a>
-                            </Button>
-                          </CardFooter>
-                        </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                {projects.filter(p => p.category === category).map((project, index) => (
+                  <Card key={index} className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                     <CardHeader className="p-0">
+                       <div className="aspect-video relative">
+                        <Image 
+                          src={project.image} 
+                          alt={project.title} 
+                          fill
+                          className="object-cover"
+                          data-ai-hint={project.aiHint}
+                        />
+                       </div>
+                     </CardHeader>
+                    <div className="p-6 flex-grow flex flex-col">
+                      <CardTitle className="font-headline">{project.title}</CardTitle>
+                      <div className="flex flex-wrap gap-2 my-4">
+                        {project.tags.map(tag => (
+                          <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                        ))}
                       </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden sm:flex" />
-                <CarouselNext className="hidden sm:flex" />
-              </Carousel>
+                      <CardDescription className="text-muted-foreground flex-grow">
+                        {project.description}
+                      </CardDescription>
+                    </div>
+                    <CardFooter>
+                      <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+                         <a href={project.link} target="_blank" rel="noopener noreferrer">
+                          <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
+                         </a>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
             </TabsContent>
           ))}
         </Tabs>
