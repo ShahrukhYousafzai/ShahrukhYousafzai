@@ -8,10 +8,17 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '1rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['Space Grotesk', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -93,6 +100,16 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      boxShadow: {
+        'glow-primary': '0 0 15px hsl(var(--primary) / 0.6)',
+        'glow-accent': '0 0 15px hsl(var(--accent) / 0.6)',
+      },
+      backgroundImage: {
+        'dot-pattern': `radial-gradient(circle at center, hsl(var(--foreground) / 0.05) 1px, transparent 1px)`,
+      },
+      backgroundSize: {
+        'dot-pattern': '20px 20px',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],
