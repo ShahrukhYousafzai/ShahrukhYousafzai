@@ -129,7 +129,7 @@ export const projects = [
     description: 'A casual Checkers game with a unique twist - pieces fall with each move. Features multiplayer for endless fun.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'board game',
-    tags: ['Unity3D', 'Board Game', 'Casual', 'Multiplayer', '2D', 'Card Game'],
+    tags: ['Unity3D', 'Board Game', 'Casual', 'Multiplayer', '2D'],
     link: 'https://www.crazygames.com/game/checkers-fall',
     linkText: 'Play Now',
     linkIcon: Play,

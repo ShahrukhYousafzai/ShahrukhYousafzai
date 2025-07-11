@@ -42,7 +42,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
 
 const PortfolioSection = () => {
   const categories = ["Games", "Apps", "Animations"];
-  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game"];
+  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Board Game"];
   const gameProjects = projects.filter(p => p.category === 'Games');
 
   return (
