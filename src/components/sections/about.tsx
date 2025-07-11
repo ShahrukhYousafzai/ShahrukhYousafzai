@@ -11,6 +11,7 @@ const AboutSection = () => {
         </div>
         
         <div className="mt-16">
+          <h3 className="text-2xl font-bold font-headline text-center mb-8">My Journey</h3>
           <div className="relative">
             <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border -translate-x-1/2" aria-hidden="true"></div>
             <div className="space-y-12">

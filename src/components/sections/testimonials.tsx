@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { testimonials } from "@/lib/data";
@@ -40,8 +42,11 @@ const TestimonialsSection = () => {
                     </CardContent>
                     <CardFooter>
                       <div className="flex gap-1 text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
+                        {[...Array(Math.round(testimonial.rating))].map((_, i) => (
                           <Star key={i} className="h-5 w-5 fill-current" />
+                        ))}
+                         {testimonial.rating < 5 && [...Array(5 - Math.round(testimonial.rating))].map((_, i) => (
+                          <Star key={`empty-${i}`} className="h-5 w-5" />
                         ))}
                       </div>
                     </CardFooter>

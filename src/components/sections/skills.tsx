@@ -24,7 +24,7 @@ const SkillsSection = () => {
           </div>
         </div>
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold font-headline">Languages I'm familiar with</h3>
+          <h3 className="text-2xl font-bold font-headline">Languages</h3>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {languages.map((lang, index) => (
               <Badge key={index} variant="secondary" className="px-4 py-2 text-sm border-accent/50 bg-accent/10 text-accent-foreground hover:bg-accent/20 transition-colors">

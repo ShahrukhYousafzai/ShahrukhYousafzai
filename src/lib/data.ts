@@ -10,9 +10,12 @@ import {
   Download,
   Play,
   Video,
-  Link as LinkIcon,
   Github,
   Linkedin,
+  Wallet,
+  Network,
+  Cpu,
+  Star,
 } from "lucide-react";
 import { IconFiverr, IconUpwork, IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconAdobeXD } from "@/components/icons";
 
@@ -32,40 +35,40 @@ export const socialLinks = [
 ];
 
 export const about = {
-    description: "A talented and experienced game developer with a passion for creating innovative and engaging games & apps. With a portfolio of many successful projects, Shahrukh Yousafzai has a proven track record of delivering high-quality and user-friendly solutions. With a strong background in app & game development, I have the expertise to bring your ideas to life.",
+    description: "I am a game developer with expertise in both Web3 (blockchain-integrated) and Web2 (traditional) game development, specializing in Unity to build immersive, high-quality games for PC, mobile, and web platforms. My skill set includes blockchain integration, NFT mechanics, wallet authentication, and cross-platform optimization, allowing me to develop innovative gaming experiences that seamlessly merge traditional and decentralized technologies.",
     email: "shahrukhyousafzaipk@gmail.com",
 };
 
 export const stats = [
-    { value: "100+", label: "Projects Completed", icon: Check },
-    { value: "100+", label: "Happy Clients", icon: Users },
-    { value: "5+", label: "Years of Experience", icon: Briefcase },
+    { value: "$70K+", label: "Total Earnings", icon: Check },
+    { value: "23+", label: "Total Jobs", icon: Users },
+    { value: "7+", label: "Years of Experience", icon: Briefcase },
 ];
 
 export const timeline = [
-    { date: "2018", title: "Started Learning Development", description: "Began my journey into the world of programming, focusing on C# and game development fundamentals.", icon: School },
-    { date: "2019", title: "First Freelance Project", description: "Landed my first client project, developing a small mobile game and kickstarting my freelance career.", icon: Briefcase },
-    { date: "2021", title: "Launched 'Basant Mela'", description: "Released 'Basant Mela', which became a trending game on the Play Store with over 500k downloads.", icon: Gamepad2 },
-    { date: "2023 - Present", title: "AAA & AI Projects", description: "Started working on large-scale AAA game projects and developing applications with integrated AI features.", icon: Code },
+    { date: "March 2017 - Jan 2023", title: "Senior Game Developer", description: "Efface Studios", icon: Briefcase },
+    { date: "Jan 2017 - Present", title: "Freelancer", description: "Fiverr", icon: IconFiverr },
+    { date: "April 2023 - July 2024", title: "Web3 Blockchain Unity Game Developer", description: "Efface Studios", icon: Cpu },
+    { date: "2021 - 2025", title: "Bachelor of Business Administration (BBA)", description: "Islamia University of Bahawalpur", icon: School },
 ];
 
 export const services = [
-  { title: "App Development", icon: Code },
-  { title: "Game Development", icon: Gamepad2 },
-  { title: "Web Development / SEO", icon: Search },
-  { title: "Graphic Designing", icon: Brush },
+  { title: "Web2 & Traditional Game Development", icon: Gamepad2 },
+  { title: "Web3 & Blockchain Game Integration", icon: Wallet },
+  { title: "Cross-Platform Development", icon: Network },
+  { title: "Game Systems & Mechanics", icon: Cpu },
 ];
 
 export const skills = [
-  { name: "Unity3D", icon: IconUnity },
-  { name: "Visual Studio", icon: IconVisualStudio },
-  { name: "Figma", icon: IconFigma },
-  { name: "Photoshop", icon: IconPhotoshop },
-  { name: "Adobe XD", icon: IconAdobeXD },
-  { name: "Photon", icon: Gamepad2 },
+  { name: "Unity", icon: IconUnity },
+  { name: "C#", icon: Code },
+  { name: "Game Development", icon: Gamepad2 },
+  { name: "Game Design", icon: Brush },
+  { name: "Android App Development", icon: Cpu },
+  { name: "iOS Development", icon: Cpu },
 ];
 
-export const languages = ["C#", "JavaScript", "Python", "HTML", "CSS", "XAML", "JSON"];
+export const languages = ["English", "Urdu", "Hindi", "Punjabi"];
 
 export const projects = [
   {
@@ -215,27 +218,38 @@ export const projects = [
 
 export const testimonials = [
     {
-        name: 'John Doe',
-        title: 'CEO, GameStorm Inc.',
-        comment: 'Shahrukh is an exceptionally talented developer. He delivered high-quality work on time and was a pleasure to collaborate with. His skills in Unity are top-notch.',
-        avatar: 'https://placehold.co/100x100.png'
+        name: 'RugDollz World Game',
+        title: 'Upwork Client',
+        comment: "If you're looking for an amazing talented Game developer who is is efficient yet meticulous at game development, then choose Shah. He also has outstanding blockchain skills which is invaluable…",
+        avatar: 'https://placehold.co/100x100.png',
+        rating: 5,
     },
     {
-        name: 'Jane Smith',
-        title: 'Indie Game Producer',
-        comment: "Working with Shahrukh was a fantastic experience. He brought our vision to life with creativity and technical expertise. Highly recommended for any game development project.",
-        avatar: 'https://placehold.co/100x100.png'
+        name: 'video + images + updates',
+        title: 'Upwork Client',
+        comment: "Been a joy working with him. Responds and works quickly and efficiently. Any updates I have he accomplishes them and does a great job",
+        avatar: 'https://placehold.co/100x100.png',
+        rating: 5,
     },
     {
-        name: 'Mike Johnson',
-        title: 'Lead Designer, Appify',
-        comment: "Shahrukh's ability to tackle complex problems and deliver robust solutions is impressive. He's a reliable and skilled developer who can handle both game and app development with ease.",
-        avatar: 'https://placehold.co/100x100.png'
+        name: 'Battle royal Game',
+        title: 'Upwork Client',
+        comment: "Did a really great job! Done as requested and did updates asap as well, will continue working with him",
+        avatar: 'https://placehold.co/100x100.png',
+        rating: 5,
     },
     {
-        name: 'Emily Chen',
-        title: 'Project Manager',
-        comment: "He is a great communicator and a proactive team member. The project's success was largely due to his dedication and problem-solving abilities. Will definitely hire again.",
-        avatar: 'https://placehold.co/100x100.png'
+        name: 'Collisions map/objects + Interactions',
+        title: 'Upwork Client',
+        comment: "Shah have completed the job successfully as usual and he explained to me everything. The work was delivered on time.",
+        avatar: 'https://placehold.co/100x100.png',
+        rating: 5,
+    },
+    {
+        name: '3D Monster hunt & Kingdom Defense',
+        title: 'Upwork Client',
+        comment: "It's been great working with you. Probably we can both do a little better in communication as we have done some things twice. Overall experience has been great.",
+        avatar: 'https://placehold.co/100x100.png',
+        rating: 4.7,
     }
 ];

@@ -6,7 +6,7 @@ const ServicesSection = () => {
     <section id="services" className="py-16 sm:py-24 bg-secondary">
       <div className="container">
         <div className="text-center">
-          <h2 className="text-3xl font-bold font-headline sm:text-4xl">What I Do</h2>
+          <h2 className="text-3xl font-bold font-headline sm:text-4xl">What I Offer</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
             I specialize in turning ideas into engaging digital experiences. Here are the services I offer.
           </p>
