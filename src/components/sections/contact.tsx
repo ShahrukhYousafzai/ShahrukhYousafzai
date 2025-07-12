@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Send, Loader2 } from "lucide-react";
+import { Mail, Send, Loader2, Briefcase } from "lucide-react";
 import { about } from "@/lib/data/about";
 import { socialLinks } from "@/lib/data/social";
 import { IconFiverr, IconUpwork } from "@/components/icons";
@@ -125,7 +125,7 @@ const ContactSection = () => {
                  </div>
                  <div className="flex items-start gap-4">
                     <div className="bg-primary/10 text-primary rounded-full p-3 w-fit">
-                        <IconFiverr className="h-6 w-6" />
+                        <Briefcase className="h-6 w-6" />
                     </div>
                     <div>
                         <h3 className="text-xl font-semibold font-headline">Freelance Platforms</h3>
