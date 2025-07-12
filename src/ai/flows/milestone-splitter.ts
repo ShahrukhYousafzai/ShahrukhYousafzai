@@ -10,10 +10,10 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import type { CostCalculatorOutput } from './cost-calculator';
+import type { QuoteGeneratorOutput } from './quote-generator';
 
-// Re-exporting types from cost-calculator.ts to be used in the UI
-export type { QuoteItem, CostCalculatorOutput } from './cost-calculator';
+// Re-exporting types from quote-generator.ts to be used in the UI
+export type { QuoteItem, QuoteGeneratorOutput } from './quote-generator';
 
 const QuoteItemSchema = z.object({
     name: z.string().describe("The name of the feature or module."),
@@ -21,14 +21,14 @@ const QuoteItemSchema = z.object({
     cost: z.number().describe("The estimated cost for this specific module in USD."),
 });
 
-const CostCalculatorOutputSchema = z.object({
+const QuoteGeneratorOutputSchema = z.object({
     quoteTitle: z.string().describe("A descriptive title for the quote, e.g., 'Project Development Quote'."),
     items: z.array(QuoteItemSchema).describe("An array of all the features/modules with their descriptions and costs."),
     totalCost: z.number().describe("The sum of all module costs."),
     disclaimer: z.string().describe("A concluding note or disclaimer for the user."),
 });
 
-const MilestoneSplitterInputSchema = CostCalculatorOutputSchema.describe("The full project quote to be split into milestones.");
+const MilestoneSplitterInputSchema = QuoteGeneratorOutputSchema.describe("The full project quote to be split into milestones.");
 export type MilestoneSplitterInput = z.infer<typeof MilestoneSplitterInputSchema>;
 
 const MilestoneSchema = z.object({
@@ -46,7 +46,7 @@ export type MilestoneSplitterOutput = z.infer<typeof MilestoneSplitterOutputSche
 
 
 export async function splitIntoMilestones(input: MilestoneSplitterInput): Promise<MilestoneSplitterOutput> {
-  // The input type is CostCalculatorOutput, which should be compatible.
+  // The input type is QuoteGeneratorOutput, which should be compatible.
   return milestoneSplitterFlow(input as any);
 }
 

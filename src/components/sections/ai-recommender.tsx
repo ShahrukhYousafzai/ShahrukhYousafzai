@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
-import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
+import { generateQuote, type QuoteGeneratorOutput } from "@/ai/flows/quote-generator";
 import { splitIntoMilestones, type MilestoneSplitterOutput } from "@/ai/flows/milestone-splitter";
 import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
 import { about, projects } from "@/lib/data";
@@ -22,7 +22,7 @@ import React from 'react';
 
 const portfolioDescription = `${about.description} Key projects include: ${projects.map(p => p.title).join(", ")}.`;
 
-type AiToolTab = "game-idea" | "gdd-generator" | "cost-calculator";
+type AiToolTab = "game-idea" | "gdd-generator" | "quote-generator";
 
 const GameIdeaGenerator = ({
   isLoading,
@@ -36,14 +36,14 @@ const GameIdeaGenerator = ({
   isLoading: boolean;
   recommendation: GameRecommendationOutput | null;
   error: string | null;
-  onSubmit: (preferences: string) => void;
+  onSubmit: () => void;
   onGenerateGdd: () => void;
   preferences: string;
   setPreferences: (value: string) => void;
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(preferences);
+    onSubmit();
   };
 
   return (
@@ -105,9 +105,9 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
   isLoading: boolean;
   error: string | null;
   isDownloading: boolean;
-  onSubmit: (idea: string, platform: string) => void;
+  onSubmit: () => void;
   onDownload: () => void;
-  onCalculateCost: () => void;
+  onGenerateQuote: () => void;
   gameIdea: string;
   setGameIdea: (value: string) => void;
   platform: string;
@@ -119,7 +119,7 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
   isDownloading,
   onSubmit,
   onDownload,
-  onCalculateCost,
+  onGenerateQuote,
   gameIdea,
   setGameIdea,
   platform,
@@ -128,7 +128,7 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(gameIdea, platform);
+    onSubmit();
   };
 
   const platforms = ["Web", "Windows", "Mac", "Android", "iOS", "Desktop (All)", "Mobile (All)", "Cross-Platform (All)"];
@@ -219,8 +219,8 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
                 {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
                 Download as DOCX
             </Button>
-            <Button onClick={onCalculateCost} className="w-full">
-              Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
+            <Button onClick={onGenerateQuote} className="w-full">
+              Generate Quote for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </CardFooter>
@@ -231,14 +231,14 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
 GddGenerator.displayName = "GddGenerator";
 
 
-const CostCalculator = React.forwardRef<HTMLDivElement, {
-    estimation: CostCalculatorOutput | null;
+const QuoteGenerator = React.forwardRef<HTMLDivElement, {
+    estimation: QuoteGeneratorOutput | null;
     milestones: MilestoneSplitterOutput | null;
     isLoading: boolean;
     isSplitting: boolean;
     isDownloading: boolean;
     error: string | null;
-    onSubmit: (idea: string) => void;
+    onSubmit: () => void;
     onSplit: () => void;
     onDownloadQuote: () => void;
     onDownloadMilestones: () => void;
@@ -261,28 +261,26 @@ const CostCalculator = React.forwardRef<HTMLDivElement, {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(gameIdea);
+    onSubmit();
   };
   
-  // Use React.useImperativeHandle to expose a ref for the content
   const quoteContentRef = useRef<HTMLDivElement>(null);
   const milestonesContentRef = useRef<HTMLDivElement>(null);
 
   React.useImperativeHandle(ref, () => ({
-    // This is a bit of a trick to handle multiple refs. We're only using one at a time for downloads.
     get quoteNode() {
       return quoteContentRef.current;
     },
     get milestonesNode() {
       return milestonesContentRef.current;
     },
-    ...({} as HTMLDivElement) // Satisfy the type
+    ...({} as HTMLDivElement)
   }));
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2"><DollarSign /> Get a Cost Estimate</CardTitle>
+        <CardTitle className="flex items-center gap-2"><DollarSign /> Get a Quote</CardTitle>
         <CardDescription>Provide a description or GDD of your game, and I'll generate an itemized quote.</CardDescription>
       </CardHeader>
       <CardContent>
@@ -296,7 +294,7 @@ const CostCalculator = React.forwardRef<HTMLDivElement, {
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" disabled={isLoading || isSplitting || isDownloading || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Calculating...</> : <><DollarSign className="mr-2 h-4 w-4" /> Generate Quote</>}
+            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating Quote...</> : <><DollarSign className="mr-2 h-4 w-4" /> Generate Quote</>}
           </Button>
         </form>
       </CardContent>
@@ -390,7 +388,7 @@ const CostCalculator = React.forwardRef<HTMLDivElement, {
     </Card>
   );
 });
-CostCalculator.displayName = "CostCalculator";
+QuoteGenerator.displayName = "QuoteGenerator";
 
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
@@ -402,20 +400,20 @@ const AiRecommender = () => {
   
   const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
-  const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
+  const [estimation, setEstimation] = useState<QuoteGeneratorOutput | null>(null);
   const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
 
   const [gameIdeaPreferences, setGameIdeaPreferences] = useState("");
   const [gddGeneratorIdea, setGddGeneratorIdea] = useState("");
   const [gddPlatform, setGddPlatform] = useState("");
-  const [costCalculatorIdea, setCostCalculatorIdea] = useState("");
+  const [quoteGeneratorIdea, setQuoteGeneratorIdea] = useState("");
 
   const gddContentRef = useRef<HTMLDivElement>(null);
-  const costCalculatorRef = useRef<any>(null);
+  const quoteGeneratorRef = useRef<any>(null);
 
 
-  const handleGenerateIdea = async (preferences: string) => {
-    if (!preferences.trim()) {
+  const handleGenerateIdea = async () => {
+    if (!gameIdeaPreferences.trim()) {
       setError("Please describe what kind of game you'd like.");
       return;
     }
@@ -423,7 +421,7 @@ const AiRecommender = () => {
     setError(null);
     setRecommendation(null);
     try {
-      const result = await recommendGame({ userPreferences: preferences, portfolioDescription });
+      const result = await recommendGame({ userPreferences: gameIdeaPreferences, portfolioDescription });
       setRecommendation(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
@@ -441,8 +439,8 @@ const AiRecommender = () => {
     }
   };
   
-  const handleGenerateGdd = async (idea: string, platform: string) => {
-    if (!idea.trim() || !platform) {
+  const handleGenerateGdd = async () => {
+    if (!gddGeneratorIdea.trim() || !gddPlatform) {
       setError("Please provide a game idea and select a platform.");
       return;
     }
@@ -450,7 +448,7 @@ const AiRecommender = () => {
     setError(null);
     setGdd(null);
     try {
-      const result = await generateGdd({ gameIdea: idea, platform, portfolioDescription });
+      const result = await generateGdd({ gameIdea: gddGeneratorIdea, platform: gddPlatform, portfolioDescription });
       setGdd(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again.");
@@ -460,16 +458,16 @@ const AiRecommender = () => {
     }
   };
   
-  const handleGddToCost = () => {
+  const handleGddToQuote = () => {
       if (gdd) {
           const ideaFromGdd = `Title: ${gdd.title}\nOverview: ${gdd.overview}\nPlatform: ${gdd.gameplay.playerControls}\nCore Mechanics: ${gdd.gameplay.coreMechanics}\nGame Loop: ${gdd.gameplay.gameLoop}\nPlayer Controls: ${gdd.gameplay.playerControls}\nTarget Audience: ${gdd.targetAudience}\nArt Style: ${gdd.artStyle}\nMonetization: ${gdd.monetization}`;
-          setCostCalculatorIdea(ideaFromGdd);
-          setActiveTab("cost-calculator");
+          setQuoteGeneratorIdea(ideaFromGdd);
+          setActiveTab("quote-generator");
       }
   };
   
-  const handleCalculateCost = async (idea: string) => {
-    if (!idea.trim()) {
+  const handleGenerateQuote = async () => {
+    if (!quoteGeneratorIdea.trim()) {
       setError("Please describe your game idea.");
       return;
     }
@@ -478,7 +476,7 @@ const AiRecommender = () => {
     setEstimation(null);
     setMilestones(null);
     try {
-      const result = await calculateCost({ gameIdea: idea });
+      const result = await generateQuote({ gameIdea: quoteGeneratorIdea });
       setEstimation(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again.");
@@ -513,11 +511,11 @@ const AiRecommender = () => {
             title = gdd?.title || "GDD";
             break;
         case 'quote':
-            contentEl = costCalculatorRef.current?.quoteNode;
+            contentEl = quoteGeneratorRef.current?.quoteNode;
             title = estimation?.quoteTitle || "Quote";
             break;
         case 'milestones':
-            contentEl = costCalculatorRef.current?.milestonesNode;
+            contentEl = quoteGeneratorRef.current?.milestonesNode;
             title = "Project_Milestones";
             break;
     }
@@ -557,7 +555,7 @@ const AiRecommender = () => {
           </div>
           <h2 className="text-3xl font-bold font-headline sm:text-4xl">Let AI Assist You</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Use my custom-built AI tools to brainstorm game ideas, generate a full Game Design Document, or get a cost estimate for your project.
+            Use my custom-built AI tools to brainstorm game ideas, generate a full Game Design Document, or get a quote for your project.
           </p>
         </div>
         <div className="mt-12 max-w-3xl mx-auto">
@@ -565,7 +563,7 @@ const AiRecommender = () => {
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="game-idea"><Wand2 className="mr-2"/>Idea Generator</TabsTrigger>
               <TabsTrigger value="gdd-generator"><FileText className="mr-2"/>GDD Generator</TabsTrigger>
-              <TabsTrigger value="cost-calculator"><DollarSign className="mr-2"/>Cost Calculator</TabsTrigger>
+              <TabsTrigger value="quote-generator"><DollarSign className="mr-2"/>Quote Generator</TabsTrigger>
             </TabsList>
             <TabsContent value="game-idea" className="mt-6">
               <GameIdeaGenerator 
@@ -587,28 +585,28 @@ const AiRecommender = () => {
                 error={error}
                 onSubmit={handleGenerateGdd}
                 onDownload={() => handleDownload('gdd')}
-                onCalculateCost={handleGddToCost}
+                onGenerateQuote={handleGddToQuote}
                 gameIdea={gddGeneratorIdea}
                 setGameIdea={setGddGeneratorIdea}
                 platform={gddPlatform}
                 setPlatform={setGddPlatform}
               />
             </TabsContent>
-            <TabsContent value="cost-calculator" className="mt-6">
-              <CostCalculator
-                 ref={costCalculatorRef}
+            <TabsContent value="quote-generator" className="mt-6">
+              <QuoteGenerator
+                 ref={quoteGeneratorRef}
                  estimation={estimation}
                  milestones={milestones}
                  isLoading={isLoading}
                  isSplitting={isSplitting}
                  isDownloading={isDownloading}
                  error={error}
-                 onSubmit={handleCalculateCost}
+                 onSubmit={handleGenerateQuote}
                  onSplit={handleSplitMilestones}
                  onDownloadQuote={() => handleDownload('quote')}
                  onDownloadMilestones={() => handleDownload('milestones')}
-                 gameIdea={costCalculatorIdea}
-                 setGameIdea={setCostCalculatorIdea}
+                 gameIdea={quoteGeneratorIdea}
+                 setGameIdea={setQuoteGeneratorIdea}
                />
             </TabsContent>
           </Tabs>
