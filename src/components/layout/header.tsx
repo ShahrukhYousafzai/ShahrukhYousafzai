@@ -46,7 +46,7 @@ const Header = () => {
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Gamepad2 className="h-6 w-6 text-primary" />
-          <span className="font-bold font-headline text-lg">Shahrukh</span>
+          <span className="font-bold font-headline text-lg">Shahrukh Yousafzai</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <NavItems />
@@ -73,7 +73,7 @@ const Header = () => {
                 <div className="flex items-center justify-between border-b pb-4">
                   <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                     <Gamepad2 className="h-6 w-6 text-primary" />
-                    <span className="font-bold font-headline text-lg">Shahrukh</span>
+                    <span className="font-bold font-headline text-lg">Shahrukh Yousafzai</span>
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-6 mt-6">
