@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Gamepad2 } from "lucide-react";
-import { socialLinks } from "@/lib/data";
+import { socialLinks } from "@/lib/data/social";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {

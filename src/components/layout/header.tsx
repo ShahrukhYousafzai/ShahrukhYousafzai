@@ -6,7 +6,8 @@ import { Gamepad2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { navLinks, socialLinks } from "@/lib/data";
+import { navLinks } from "@/lib/data/nav";
+import { socialLinks } from "@/lib/data/social";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);

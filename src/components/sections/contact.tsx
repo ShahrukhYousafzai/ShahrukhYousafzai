@@ -12,7 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Send, Loader2 } from "lucide-react";
-import { about, socialLinks } from "@/lib/data";
+import { about } from "@/lib/data/about";
+import { socialLinks } from "@/lib/data/social";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { socialLinks } from "@/lib/data";
+import { socialLinks } from "@/lib/data/social";
 import { ArrowDown } from "lucide-react";
 import BackgroundBeams from "@/components/background-beams";
 

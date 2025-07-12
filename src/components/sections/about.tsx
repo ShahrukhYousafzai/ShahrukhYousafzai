@@ -1,4 +1,5 @@
-import { about, timeline } from "@/lib/data";
+import { about } from "@/lib/data/about";
+import { timeline } from "@/lib/data/timeline";
 import { Briefcase, School } from "lucide-react";
 
 const AboutSection = () => {

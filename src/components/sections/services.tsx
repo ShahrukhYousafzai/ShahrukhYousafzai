@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { services } from "@/lib/data";
+import { services } from "@/lib/data/services";
 
 const ServicesSection = () => {
   return (

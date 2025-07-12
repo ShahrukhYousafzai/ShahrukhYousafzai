@@ -1,4 +1,4 @@
-import { skills, languages } from "@/lib/data";
+import { skills, languages } from "@/lib/data/skills";
 import { Badge } from "@/components/ui/badge";
 
 const SkillsSection = () => {

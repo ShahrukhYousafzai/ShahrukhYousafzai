@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { stats } from "@/lib/data";
+import { stats } from "@/lib/data/stats";
 
 const StatsSection = () => {
   return (
