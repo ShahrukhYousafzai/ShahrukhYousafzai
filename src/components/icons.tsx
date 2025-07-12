@@ -1,8 +1,8 @@
 import type { SVGProps } from 'react';
 
 export const IconUnity = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M21.03 3.03L12 .06l-9.03 3v13.91l3.01 1.74v-10.4l6.02 3.48 6.02-3.48v6.92l-6.02 3.47-2.26-1.3v2.54l5.25 3.03 9.03-5.2V3.03zM8.99 15.42l-3-1.74V6.26l3 1.74z"/>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor" {...props}>
+    <path d="M63.22 25.42L56.387 0 30.87 6.814l-3.775 6.637-7.647-.055L.78 32.005l18.67 18.604 7.658-.057 3.78 6.637 25.5 6.81 6.832-25.418L59.34 32zm-16-15.9L36.036 28.86H13.644l14.094-14.34zM36.036 35.145l11.196 19.338-19.507-5.012L13.63 35.15h22.392zm5.468-3.14L52.7 12.665l5.413 19.34L52.7 51.34z"/>
   </svg>
 );
 
