@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { projects } from "@/lib/data";
@@ -135,26 +135,54 @@ const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>
 };
 
 const PortfolioSection = () => {
-  const [activeGameTag, setActiveGameTag] = useState('All');
   const [gamePlatform, setGamePlatform] = useState('All');
+  const [activeGameTag, setActiveGameTag] = useState('All');
+  const [activeAppTag, setActiveAppTag] = useState('All');
+
   const categories = ["Games", "Apps", "Animations"];
-  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
-  const appCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
+  const allGameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
+  const allAppCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
 
-  const gameProjectsByTag = (platform: string, tag: string) => {
-    return projects.filter(p => {
-      const isGame = p.category === 'Games';
-      const platformMatch = platform === 'All' || p.platform === platform;
-      const tagMatch = tag === 'All' || p.tags.includes(tag);
-      return isGame && platformMatch && tagMatch;
-    });
-  };
+  const gameProjects = useMemo(() => projects.filter(p => p.category === 'Games'), []);
+  const appProjects = useMemo(() => projects.filter(p => p.category === 'Apps'), []);
 
-  const appProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Apps' && (tag === 'All' || p.tags.includes(tag)));
+  const filteredGameProjects = useMemo(() => {
+    return gameProjects.filter(p => {
+      const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
+      const tagMatch = activeGameTag === 'All' || p.tags.includes(activeGameTag);
+      return platformMatch && tagMatch;
+    });
+  }, [gameProjects, gamePlatform, activeGameTag]);
   
-  const filteredGameProjects = gameProjectsByTag(gamePlatform, activeGameTag);
+  const filteredAppProjects = useMemo(() => {
+     return appProjects.filter(p => activeAppTag === 'All' || p.tags.includes(activeAppTag));
+  }, [appProjects, activeAppTag]);
+
+  const availableGameCategories = useMemo(() => {
+    const platformProjects = gameProjects.filter(p => gamePlatform === 'All' || p.platform === gamePlatform);
+    const availableTags = new Set(platformProjects.flatMap(p => p.tags));
+    return allGameCategories.filter(cat => cat === 'All' || availableTags.has(cat));
+  }, [gameProjects, gamePlatform, allGameCategories]);
+
+  const availableAppCategories = useMemo(() => {
+    const availableTags = new Set(appProjects.flatMap(p => p.tags));
+    return allAppCategories.filter(cat => cat === 'All' || availableTags.has(cat));
+  }, [appProjects, allAppCategories]);
+  
+  // Reset active tag if it's not in the available categories
+  React.useEffect(() => {
+    if (!availableGameCategories.includes(activeGameTag)) {
+      setActiveGameTag('All');
+    }
+  }, [availableGameCategories, activeGameTag]);
+
+  React.useEffect(() => {
+    if (!availableAppCategories.includes(activeAppTag)) {
+      setActiveAppTag('All');
+    }
+  }, [availableAppCategories, activeAppTag]);
 
   return (
     <section id="portfolio" className="py-16 sm:py-24 bg-secondary">
@@ -190,7 +218,7 @@ const PortfolioSection = () => {
               
               <Tabs value={activeGameTag} onValueChange={setActiveGameTag}>
                 <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
-                  {gameCategories.map((category) => (
+                  {availableGameCategories.map((category) => (
                     <TabsTrigger 
                       key={category} 
                       value={category}
@@ -207,9 +235,9 @@ const PortfolioSection = () => {
           </TabsContent>
 
           <TabsContent value="Apps">
-             <Tabs defaultValue="All" className="mt-8">
+             <Tabs value={activeAppTag} onValueChange={setActiveAppTag} className="mt-8">
                 <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
-                  {appCategories.map((category) => (
+                  {availableAppCategories.map((category) => (
                     <TabsTrigger 
                       key={category} 
                       value={category}
@@ -219,11 +247,7 @@ const PortfolioSection = () => {
                     </TabsTrigger>
                   ))}
                 </TabsList>
-                {appCategories.map((appCategory) => (
-                  <TabsContent key={appCategory} value={appCategory}>
-                    <PaginatedProjects projects={appProjectsByTag(appCategory)} />
-                  </TabsContent>
-                ))}
+                <PaginatedProjects projects={filteredAppProjects} />
               </Tabs>
           </TabsContent>
 
