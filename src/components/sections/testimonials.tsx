@@ -80,9 +80,16 @@ const TestimonialsSection = () => {
                     <div className="space-y-6">
                       {allReviews.map((review, index) => (
                         <div key={index}>
+                           <div className="flex gap-1 text-yellow-400 mb-2">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="h-5 w-5 fill-current" />
+                            ))}
+                          </div>
                           <blockquote className="italic text-muted-foreground">"{review.review}"</blockquote>
-                          <p className="mt-2 font-semibold text-right">{review.author}</p>
-                          <p className="text-sm text-muted-foreground text-right">{review.country}</p>
+                          <div className="mt-2 text-right">
+                            <p className="font-semibold">{review.author}</p>
+                            <p className="text-sm text-muted-foreground">{review.country}</p>
+                          </div>
                           {index < allReviews.length - 1 && <Separator className="mt-6" />}
                         </div>
                       ))}
