@@ -31,7 +31,8 @@ export const IconUpwork = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export const IconFiverr = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M20.2,10.9h-4.3v-1c0-1-0.8-1.8-1.8-1.8h-1V6.3c0-1-0.8-1.8-1.8-1.8H9.4C8.4,4.5,7.6,5.3,7.6,6.3v4.6H5.8 c-1,0-1.8,0.8-1.8,1.8v1.8c0,1,0.8,1.8,1.8,1.8h1.8v1.9c0,1.2,0.8,2.2,2,2.4v1.2h1.8v-1.1c2.4-0.4,4.2-2.5,4.2-5V14h2.8 c1,0,1.8-0.8,1.8-1.8v-1.3C22,11.7,21.2,10.9,20.2,10.9z M13.1,14.6c0,1.6-1.3,2.9-2.9,2.9s-2.9-1.3-2.9-2.9v-5c0-0.5,0.4-1,1-1h1.9 c0.5,0,1,0.4,1,1V14.6z"/>
+  <svg fill="currentColor" viewBox="-2.5 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" {...props}>
+    <path d='M16.25 16.25v-10h-10v-.625c0-1.034.841-1.875 1.875-1.875H10V0H8.125A5.632 5.632 0 0 0 2.5 5.625v.625H0V10h2.5v6.25H0V20h8.75v-3.75h-2.5V10h6.285v6.25H10V20h8.75v-3.75h-2.5z'/>
+    <circle cx='14.375' cy='1.875' r='1.875'/>
   </svg>
 );
