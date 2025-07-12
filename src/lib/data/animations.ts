@@ -35,6 +35,17 @@ export const animations = [
     category: 'Animations',
   },
   {
+    title: 'Solar Dominion Cinematic Teaser',
+    description: 'A cinematic teaser for the multiplayer shooting adventure, Solar Dominion, showcasing the conflict between Sentries and Serpents.',
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'cinematic teaser',
+    tags: ['Unity3D', 'Cinemachine', 'VFX', 'Teaser'],
+    link: '#',
+    linkText: 'Watch Teaser',
+    linkIcon: Video,
+    category: 'Animations',
+  },
+  {
     title: 'UFO.KO - Cinematic Trailer',
     description: 'Promotional cinematic trailer for the fun and competitive game UFO Knockout.',
     image: 'https://placehold.co/600x400.png',
