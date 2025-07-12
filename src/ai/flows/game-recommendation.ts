@@ -22,12 +22,18 @@ const GameRecommendationInputSchema = z.object({
 export type GameRecommendationInput = z.infer<typeof GameRecommendationInputSchema>;
 
 const GameRecommendationOutputSchema = z.object({
-  gameRecommendation: z
+  gameTitle: z
     .string()
-    .describe('A personalized game recommendation based on user preferences and portfolio analysis.'),
+    .describe('A catchy and original title for the new game idea.'),
+  description: z
+    .string()
+    .describe('A short, engaging paragraph describing the overall game concept.'),
+  features: z
+    .array(z.string())
+    .describe('A list of 3-5 key gameplay features.'),
   reasoning: z
     .string()
-    .describe('Explanation of why the game was recommended.'),
+    .describe('A brief explanation of how this new game idea leverages the developer\'s skills and fits the user\'s preferences.'),
 });
 export type GameRecommendationOutput = z.infer<typeof GameRecommendationOutputSchema>;
 
@@ -51,7 +57,7 @@ Your goal is to synthesize this information to invent a *novel game idea* that a
 User Preferences: {{{userPreferences}}}
 Developer's Portfolio and Skills: {{{portfolioDescription}}}
 
-Your output should be a single, well-defined game concept. In your reasoning, explain how the new game idea leverages the developer's demonstrated skills and fits the user's preferences.`,
+Your output should be a well-defined game concept including a title, description, key features, and your reasoning.`,
 });
 
 const recommendGameFlow = ai.defineFlow(
