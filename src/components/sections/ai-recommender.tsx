@@ -127,11 +127,9 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
 type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
-  onGddReadyForCosting: (gdd: GddGeneratorOutput) => void;
-  triggerGeneration: boolean;
 };
 
-const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated, onGddReadyForCosting, triggerGeneration }, ref) => {
+const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated }, ref) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -160,7 +158,6 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
-      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -175,20 +172,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
     setIsDownloading(true);
 
     try {
-      const htmlString = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <title>${gdd.title} GDD</title>
-        </head>
-        <body>
-          ${content.innerHTML}
-        </body>
-        </html>
-      `;
-      
-      const base64 = await generateDocx(htmlString, gdd.title);
+      const base64 = await generateDocx(content.innerHTML, gdd.title);
       const byteCharacters = atob(base64);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
@@ -208,14 +192,11 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
 
   useEffect(() => {
     setGameIdea(initialIdea);
-  }, [initialIdea]);
-  
-  useEffect(() => {
-    if (triggerGeneration && initialIdea && platform) {
+    if(initialIdea && platform) {
       triggerGddGeneration(initialIdea, platform);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [triggerGeneration, initialIdea, platform]);
+  }, [initialIdea]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -323,7 +304,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
                 {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
                 Download as DOCX
             </Button>
-            <Button onClick={() => onGddReadyForCosting(gdd)} className="w-full">
+            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -405,20 +386,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
     setIsDownloading(true);
 
     try {
-      const htmlString = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <title>${title}</title>
-        </head>
-        <body>
-          ${content.innerHTML}
-        </body>
-        </html>
-      `;
-
-      const base64 = await generateDocx(htmlString, title);
+      const base64 = await generateDocx(content.innerHTML, title);
       const byteCharacters = atob(base64);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
@@ -576,26 +544,16 @@ CostCalculator.displayName = "CostCalculator";
 
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
-  
-  const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
-  const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
-  const [gddTrigger, setGddTrigger] = useState(false);
+  const [gddIdea, setGddIdea] = useState("");
   const costCalculatorRef = useRef<CostCalculatorHandle>(null);
-  const gddGeneratorRef = useRef<HTMLDivElement>(null);
 
   const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
     const ideaForGdd = `${idea.gameTitle}: ${idea.description}`;
-    setGeneratedIdea({ ...idea, description: ideaForGdd });
+    setGddIdea(ideaForGdd);
     setActiveTab("gdd-generator");
-    setGddTrigger(true);
   };
 
   const handleGddGenerated = (gdd: GddGeneratorOutput) => {
-    setGeneratedGdd(gdd);
-    setGddTrigger(false); 
-  };
-  
-  const handleCalculateCostForGdd = (gdd: GddGeneratorOutput) => {
     const ideaFromGdd = `
 Title: ${gdd.title}
 Overview: ${gdd.overview}
@@ -606,19 +564,16 @@ Player Controls: ${gdd.gameplay.playerControls}
 Target Audience: ${gdd.targetAudience}
 Art Style: ${gdd.artStyle}
 Monetization: ${gdd.monetization}
-      `;
-    const trimmedIdea = ideaFromGdd.trim();
+    `.trim();
     
     if (costCalculatorRef.current) {
-      costCalculatorRef.current.setGameIdea(trimmedIdea);
+      costCalculatorRef.current.setGameIdea(ideaFromGdd);
       setActiveTab("cost-calculator");
       setTimeout(() => {
-        costCalculatorRef.current?.triggerCostCalculation(trimmedIdea);
+        costCalculatorRef.current?.triggerCostCalculation(ideaFromGdd);
       }, 100);
     }
   };
-  
-  const ideaForGdd = generatedIdea ? generatedIdea.description : "";
 
   return (
     <section id="ai-recommender" className="py-16 sm:py-24 relative overflow-hidden">
@@ -646,11 +601,8 @@ Monetization: ${gdd.monetization}
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
-                ref={gddGeneratorRef}
-                initialIdea={ideaForGdd}
+                initialIdea={gddIdea}
                 onGddGenerated={handleGddGenerated}
-                onGddReadyForCosting={handleCalculateCostForGdd}
-                triggerGeneration={gddTrigger}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
