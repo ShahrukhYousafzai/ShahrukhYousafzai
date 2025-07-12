@@ -3,12 +3,13 @@
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { projects } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Package, Globe } from "lucide-react";
+import { Package, Globe, Layers, Bot } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
 
@@ -135,40 +136,48 @@ const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>
 };
 
 const PortfolioSection = () => {
+  const [activeTab, setActiveTab] = useState("Games");
   const [gamePlatform, setGamePlatform] = useState('All');
+  const [dimensionFilter, setDimensionFilter] = useState('All');
   const [activeGameTag, setActiveGameTag] = useState('All');
   const [activeAppTag, setActiveAppTag] = useState('All');
 
   const categories = ["Games", "Apps", "Animations"];
-  const allGameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
+  const allGameCategories = ["All", "Action", "Sports", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
   const allAppCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
-
-  const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
 
   const gameProjects = useMemo(() => projects.filter(p => p.category === 'Games'), []);
   const appProjects = useMemo(() => projects.filter(p => p.category === 'Apps'), []);
+  const animationProjects = useMemo(() => projects.filter(p => p.category === 'Animations'), []);
 
   const filteredGameProjects = useMemo(() => {
     return gameProjects.filter(p => {
       const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
+      const dimensionMatch = dimensionFilter === 'All' || p.tags.includes(dimensionFilter);
       const tagMatch = activeGameTag === 'All' || p.tags.includes(activeGameTag);
-      return platformMatch && tagMatch;
+      return platformMatch && dimensionMatch && tagMatch;
     });
-  }, [gameProjects, gamePlatform, activeGameTag]);
+  }, [gameProjects, gamePlatform, dimensionFilter, activeGameTag]);
   
   const filteredAppProjects = useMemo(() => {
      return appProjects.filter(p => activeAppTag === 'All' || p.tags.includes(activeAppTag));
   }, [appProjects, activeAppTag]);
 
   const availableGameCategories = useMemo(() => {
-    const platformProjects = gameProjects.filter(p => gamePlatform === 'All' || p.platform === gamePlatform);
-    const availableTags = new Set(platformProjects.flatMap(p => p.tags));
-    return allGameCategories.filter(cat => cat === 'All' || availableTags.has(cat));
-  }, [gameProjects, gamePlatform, allGameCategories]);
+    const platformAndDimensionProjects = gameProjects.filter(p => {
+        const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
+        const dimensionMatch = dimensionFilter === 'All' || p.tags.includes(dimensionFilter);
+        return platformMatch && dimensionMatch;
+    });
+    const availableTags = new Set(platformAndDimensionProjects.flatMap(p => p.tags));
+    const categoriesWithProjects = allGameCategories.filter(cat => cat === 'All' || availableTags.has(cat));
+    return categoriesWithProjects;
+  }, [gameProjects, gamePlatform, dimensionFilter, allGameCategories]);
 
   const availableAppCategories = useMemo(() => {
     const availableTags = new Set(appProjects.flatMap(p => p.tags));
-    return allAppCategories.filter(cat => cat === 'All' || availableTags.has(cat));
+    const categoriesWithProjects = allAppCategories.filter(cat => cat === 'All' || availableTags.has(cat));
+    return categoriesWithProjects;
   }, [appProjects, allAppCategories]);
   
   // Reset active tag if it's not in the available categories
@@ -193,7 +202,7 @@ const PortfolioSection = () => {
             A selection of projects I've worked on.
           </p>
         </div>
-        <Tabs defaultValue="Games" className="mt-12">
+        <Tabs defaultValue="Games" value={activeTab} onValueChange={setActiveTab} className="mt-12">
           <TabsList className="grid w-full grid-cols-3 md:w-1/2 mx-auto">
             {categories.map((category) => (
               <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
@@ -202,19 +211,32 @@ const PortfolioSection = () => {
           
           <TabsContent value="Games">
             <div className="mt-8">
-              <Tabs value={gamePlatform} onValueChange={setGamePlatform}>
-                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0 mb-4">
-                  <TabsTrigger value="All" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                    <Globe className="mr-2 h-4 w-4" /> All Platforms
-                  </TabsTrigger>
-                  <TabsTrigger value="Web2" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                    <Package className="mr-2 h-4 w-4" /> Web2
-                  </TabsTrigger>
-                  <TabsTrigger value="Web3" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                    <Package className="mr-2 h-4 w-4" /> Web3/Blockchain
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+              <div className="flex flex-wrap justify-center gap-4 mb-4">
+                  <Tabs value={gamePlatform} onValueChange={setGamePlatform}>
+                    <TabsList className="flex-wrap h-auto bg-transparent p-0">
+                      <TabsTrigger value="All" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                        <Globe className="mr-2 h-4 w-4" /> All Platforms
+                      </TabsTrigger>
+                      <TabsTrigger value="Web2" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                        <Package className="mr-2 h-4 w-4" /> Web2
+                      </TabsTrigger>
+                      <TabsTrigger value="Web3" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                        <Bot className="mr-2 h-4 w-4" /> Web3/Blockchain
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                  <Select value={dimensionFilter} onValueChange={setDimensionFilter}>
+                    <SelectTrigger className="w-auto min-w-[180px] rounded-full px-4 py-2 border bg-muted/50 transition-all duration-300 hover:bg-muted data-[state=open]:ring-primary">
+                       <Layers className="mr-2 h-4 w-4" />
+                       <SelectValue placeholder="Select Dimension" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="All">All Dimensions</SelectItem>
+                      <SelectItem value="2D">2D</SelectItem>
+                      <SelectItem value="3D">3D</SelectItem>
+                    </SelectContent>
+                  </Select>
+              </div>
               
               <Tabs value={activeGameTag} onValueChange={setActiveGameTag}>
                 <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
@@ -252,7 +274,7 @@ const PortfolioSection = () => {
           </TabsContent>
 
           <TabsContent value="Animations">
-             <PaginatedProjects projects={projectsByCategory("Animations")} />
+             <PaginatedProjects projects={animationProjects} />
           </TabsContent>
         </Tabs>
       </div>

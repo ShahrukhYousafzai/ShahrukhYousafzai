@@ -494,7 +494,3 @@ export const games = [
       platform: 'Web2',
     },
 ];
-
-
-
-
