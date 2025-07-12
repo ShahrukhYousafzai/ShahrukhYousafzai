@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import { useState, useEffect, useRef } from "react";
 import { saveAs } from "file-saver";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter as TableFooterComponent } from "@/components/ui/table";
@@ -11,8 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
-import { calculateCost } from "@/ai/flows/cost-calculator";
-import { splitIntoMilestones, type MilestoneSplitterOutput, type CostCalculatorOutput } from "@/ai/flows/milestone-splitter";
+import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
+import { splitIntoMilestones, type MilestoneSplitterOutput, type QuoteItem } from "@/ai/flows/milestone-splitter";
 import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -22,40 +23,24 @@ const portfolioDescription = `${about.description} Key projects include: ${proje
 
 type AiToolTab = "game-idea" | "gdd-generator" | "cost-calculator";
 
-const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRecommendationOutput) => void }) => {
+const GameIdeaGenerator = ({
+  isLoading,
+  recommendation,
+  error,
+  onSubmit,
+  onGenerateGdd,
+}: {
+  isLoading: boolean;
+  recommendation: GameRecommendationOutput | null;
+  error: string | null;
+  onSubmit: (preferences: string) => void;
+  onGenerateGdd: () => void;
+}) => {
   const [preferences, setPreferences] = useState("");
-  const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!preferences.trim()) {
-      setError("Please describe what kind of game you'd like.");
-      return;
-    }
-    setIsLoading(true);
-    setError(null);
-    setRecommendation(null);
-
-    try {
-      const result = await recommendGame({
-        userPreferences: preferences,
-        portfolioDescription: portfolioDescription,
-      });
-      setRecommendation(result);
-    } catch (err) {
-      setError("Sorry, something went wrong. Please try again later.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGenerateGdd = () => {
-    if (recommendation) {
-      onIdeaGenerated(recommendation);
-    }
+    onSubmit(preferences);
   };
 
   return (
@@ -74,18 +59,8 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
             disabled={isLoading}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating Idea...
-              </>
-            ) : (
-              <>
-                <Wand2 className="mr-2 h-4 w-4" />
-                Generate Game Idea
-              </>
-            )}
+          <Button type="submit" disabled={isLoading || !preferences.trim()} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating Idea...</> : <><Wand2 className="mr-2 h-4 w-4" /> Generate Game Idea</>}
           </Button>
         </form>
       </CardContent>
@@ -94,9 +69,7 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
           <div className="animate-in fade-in duration-500 w-full">
             <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
               <CardHeader>
-                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
-                  {recommendation.gameTitle}
-                </CardTitle>
+                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">{recommendation.gameTitle}</CardTitle>
                 <CardDescription>{recommendation.description}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -112,7 +85,7 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
                 </div>
               </CardContent>
               <CardFooter>
-                 <Button onClick={handleGenerateGdd} className="w-full">
+                 <Button onClick={onGenerateGdd} className="w-full">
                   Generate GDD for this Idea <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardFooter>
@@ -124,86 +97,38 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
   );
 };
 
-type GddGeneratorProps = {
+const GddGenerator = ({
+  initialIdea,
+  gdd,
+  isLoading,
+  error,
+  isDownloading,
+  onSubmit,
+  onDownload,
+  onCalculateCost,
+}: {
   initialIdea: string;
-  onGddGenerated: (gdd: GddGeneratorOutput) => void;
-};
-
-const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated }, ref) => {
-  const [gameIdea, setGameIdea] = useState("");
+  gdd: GddGeneratorOutput | null;
+  isLoading: boolean;
+  error: string | null;
+  isDownloading: boolean;
+  onSubmit: (idea: string, platform: string) => void;
+  onDownload: () => void;
+  onCalculateCost: () => void;
+}) => {
+  const [gameIdea, setGameIdea] = useState(initialIdea);
   const [platform, setPlatform] = useState("");
-  const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const gddContentRef = useRef<HTMLDivElement>(null);
-
-  const triggerGddGeneration = async (idea: string, plat: string) => {
-    if (!idea.trim()) {
-      setError("Please provide a basic game idea.");
-      return;
-    }
-     if (!plat) {
-      setError("Please select a target platform.");
-      return;
-    }
-    setIsLoading(true);
-    setError(null);
-    setGdd(null);
-
-    try {
-      const result = await generateGdd({
-        gameIdea: idea,
-        platform: plat,
-        portfolioDescription: portfolioDescription,
-      });
-      setGdd(result);
-    } catch (err) {
-      setError("Sorry, something went wrong. Please try again later.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
-  const handleDownload = async () => {
-    const content = gddContentRef.current;
-    if (!content || !gdd) return;
-    setIsDownloading(true);
-
-    try {
-      const base64 = await generateDocx(content.innerHTML, gdd.title);
-      const byteCharacters = atob(base64);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-      
-      saveAs(blob, `${gdd.title.replace(/ /g, "_")}_GDD.docx`);
-    } catch (err) {
-      setError("Failed to download the document. Please try again.");
-      console.error(err);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   useEffect(() => {
     setGameIdea(initialIdea);
-    if(initialIdea && platform) {
-      triggerGddGeneration(initialIdea, platform);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialIdea]);
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    triggerGddGeneration(gameIdea, platform);
+    onSubmit(gameIdea, platform);
   };
-  
+
   const platforms = ["Web", "Windows", "Mac", "Android", "iOS", "Desktop (All)", "Mobile (All)", "Cross-Platform (All)"];
 
   return (
@@ -231,17 +156,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
 
           {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" disabled={isLoading || isDownloading || !platform || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating GDD...
-              </>
-            ) : (
-              <>
-                <FileText className="mr-2 h-4 w-4" />
-                Generate GDD
-              </>
-            )}
+            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating GDD...</> : <><FileText className="mr-2 h-4 w-4" /> Generate GDD</>}
           </Button>
         </form>
       </CardContent>
@@ -251,9 +166,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
             <div ref={gddContentRef}>
                 <Card className="bg-card text-card-foreground p-4">
                   <CardHeader className="p-2">
-                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
-                      {gdd.title}
-                    </CardTitle>
+                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">{gdd.title}</CardTitle>
                     <CardDescription>{gdd.overview}</CardDescription>
                   </CardHeader>
                   <CardContent className="p-2">
@@ -300,11 +213,11 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full pt-4">
-            <Button onClick={handleDownload} disabled={isDownloading} className="w-full">
+            <Button onClick={onDownload} disabled={isDownloading} className="w-full">
                 {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
                 Download as DOCX
             </Button>
-            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
+            <Button onClick={onCalculateCost} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -312,101 +225,44 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
       )}
     </Card>
   );
-});
-GddGenerator.displayName = "GddGenerator";
-
-
-type CostCalculatorHandle = {
-  triggerCostCalculation: (idea: string) => Promise<void>;
-  setGameIdea: (idea: string) => void;
 };
 
-const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
-  const [gameIdea, setGameIdea] = useState("");
-  const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
-  const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSplitting, setIsSplitting] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const CostCalculator = ({
+    initialIdea,
+    estimation,
+    milestones,
+    isLoading,
+    isSplitting,
+    isDownloading,
+    error,
+    onSubmit,
+    onSplit,
+    onDownloadQuote,
+    onDownloadMilestones,
+}: {
+    initialIdea: string;
+    estimation: CostCalculatorOutput | null;
+    milestones: MilestoneSplitterOutput | null;
+    isLoading: boolean;
+    isSplitting: boolean;
+    isDownloading: boolean;
+    error: string | null;
+    onSubmit: (idea: string) => void;
+    onSplit: () => void;
+    onDownloadQuote: () => void;
+    onDownloadMilestones: () => void;
+}) => {
+  const [gameIdea, setGameIdea] = useState(initialIdea);
   const quoteContentRef = useRef<HTMLDivElement>(null);
   const milestonesContentRef = useRef<HTMLDivElement>(null);
 
-  const triggerCostCalculation = async (idea: string) => {
-    if (!idea.trim()) {
-      setError("Please describe your game idea.");
-      return;
-    }
-    setIsLoading(true);
-    setError(null);
-    setEstimation(null);
-    setMilestones(null);
+  useEffect(() => {
+    setGameIdea(initialIdea);
+  }, [initialIdea]);
 
-    try {
-      const result = await calculateCost({ gameIdea: idea });
-      setEstimation(result);
-    } catch (err) {
-      setError("Sorry, something went wrong. Please try again later.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useImperativeHandle(ref, () => ({
-    triggerCostCalculation,
-    setGameIdea,
-  }));
-  
-  const handleSplitMilestones = async () => {
-    if (!estimation) return;
-    
-    setIsSplitting(true);
-    setMilestones(null);
-    try {
-      const result = await splitIntoMilestones(estimation);
-      setMilestones(result);
-    } catch (err) {
-       setError("Sorry, something went wrong while splitting milestones. Please try again later.");
-       console.error(err);
-    } finally {
-      setIsSplitting(false);
-    }
-  }
-
-  const handleDownload = async (type: 'quote' | 'milestones') => {
-    const contentRef = type === 'quote' ? quoteContentRef : milestonesContentRef;
-    const data = type === 'quote' ? estimation : milestones;
-    const title = type === 'quote' 
-      ? (data as CostCalculatorOutput)?.quoteTitle || 'Project_Quote'
-      : 'Project_Milestones';
-    
-    const content = contentRef.current;
-    if (!content || !data) return;
-    setIsDownloading(true);
-
-    try {
-      const base64 = await generateDocx(content.innerHTML, title);
-      const byteCharacters = atob(base64);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-
-      saveAs(blob, `${title.replace(/ /g, "_")}.docx`);
-    } catch(err) {
-       setError("Failed to download the document. Please try again.");
-       console.error(err);
-    } finally {
-        setIsDownloading(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    triggerCostCalculation(gameIdea);
+    onSubmit(gameIdea);
   };
 
   return (
@@ -426,17 +282,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" disabled={isLoading || isSplitting || isDownloading || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Calculating...
-              </>
-            ) : (
-              <>
-                <DollarSign className="mr-2 h-4 w-4" />
-                Generate Quote
-              </>
-            )}
+            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Calculating...</> : <><DollarSign className="mr-2 h-4 w-4" /> Generate Quote</>}
           </Button>
         </form>
       </CardContent>
@@ -445,9 +291,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
           <div className="animate-in fade-in duration-500 w-full">
             <div ref={quoteContentRef}>
                 <Card className="bg-card text-card-foreground p-4">
-                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">
-                      {estimation.quoteTitle}
-                    </CardTitle>
+                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">{estimation.quoteTitle}</CardTitle>
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -473,23 +317,17 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
                             </TableRow>
                         </TableFooterComponent>
                     </Table>
-                     <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
-                        {estimation.disclaimer}
-                    </p>
+                     <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">{estimation.disclaimer}</p>
                 </Card>
             </div>
           </div>
             <div className="w-full pt-4 flex flex-col sm:flex-row gap-2">
-                <Button onClick={() => handleDownload('quote')} disabled={isDownloading || isSplitting} className="w-full">
+                <Button onClick={onDownloadQuote} disabled={isDownloading || isSplitting} className="w-full">
                     {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
                     Download as DOCX
                 </Button>
-                 <Button onClick={handleSplitMilestones} disabled={isSplitting || isDownloading} className="w-full">
-                    {isSplitting ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                        <Milestone className="mr-2 h-4 w-4" />
-                    )}
+                 <Button onClick={onSplit} disabled={isSplitting || isDownloading} className="w-full">
+                    {isSplitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Milestone className="mr-2 h-4 w-4" />}
                     Split into Milestones
                 </Button>
             </div>
@@ -500,9 +338,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
             <div className="animate-in fade-in duration-500 w-full">
                 <div ref={milestonesContentRef}>
                      <Card className="bg-card text-card-foreground p-4">
-                         <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">
-                            Project Milestones
-                        </CardTitle>
+                         <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
                         <Accordion type="single" collapsible className="w-full">
                             {milestones.milestones.map((milestone, index) => (
                                  <AccordionItem value={`milestone-${index}`} key={index}>
@@ -530,7 +366,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
                 </div>
             </div>
              <div className="w-full pt-4">
-                <Button onClick={() => handleDownload('milestones')} disabled={isDownloading} className="w-full">
+                <Button onClick={onDownloadMilestones} disabled={isDownloading} className="w-full">
                     {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
                     Download as DOCX
                 </Button>
@@ -539,39 +375,165 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
       )}
     </Card>
   );
-});
-CostCalculator.displayName = "CostCalculator";
+};
 
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
-  const [gddIdea, setGddIdea] = useState("");
-  const costCalculatorRef = useRef<CostCalculatorHandle>(null);
+  
+  // States for all tools
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  
+  // Game Idea Generator state
+  const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
 
-  const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
-    const ideaForGdd = `${idea.gameTitle}: ${idea.description}`;
-    setGddIdea(ideaForGdd);
-    setActiveTab("gdd-generator");
+  // GDD Generator state
+  const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
+  const [gddIdea, setGddIdea] = useState("");
+
+  // Cost Calculator state
+  const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
+  const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
+  const [costIdea, setCostIdea] = useState("");
+  const [isSplitting, setIsSplitting] = useState(false);
+
+  const gddContentRef = useRef<HTMLDivElement>(null);
+  const quoteContentRef = useRef<HTMLDivElement>(null);
+  const milestonesContentRef = useRef<HTMLDivElement>(null);
+
+  const handleGenerateIdea = async (preferences: string) => {
+    if (!preferences.trim()) {
+      setError("Please describe what kind of game you'd like.");
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    setRecommendation(null);
+    try {
+      const result = await recommendGame({ userPreferences: preferences, portfolioDescription });
+      setRecommendation(result);
+    } catch (err) {
+      setError("Sorry, something went wrong. Please try again later.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGddGenerated = (gdd: GddGeneratorOutput) => {
-    const ideaFromGdd = `
-Title: ${gdd.title}
-Overview: ${gdd.overview}
-Platform: ${gdd.gameplay.playerControls}
-Core Mechanics: ${gdd.gameplay.coreMechanics}
-Game Loop: ${gdd.gameplay.gameLoop}
-Player Controls: ${gdd.gameplay.playerControls}
-Target Audience: ${gdd.targetAudience}
-Art Style: ${gdd.artStyle}
-Monetization: ${gdd.monetization}
-    `.trim();
+  const handleIdeaToGdd = () => {
+    if (recommendation) {
+      const ideaForGdd = `${recommendation.gameTitle}: ${recommendation.description}`;
+      setGddIdea(ideaForGdd);
+      setActiveTab("gdd-generator");
+    }
+  };
+  
+  const handleGenerateGdd = async (idea: string, platform: string) => {
+    if (!idea.trim() || !platform) {
+      setError("Please provide a game idea and select a platform.");
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    setGdd(null);
+    try {
+      const result = await generateGdd({ gameIdea: idea, platform, portfolioDescription });
+      setGdd(result);
+    } catch (err) {
+      setError("Sorry, something went wrong. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const handleGddToCost = () => {
+      if (gdd) {
+          const ideaFromGdd = `Title: ${gdd.title}\nOverview: ${gdd.overview}\nPlatform: ${gdd.gameplay.playerControls}\nCore Mechanics: ${gdd.gameplay.coreMechanics}\nGame Loop: ${gdd.gameplay.gameLoop}\nPlayer Controls: ${gdd.gameplay.playerControls}\nTarget Audience: ${gdd.targetAudience}\nArt Style: ${gdd.artStyle}\nMonetization: ${gdd.monetization}`;
+          setCostIdea(ideaFromGdd);
+          setActiveTab("cost-calculator");
+      }
+  };
+  
+  const handleCalculateCost = async (idea: string) => {
+    if (!idea.trim()) {
+      setError("Please describe your game idea.");
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    setEstimation(null);
+    setMilestones(null);
+    try {
+      const result = await calculateCost({ gameIdea: idea });
+      setEstimation(result);
+    } catch (err) {
+      setError("Sorry, something went wrong. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const handleSplitMilestones = async () => {
+    if (!estimation) return;
+    setIsSplitting(true);
+    setMilestones(null);
+    try {
+      const result = await splitIntoMilestones(estimation);
+      setMilestones(result);
+    } catch (err) {
+       setError("Sorry, something went wrong while splitting milestones.");
+       console.error(err);
+    } finally {
+      setIsSplitting(false);
+    }
+  };
+
+  const handleDownload = async (type: 'gdd' | 'quote' | 'milestones') => {
+    let contentRef;
+    let data;
+    let title;
+
+    switch (type) {
+        case 'gdd':
+            contentRef = gddContentRef;
+            data = gdd;
+            title = gdd?.title || "GDD";
+            break;
+        case 'quote':
+            contentRef = quoteContentRef;
+            data = estimation;
+            title = estimation?.quoteTitle || "Quote";
+            break;
+        case 'milestones':
+            contentRef = milestonesContentRef;
+            data = milestones;
+            title = "Project_Milestones";
+            break;
+    }
+
+    const content = contentRef.current;
+    if (!content || !data) return;
     
-    if (costCalculatorRef.current) {
-      costCalculatorRef.current.setGameIdea(ideaFromGdd);
-      setActiveTab("cost-calculator");
-      setTimeout(() => {
-        costCalculatorRef.current?.triggerCostCalculation(ideaFromGdd);
-      }, 100);
+    setIsDownloading(true);
+    try {
+      const base64 = await generateDocx(content.innerHTML, title);
+      const byteCharacters = atob(base64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+      
+      saveAs(blob, `${title.replace(/ /g, "_")}.docx`);
+    } catch (err) {
+      setError("Failed to download the document. Please try again.");
+      console.error(err);
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -597,16 +559,40 @@ Monetization: ${gdd.monetization}
               <TabsTrigger value="cost-calculator"><DollarSign className="mr-2"/>Cost Calculator</TabsTrigger>
             </TabsList>
             <TabsContent value="game-idea" className="mt-6">
-              <GameIdeaGenerator onIdeaGenerated={handleIdeaGenerated} />
+              <GameIdeaGenerator 
+                isLoading={isLoading}
+                recommendation={recommendation}
+                error={error}
+                onSubmit={handleGenerateIdea}
+                onGenerateGdd={handleIdeaToGdd}
+              />
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
                 initialIdea={gddIdea}
-                onGddGenerated={handleGddGenerated}
+                gdd={gdd}
+                isLoading={isLoading}
+                isDownloading={isDownloading}
+                error={error}
+                onSubmit={handleGenerateGdd}
+                onDownload={() => handleDownload('gdd')}
+                onCalculateCost={handleGddToCost}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
-              <CostCalculator ref={costCalculatorRef} />
+              <CostCalculator
+                 initialIdea={costIdea}
+                 estimation={estimation}
+                 milestones={milestones}
+                 isLoading={isLoading}
+                 isSplitting={isSplitting}
+                 isDownloading={isDownloading}
+                 error={error}
+                 onSubmit={handleCalculateCost}
+                 onSplit={handleSplitMilestones}
+                 onDownloadQuote={() => handleDownload('quote')}
+                 onDownloadMilestones={() => handleDownload('milestones')}
+               />
             </TabsContent>
           </Tabs>
         </div>
