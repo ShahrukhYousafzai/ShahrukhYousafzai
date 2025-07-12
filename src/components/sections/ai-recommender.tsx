@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
 import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
-import { splitIntoMilestones, type MilestoneSplitterOutput, type QuoteItem } from "@/ai/flows/milestone-splitter";
+import { splitIntoMilestones, type MilestoneSplitterOutput } from "@/ai/flows/milestone-splitter";
 import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -29,15 +29,17 @@ const GameIdeaGenerator = ({
   error,
   onSubmit,
   onGenerateGdd,
+  preferences,
+  setPreferences,
 }: {
   isLoading: boolean;
   recommendation: GameRecommendationOutput | null;
   error: string | null;
   onSubmit: (preferences: string) => void;
   onGenerateGdd: () => void;
+  preferences: string;
+  setPreferences: (value: string) => void;
 }) => {
-  const [preferences, setPreferences] = useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(preferences);
@@ -98,7 +100,6 @@ const GameIdeaGenerator = ({
 };
 
 const GddGenerator = ({
-  initialIdea,
   gdd,
   isLoading,
   error,
@@ -106,8 +107,11 @@ const GddGenerator = ({
   onSubmit,
   onDownload,
   onCalculateCost,
+  gameIdea,
+  setGameIdea,
+  platform,
+  setPlatform,
 }: {
-  initialIdea: string;
   gdd: GddGeneratorOutput | null;
   isLoading: boolean;
   error: string | null;
@@ -115,15 +119,13 @@ const GddGenerator = ({
   onSubmit: (idea: string, platform: string) => void;
   onDownload: () => void;
   onCalculateCost: () => void;
+  gameIdea: string;
+  setGameIdea: (value: string) => void;
+  platform: string;
+  setPlatform: (value: string) => void;
 }) => {
-  const [gameIdea, setGameIdea] = useState(initialIdea);
-  const [platform, setPlatform] = useState("");
   const gddContentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setGameIdea(initialIdea);
-  }, [initialIdea]);
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(gameIdea, platform);
@@ -174,17 +176,17 @@ const GddGenerator = ({
                       <AccordionItem value="item-1">
                         <AccordionTrigger className="font-semibold text-lg">Gameplay</AccordionTrigger>
                         <AccordionContent className="space-y-4 pt-4 px-2">
-                           <div>
+                           <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Core Mechanics</h4>
-                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.coreMechanics}</p>
+                              <p className="text-muted-foreground">{gdd.gameplay.coreMechanics}</p>
                            </div>
-                            <div>
+                            <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Game Loop</h4>
-                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.gameLoop}</p>
+                              <p className="text-muted-foreground">{gdd.gameplay.gameLoop}</p>
                            </div>
-                            <div>
+                            <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Player Controls</h4>
-                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.playerControls}</p>
+                              <p className="text-muted-foreground">{gdd.gameplay.playerControls}</p>
                            </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -197,13 +199,13 @@ const GddGenerator = ({
                       <AccordionItem value="item-3">
                         <AccordionTrigger className="font-semibold text-lg">Art Style & Monetization</AccordionTrigger>
                          <AccordionContent className="space-y-4 pt-4 px-2">
-                           <div>
+                           <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Art Style</h4>
-                              <p className="text-muted-foreground whitespace-pre-line">{gdd.artStyle}</p>
+                              <p className="text-muted-foreground">{gdd.artStyle}</p>
                            </div>
-                            <div>
+                            <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Monetization Strategy</h4>
-                              <p className="text-muted-foreground whitespace-pre-line">{gdd.monetization}</p>
+                              <p className="text-muted-foreground">{gdd.monetization}</p>
                            </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -228,7 +230,6 @@ const GddGenerator = ({
 };
 
 const CostCalculator = ({
-    initialIdea,
     estimation,
     milestones,
     isLoading,
@@ -239,8 +240,9 @@ const CostCalculator = ({
     onSplit,
     onDownloadQuote,
     onDownloadMilestones,
+    gameIdea,
+    setGameIdea,
 }: {
-    initialIdea: string;
     estimation: CostCalculatorOutput | null;
     milestones: MilestoneSplitterOutput | null;
     isLoading: boolean;
@@ -251,14 +253,11 @@ const CostCalculator = ({
     onSplit: () => void;
     onDownloadQuote: () => void;
     onDownloadMilestones: () => void;
+    gameIdea: string;
+    setGameIdea: (value: string) => void;
 }) => {
-  const [gameIdea, setGameIdea] = useState(initialIdea);
   const quoteContentRef = useRef<HTMLDivElement>(null);
   const milestonesContentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setGameIdea(initialIdea);
-  }, [initialIdea]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -380,23 +379,20 @@ const CostCalculator = ({
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
-  // States for all tools
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isSplitting, setIsSplitting] = useState(false);
   
-  // Game Idea Generator state
   const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
-
-  // GDD Generator state
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
-  const [gddIdea, setGddIdea] = useState("");
-
-  // Cost Calculator state
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
   const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
-  const [costIdea, setCostIdea] = useState("");
-  const [isSplitting, setIsSplitting] = useState(false);
+
+  const [gameIdeaPreferences, setGameIdeaPreferences] = useState("");
+  const [gddGeneratorIdea, setGddGeneratorIdea] = useState("");
+  const [gddPlatform, setGddPlatform] = useState("");
+  const [costCalculatorIdea, setCostCalculatorIdea] = useState("");
 
   const gddContentRef = useRef<HTMLDivElement>(null);
   const quoteContentRef = useRef<HTMLDivElement>(null);
@@ -424,7 +420,7 @@ const AiRecommender = () => {
   const handleIdeaToGdd = () => {
     if (recommendation) {
       const ideaForGdd = `${recommendation.gameTitle}: ${recommendation.description}`;
-      setGddIdea(ideaForGdd);
+      setGddGeneratorIdea(ideaForGdd);
       setActiveTab("gdd-generator");
     }
   };
@@ -451,7 +447,7 @@ const AiRecommender = () => {
   const handleGddToCost = () => {
       if (gdd) {
           const ideaFromGdd = `Title: ${gdd.title}\nOverview: ${gdd.overview}\nPlatform: ${gdd.gameplay.playerControls}\nCore Mechanics: ${gdd.gameplay.coreMechanics}\nGame Loop: ${gdd.gameplay.gameLoop}\nPlayer Controls: ${gdd.gameplay.playerControls}\nTarget Audience: ${gdd.targetAudience}\nArt Style: ${gdd.artStyle}\nMonetization: ${gdd.monetization}`;
-          setCostIdea(ideaFromGdd);
+          setCostCalculatorIdea(ideaFromGdd);
           setActiveTab("cost-calculator");
       }
   };
@@ -492,34 +488,31 @@ const AiRecommender = () => {
   };
 
   const handleDownload = async (type: 'gdd' | 'quote' | 'milestones') => {
-    let contentRef;
-    let data;
+    let contentEl;
     let title;
 
     switch (type) {
         case 'gdd':
-            contentRef = gddContentRef;
-            data = gdd;
+            contentEl = gddContentRef.current;
             title = gdd?.title || "GDD";
             break;
         case 'quote':
-            contentRef = quoteContentRef;
-            data = estimation;
+            contentEl = quoteContentRef.current;
             title = estimation?.quoteTitle || "Quote";
             break;
         case 'milestones':
-            contentRef = milestonesContentRef;
-            data = milestones;
+            contentEl = milestonesContentRef.current;
             title = "Project_Milestones";
             break;
     }
 
-    const content = contentRef.current;
-    if (!content || !data) return;
+    if (!contentEl) return;
     
     setIsDownloading(true);
+    setError(null);
+
     try {
-      const base64 = await generateDocx(content.innerHTML, title);
+      const base64 = await generateDocx(contentEl.innerHTML, title);
       const byteCharacters = atob(base64);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
@@ -565,11 +558,12 @@ const AiRecommender = () => {
                 error={error}
                 onSubmit={handleGenerateIdea}
                 onGenerateGdd={handleIdeaToGdd}
+                preferences={gameIdeaPreferences}
+                setPreferences={setGameIdeaPreferences}
               />
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
-                initialIdea={gddIdea}
                 gdd={gdd}
                 isLoading={isLoading}
                 isDownloading={isDownloading}
@@ -577,11 +571,14 @@ const AiRecommender = () => {
                 onSubmit={handleGenerateGdd}
                 onDownload={() => handleDownload('gdd')}
                 onCalculateCost={handleGddToCost}
+                gameIdea={gddGeneratorIdea}
+                setGameIdea={setGddGeneratorIdea}
+                platform={gddPlatform}
+                setPlatform={setGddPlatform}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
               <CostCalculator
-                 initialIdea={costIdea}
                  estimation={estimation}
                  milestones={milestones}
                  isLoading={isLoading}
@@ -592,6 +589,8 @@ const AiRecommender = () => {
                  onSplit={handleSplitMilestones}
                  onDownloadQuote={() => handleDownload('quote')}
                  onDownloadMilestones={() => handleDownload('milestones')}
+                 gameIdea={costCalculatorIdea}
+                 setGameIdea={setCostCalculatorIdea}
                />
             </TabsContent>
           </Tabs>
@@ -602,3 +601,5 @@ const AiRecommender = () => {
 };
 
 export default AiRecommender;
+
+    
