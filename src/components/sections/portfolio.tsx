@@ -24,18 +24,18 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
         />
       </div>
     </CardHeader>
-    <div className="p-6 flex-grow flex flex-col">
-      <CardTitle className="font-headline">{project.title}</CardTitle>
-      <div className="flex flex-wrap gap-2 my-4">
+    <div className="p-4 flex-grow flex flex-col">
+      <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
+      <div className="flex flex-wrap gap-1 my-3">
         {project.tags.map(tag => (
           <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
         ))}
       </div>
-      <CardDescription className="text-muted-foreground flex-grow">
+      <CardDescription className="text-muted-foreground text-sm flex-grow">
         {project.description}
       </CardDescription>
     </div>
-    <CardFooter>
+    <CardFooter className="p-4">
       <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
         <a href={project.link} target="_blank" rel="noopener noreferrer">
           <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
@@ -118,7 +118,7 @@ const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>})
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-8">
         {paginatedProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
