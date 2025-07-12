@@ -338,6 +338,17 @@ export const projects = [
     category: 'Games',
   },
   {
+    title: 'Planet of Inus',
+    description: 'An ambitious NFT Blockchain based MMORPG project. Built on MultiPlanetary INUS, which is the first-ever token to unify the top MEME Coin communities. This unique aspect of the game allows players to experience a truly decentralized gaming ecosystem where they can trade, buy, and sell in-game assets using NFTs.',
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'planet mmorpg',
+    tags: ['Unity3D', 'Web3', 'Blockchain', 'MMORPG', 'AAA', 'NFT', 'Action', 'RPG', 'Wallet'],
+    link: '#',
+    linkText: 'Learn More',
+    linkIcon: Play,
+    category: 'Games',
+  },
+  {
     title: 'World of Gods - MMORPG',
     description: 'A massively multiplayer online role-playing game with classes, guilds, crafting, and a huge world to explore.',
     image: 'https://placehold.co/600x400.png',
