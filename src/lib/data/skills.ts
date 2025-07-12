@@ -20,7 +20,7 @@ export const skills = [
   { name: "Game Development", icon: Gamepad2 },
   { name: "Game Design", icon: Brush },
   { name: ".NET", icon: IconDotNet },
-  { name: "Android App Development", icon: Smartphone },
+  { name: "Android Development", icon: Smartphone },
   { name: "iOS Development", icon: Smartphone },
   { name: "Visual Studio", icon: IconVisualStudio },
   { name: "Visual Studio Code", icon: IconVisualStudioCode },
