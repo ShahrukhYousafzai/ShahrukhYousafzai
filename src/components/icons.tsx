@@ -35,9 +35,3 @@ export const IconPhotoshop = (props: SVGProps<SVGSVGElement>) => (
         <path d="M21 2H3c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9.5 15h-3c0-2 2-3 2-3s-2-1-2-3h3l2 3-2 3zm6.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
     </svg>
 );
-
-export const IconAdobeXD = (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M20.5 2H3.5A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5V3.5A1.5 1.5 0 0020.5 2zM9.5 17h-3L4 7h3.5l1 5.7L9.5 7h3l-2.5 5 2.5 5h-3l-1.5-2.8zM19.5 17h-3l-2-2.8v2.8h-2V7h4a3.5 3.5 0 010 7h-2l2 2.8zM17 12h-1.5V9H17a1.5 1.5 0 010 3z"/>
-    </svg>
-);

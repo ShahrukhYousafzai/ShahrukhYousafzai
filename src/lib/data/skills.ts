@@ -12,7 +12,7 @@ import {
   FileCode,
   Bot
 } from "lucide-react";
-import { IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconAdobeXD } from "@/components/icons";
+import { IconUnity, IconVisualStudio, IconFigma, IconPhotoshop } from "@/components/icons";
 
 export const skills = [
   { name: "Unity", icon: IconUnity },
@@ -24,7 +24,6 @@ export const skills = [
   { name: "Visual Studio", icon: IconVisualStudio },
   { name: "Figma", icon: IconFigma },
   { name: "Photoshop", icon: IconPhotoshop },
-  { name: "Adobe XD", icon: IconAdobeXD },
   { name: "HTML", icon: FileCode },
   { name: "CSS", icon: Palette },
   { name: "JavaScript", icon: Code },
