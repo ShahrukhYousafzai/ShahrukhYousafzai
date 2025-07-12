@@ -10,6 +10,7 @@ export { timeline } from "./data/timeline";
 export { services } from "./data/services";
 export { skills, languages } from "./data/skills";
 export { testimonials } from "./data/testimonials";
+export { allReviews } from "./data/all-reviews";
 
 
 export const projects = [...games, ...apps, ...animations];

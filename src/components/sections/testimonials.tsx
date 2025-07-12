@@ -1,9 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { testimonials } from "@/lib/data/testimonials";
-import { Star } from "lucide-react";
+import { allReviews } from "@/lib/data/all-reviews";
+import { Star, MessageSquare } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const TestimonialsSection = () => {
@@ -58,6 +64,33 @@ const TestimonialsSection = () => {
           <CarouselPrevious className="hidden sm:flex" />
           <CarouselNext className="hidden sm:flex" />
         </Carousel>
+        <div className="mt-12 text-center">
+           <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" variant="outline">
+                  <MessageSquare className="mr-2" />
+                  Show All {allReviews.length} Reviews
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-3xl">
+                  <DialogHeader>
+                      <DialogTitle className="text-2xl font-headline">All Reviews</DialogTitle>
+                  </DialogHeader>
+                  <ScrollArea className="h-[70vh] pr-6">
+                    <div className="space-y-6">
+                      {allReviews.map((review, index) => (
+                        <div key={index}>
+                          <blockquote className="italic text-muted-foreground">"{review.review}"</blockquote>
+                          <p className="mt-2 font-semibold text-right">{review.author}</p>
+                          <p className="text-sm text-muted-foreground text-right">{review.country}</p>
+                          {index < allReviews.length - 1 && <Separator className="mt-6" />}
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+              </DialogContent>
+            </Dialog>
+        </div>
       </div>
     </section>
   );
