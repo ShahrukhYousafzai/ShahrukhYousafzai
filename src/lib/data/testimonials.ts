@@ -29,7 +29,7 @@ export const testimonials = [
     },
     {
         name: 'Anatoliy',
-        title: 'Client from United States',
+        title: 'Client on Fiverr',
         comment: "Working with this seller has been an incredible experience. They have completely created my vision from paper to an actual video game. The seller is easy to communicate with when working on bugs and tweaking the game... Really you can put your trust in to this small team. Repeat client, absolutely.",
         avatar: 'https://placehold.co/100x100.png',
         rating: 5,
