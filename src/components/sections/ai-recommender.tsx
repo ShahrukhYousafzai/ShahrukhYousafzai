@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
-import { Bot, Sparkles, Loader2, Wand2, FileText } from "lucide-react";
+import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
+import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -219,6 +220,96 @@ const GddGenerator = () => {
   );
 };
 
+const CostCalculator = () => {
+  const [gameIdea, setGameIdea] = useState("");
+  const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!gameIdea.trim()) {
+      setError("Please describe your game idea.");
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    setEstimation(null);
+
+    try {
+      const result = await calculateCost({ gameIdea });
+      setEstimation(result);
+    } catch (err) {
+      setError("Sorry, something went wrong. Please try again later.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2"><DollarSign /> Get a Cost Estimate</CardTitle>
+        <CardDescription>Provide a description of your game idea, and I'll give you a rough cost estimate based on my experience.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="grid w-full gap-4">
+          <Textarea
+            placeholder="Describe your game concept, features, platform (PC/mobile), and style (2D/3D)..."
+            value={gameIdea}
+            onChange={(e) => setGameIdea(e.target.value)}
+            rows={4}
+            disabled={isLoading}
+          />
+          {error && <p className="text-sm text-destructive">{error}</p>}
+          <Button type="submit" disabled={isLoading} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Calculating...
+              </>
+            ) : (
+              <>
+                <DollarSign className="mr-2 h-4 w-4" />
+                Calculate Cost
+              </>
+            )}
+          </Button>
+        </form>
+      </CardContent>
+      {estimation && (
+        <CardFooter className="flex-col items-start gap-4 pt-4">
+          <div className="animate-in fade-in duration-500 w-full">
+            <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
+              <CardHeader>
+                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
+                  Cost Estimation
+                </CardTitle>
+                <CardDescription>This is a rough estimate. A detailed quote requires a full consultation.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-lg">Prototype Cost</h4>
+                  <p className="text-2xl font-bold text-primary">{estimation.prototypeCost}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg">Full Development Cost Range</h4>
+                  <p className="text-2xl font-bold text-primary">{estimation.fullDevelopmentCost}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-muted-foreground">Reasoning:</h4>
+                  <p className="mt-1 text-sm">{estimation.reasoning}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </CardFooter>
+      )}
+    </Card>
+  );
+};
+
 
 const AiRecommender = () => {
   return (
@@ -232,20 +323,24 @@ const AiRecommender = () => {
           </div>
           <h2 className="text-3xl font-bold font-headline sm:text-4xl">Let AI Assist You</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Use my custom-built AI tools to brainstorm game ideas or generate a full Game Design Document based on your concepts.
+            Use my custom-built AI tools to brainstorm game ideas, generate a full Game Design Document, or get a cost estimate for your project.
           </p>
         </div>
         <div className="mt-12 max-w-3xl mx-auto">
           <Tabs defaultValue="game-idea" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="game-idea"><Wand2 className="mr-2"/>Game Idea Generator</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="game-idea"><Wand2 className="mr-2"/>Idea Generator</TabsTrigger>
               <TabsTrigger value="gdd-generator"><FileText className="mr-2"/>GDD Generator</TabsTrigger>
+              <TabsTrigger value="cost-calculator"><DollarSign className="mr-2"/>Cost Calculator</TabsTrigger>
             </TabsList>
             <TabsContent value="game-idea" className="mt-6">
               <GameIdeaGenerator />
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator />
+            </TabsContent>
+            <TabsContent value="cost-calculator" className="mt-6">
+              <CostCalculator />
             </TabsContent>
           </Tabs>
         </div>
