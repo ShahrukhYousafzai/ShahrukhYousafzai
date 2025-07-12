@@ -2,8 +2,7 @@ import { Briefcase, School, Cpu } from "lucide-react";
 import { IconFiverr } from "@/components/icons";
 
 export const timeline = [
-    { date: "March 2017 - Jan 2023", title: "Senior Game Developer", description: "Efface Studios", icon: Briefcase },
-    { date: "Jan 2017 - Present", title: "Freelancer", description: "Fiverr", icon: IconFiverr },
-    { date: "April 2023 - July 2024", title: "Web3 Blockchain Unity Game Developer", description: "Efface Studios", icon: Cpu },
+    { date: "2017 - Present", title: "Freelance Developer", description: "Started my professional journey as a freelancer, working with clients worldwide on various development projects.", icon: IconFiverr },
+    { date: "2019 - 2024", title: "Founder & Game Developer", description: "Founded my own game company, Efface Studios, leading development and creating a wide range of games.", icon: Briefcase },
     { date: "2021 - 2025", title: "Bachelor of Business Administration (BBA)", description: "Islamia University of Bahawalpur", icon: School },
 ];

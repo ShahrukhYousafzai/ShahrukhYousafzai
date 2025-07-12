@@ -1,4 +1,4 @@
 export const about = {
-    description: "I am a game developer with expertise in both Web3 (blockchain-integrated) and Web2 (traditional) game development, specializing in Unity to build immersive, high-quality games for PC, mobile, and web platforms. My skill set includes blockchain integration, NFT mechanics, wallet authentication, and cross-platform optimization, allowing me to develop innovative gaming experiences that seamlessly merge traditional and decentralized technologies.",
+    description: "My programming journey began at the age of 12, sparking a lifelong passion for development. I started with Visual Basic, moved on to web development with WordPress and honed my design skills with photo and video editing. My path then led me to advanced software development with WPF and XAML, followed by mobile development with Xamarin. Ultimately, I found my true passion in game development with Unity3D, where I now specialize. I bring this diverse background and deep expertise to every project, creating engaging and high-quality digital experiences.",
     email: "shahrukhyousafzaipk@gmail.com",
 };
