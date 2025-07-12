@@ -11,6 +11,7 @@ export const games = [
       linkText: 'Play Store',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Wrath of the Quest',
@@ -22,6 +23,7 @@ export const games = [
       linkText: 'See Inspiration',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'CrabGrab',
@@ -33,6 +35,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'The Pod',
@@ -44,6 +47,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Panda Bear Mafia',
@@ -55,6 +59,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'RugDollz World',
@@ -66,6 +71,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Arcanes Edge',
@@ -77,6 +83,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'FutDice',
@@ -88,6 +95,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Many Cold Nights',
@@ -99,6 +107,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Zord RPG',
@@ -110,6 +119,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Social Hub',
@@ -121,6 +131,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Shooting Arena 3D',
@@ -132,6 +143,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Gear Head Racing',
@@ -143,6 +155,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Solar Clicker: Click to Earn',
@@ -154,6 +167,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Crypto Commando',
@@ -165,6 +179,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Hall of Fame Racing',
@@ -176,6 +191,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'PlowedEarth',
@@ -187,6 +203,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'ToxicRipper',
@@ -198,6 +215,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'RugDollz Shooter',
@@ -209,6 +227,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'RugDollz Racing',
@@ -220,6 +239,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'RugDollz Treasure',
@@ -231,6 +251,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'RugDollz Battle Royale',
@@ -242,6 +263,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Crazy Punch',
@@ -253,6 +275,7 @@ export const games = [
       linkText: 'Download Now',
       linkIcon: Download,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Fall of Cars: Multiplayer',
@@ -264,6 +287,7 @@ export const games = [
       linkText: 'Download Now',
       linkIcon: Download,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Basant Mela',
@@ -275,6 +299,7 @@ export const games = [
       linkText: 'Play Store',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Planet of Inus',
@@ -286,6 +311,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'Solar Dominion',
@@ -297,6 +323,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web3',
     },
     {
       title: 'World of Gods - MMORPG',
@@ -308,6 +335,7 @@ export const games = [
       linkText: 'Watch Video',
       linkIcon: Video,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Checkers Fall',
@@ -319,6 +347,7 @@ export const games = [
       linkText: 'Play Now',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Merge Turret: Monster Defense',
@@ -330,6 +359,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'QuizGenius',
@@ -341,6 +371,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Color Clash - Multiplayer Card Game',
@@ -352,6 +383,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Casino Bomb - Multiplayer Game',
@@ -363,6 +395,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Boosted!™ - An Original Card Game',
@@ -374,6 +407,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'UFO.KO - Multiplayer UFO Game',
@@ -385,6 +419,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Traffic Loop - Car Racing Mobile Game',
@@ -396,6 +431,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Super Style Volley - SSV',
@@ -407,6 +443,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Football Tactics',
@@ -418,6 +455,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Restaurant Game Prototype',
@@ -429,6 +467,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Element Royale',
@@ -440,6 +479,7 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
     {
       title: 'Letter Crush: Fun Crossword',
@@ -451,5 +491,6 @@ export const games = [
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
+      platform: 'Web2',
     },
 ];

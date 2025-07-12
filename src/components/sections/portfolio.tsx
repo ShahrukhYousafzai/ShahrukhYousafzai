@@ -8,10 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Package, Globe } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
 
-const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
+const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
   <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
     <CardHeader className="p-0">
       <div className="aspect-video relative">
@@ -45,7 +47,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
   </Card>
 );
 
-const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>}) => {
+const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
 
@@ -128,14 +130,21 @@ const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>})
   );
 };
 
-
 const PortfolioSection = () => {
+  const [gamePlatform, setGamePlatform] = useState('All');
   const categories = ["Games", "Apps", "Animations"];
   const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
   const appCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
-  const gameProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Games' && (tag === 'All' || p.tags.includes(tag)));
+  const gameProjectsByTag = (tag: string) => {
+    return projects.filter(p => {
+      const isGame = p.category === 'Games';
+      const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
+      const tagMatch = tag === 'All' || p.tags.includes(tag);
+      return isGame && platformMatch && tagMatch;
+    });
+  };
   const appProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Apps' && (tag === 'All' || p.tags.includes(tag)));
 
   return (
@@ -156,6 +165,24 @@ const PortfolioSection = () => {
           
           <TabsContent value="Games">
             <Tabs defaultValue="All" className="mt-8">
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
+                <Select value={gamePlatform} onValueChange={setGamePlatform}>
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder="Select Platform" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">
+                      <div className="flex items-center gap-2"><Globe className="h-4 w-4" />All Platforms</div>
+                    </SelectItem>
+                    <SelectItem value="Web2">
+                      <div className="flex items-center gap-2"><Package className="h-4 w-4" />Web2</div>
+                    </SelectItem>
+                    <SelectItem value="Web3">
+                      <div className="flex items-center gap-2"><Package className="h-4 w-4" />Web3/Blockchain</div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
                 {gameCategories.map((category) => (
                   <TabsTrigger 
