@@ -22,7 +22,7 @@ const clients = [
   },
   {
     name: "Toxic Skulls Club",
-    logo: "/Images/worked-with/TSC.webp",
+    logo: "/Images/worked-with/TSC.png",
     website: "https://toxicskullsclub.io",
     x: "https://x.com/ToxicSkullsClub",
     width: 150,
