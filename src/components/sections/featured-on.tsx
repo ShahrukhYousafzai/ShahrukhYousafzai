@@ -11,7 +11,7 @@ const featuredOn = [
     {
         name: "Editorialge",
         url: "https://editorialge.com/kite-flying-games/",
-        logo: "/Images/editorialge.gif",
+        logo: "/Images/editorialge.png",
         width: 180,
         height: 40,
     }
@@ -22,9 +22,8 @@ const FeaturedOnSection = () => {
         <section id="featured-on" className="py-12 bg-secondary/50">
             <div className="container">
                 <div className="flex flex-col items-center justify-center gap-6 text-center">
-                    <h3 className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">
-                        My game 'Basant Mela' has been featured on
-                    </h3>
+                    <h2 className="text-3xl font-bold font-headline sm:text-4xl">Featured On</h2>
+                    <p className="text-lg text-muted-foreground">'Basant Mela' Press Features</p>
                     <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-75">
                         {featuredOn.map((feature) => (
                              <a
