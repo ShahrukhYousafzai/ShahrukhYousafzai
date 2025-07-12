@@ -13,6 +13,17 @@ export const games = [
       category: 'Games',
     },
     {
+      title: 'Wrath of the Quest',
+      description: 'An innovative educational game inspired by "Among Us." Players on a spaceship collaborate to solve educational challenges. Note: This game is not yet available.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'educational space',
+      tags: ['Unity3D', 'Educational', 'Multiplayer', '2D', 'Single Player'],
+      link: 'https://play.google.com/store/apps/details?id=com.innersloth.spacemafia',
+      linkText: 'See Inspiration',
+      linkIcon: Play,
+      category: 'Games',
+    },
+    {
       title: 'CrabGrab',
       description: 'An engaging 2D game focused on environmental cleanup. Players control a crab to grab litter and clean up the ocean.',
       image: 'https://placehold.co/600x400.png',
