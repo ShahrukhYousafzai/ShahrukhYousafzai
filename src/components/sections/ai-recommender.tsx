@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { asBlob } from "html-to-docx";
+import { saveAs } from "file-saver";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter as TableFooterComponent } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -127,10 +127,11 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
 type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
+  onGddReadyForCosting: (gdd: GddGeneratorOutput) => void;
   triggerGeneration: boolean;
 };
 
-const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated, triggerGeneration }, ref) => {
+const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated, onGddReadyForCosting, triggerGeneration }, ref) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -158,6 +159,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
+      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -167,26 +169,36 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
   };
   
   const handleDownload = () => {
-    const input = gddContentRef.current;
-    if (!input || !gdd) return;
-    const isDarkMode = document.documentElement.classList.contains('dark');
+    const content = gddContentRef.current;
+    if (!content || !gdd) return;
 
-    html2canvas(input, {
-        scale: 2, 
-        useCORS: true, 
-        backgroundColor: isDarkMode ? '#18181B' : '#ffffff',
-    }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
-      const ratio = canvasWidth / canvasHeight;
-      const width = pdfWidth - 20; // with margin
-      const height = width / ratio;
+    const htmlString = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>${gdd.title} GDD</title>
+        <style>
+          body { font-family: Arial, sans-serif; font-size: 11pt; color: #333; }
+          h1, h2, h3, h4 { color: #000; }
+          h1 { font-size: 24pt; }
+          h2 { font-size: 18pt; }
+          h3 { font-size: 14pt; }
+          h4 { font-size: 12pt; font-weight: bold; }
+          p { white-space: pre-line; }
+        </style>
+      </head>
+      <body>
+        ${content.innerHTML}
+      </body>
+      </html>
+    `;
 
-      pdf.addImage(imgData, 'PNG', 10, 10, width, height);
-      pdf.save(`${gdd.title.replace(/ /g, '_')}_GDD.pdf`);
+    asBlob(htmlString, {
+      orientation: "portrait",
+      margins: { top: 720, right: 720, bottom: 720, left: 720 },
+    }).then((blob) => {
+      saveAs(blob as Blob, `${gdd.title.replace(/ /g, "_")}_GDD.docx`);
     });
   };
 
@@ -250,61 +262,63 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
       </CardContent>
       {gdd && (
          <CardFooter className="flex-col items-start gap-4 pt-4">
-          <div className="animate-in fade-in duration-500 w-full" ref={gddContentRef}>
-            <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
-              <CardHeader className="p-6">
-                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
-                  {gdd.title}
-                </CardTitle>
-                <CardDescription>{gdd.overview}</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                 <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="font-semibold text-lg">Gameplay</AccordionTrigger>
-                    <AccordionContent className="space-y-4 pt-4 px-2">
-                       <div>
-                          <h4 className="font-semibold">Core Mechanics</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.coreMechanics}</p>
-                       </div>
-                        <div>
-                          <h4 className="font-semibold">Game Loop</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.gameLoop}</p>
-                       </div>
-                        <div>
-                          <h4 className="font-semibold">Player Controls</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.playerControls}</p>
-                       </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger className="font-semibold text-lg">Target Audience</AccordionTrigger>
-                    <AccordionContent className="pt-4 px-2">
-                      <p className="text-muted-foreground whitespace-pre-line">{gdd.targetAudience}</p>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger className="font-semibold text-lg">Art Style & Monetization</AccordionTrigger>
-                     <AccordionContent className="space-y-4 pt-4 px-2">
-                       <div>
-                          <h4 className="font-semibold">Art Style</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">{gdd.artStyle}</p>
-                       </div>
-                        <div>
-                          <h4 className="font-semibold">Monetization Strategy</h4>
-                          <p className="text-muted-foreground whitespace-pre-line">{gdd.monetization}</p>
-                       </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
+          <div className="animate-in fade-in duration-500 w-full">
+            <div ref={gddContentRef}>
+                <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
+                  <CardHeader className="p-6">
+                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
+                      {gdd.title}
+                    </CardTitle>
+                    <CardDescription>{gdd.overview}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                     <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+                      <AccordionItem value="item-1">
+                        <AccordionTrigger className="font-semibold text-lg">Gameplay</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-4 px-2">
+                           <div>
+                              <h4 className="font-semibold">Core Mechanics</h4>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.coreMechanics}</p>
+                           </div>
+                            <div>
+                              <h4 className="font-semibold">Game Loop</h4>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.gameLoop}</p>
+                           </div>
+                            <div>
+                              <h4 className="font-semibold">Player Controls</h4>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.playerControls}</p>
+                           </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="item-2">
+                        <AccordionTrigger className="font-semibold text-lg">Target Audience</AccordionTrigger>
+                        <AccordionContent className="pt-4 px-2">
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.targetAudience}</p>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="item-3">
+                        <AccordionTrigger className="font-semibold text-lg">Art Style & Monetization</AccordionTrigger>
+                         <AccordionContent className="space-y-4 pt-4 px-2">
+                           <div>
+                              <h4 className="font-semibold">Art Style</h4>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.artStyle}</p>
+                           </div>
+                            <div>
+                              <h4 className="font-semibold">Monetization Strategy</h4>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.monetization}</p>
+                           </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </CardContent>
+                </Card>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full pt-4">
             <Button onClick={handleDownload} className="w-full">
-                <Download className="mr-2 h-4 w-4" /> Download GDD
+                <Download className="mr-2 h-4 w-4" /> Download as DOCX
             </Button>
-            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
+            <Button onClick={() => onGddReadyForCosting(gdd)} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -374,42 +388,47 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
   }
 
   const handleDownload = (type: 'quote' | 'milestones') => {
-    const input = type === 'quote' ? quoteContentRef.current : milestonesContentRef.current;
+    const contentRef = type === 'quote' ? quoteContentRef : milestonesContentRef;
     const data = type === 'quote' ? estimation : milestones;
-    const fileName = type === 'quote' 
-      ? `${(data as CostCalculatorOutput)?.quoteTitle.replace(/ /g, '_')}_Quote.pdf`
-      : 'Project_Milestones.pdf';
+    const title = type === 'quote' 
+      ? (data as CostCalculatorOutput)?.quoteTitle || 'Project_Quote'
+      : 'Project_Milestones';
     
-    if (!input || !data) return;
-    const isDarkMode = document.documentElement.classList.contains('dark');
+    const content = contentRef.current;
+    if (!content || !data) return;
 
-    html2canvas(input, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: isDarkMode ? '#18181B' : '#ffffff',
-    }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
-      const ratio = canvasWidth / canvasHeight;
-      const width = pdfWidth - 20; // with margin
-      let height = width / ratio;
-      const pageHeight = pdf.internal.pageSize.getHeight() - 20;
-      let position = 10;
-      
-      pdf.addImage(imgData, 'PNG', 10, position, width, height);
-      let remainingHeight = height - pageHeight;
+    const htmlString = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>${title}</title>
+        <style>
+          body { font-family: Arial, sans-serif; font-size: 11pt; color: #333; }
+          h1, h2, h3, h4 { color: #000; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          th { background-color: #f2f2f2; }
+          .font-semibold { font-weight: 600; }
+          .text-muted-foreground { color: #666; font-size: 9pt; }
+          .whitespace-pre-line { white-space: pre-line; }
+          .text-right { text-align: right; }
+          .font-bold { font-weight: bold; }
+          .text-primary { color: #FF6600; } /* Example color */
+          .disclaimer { font-size: 9pt; color: #666; margin-top: 16px; border: 1px solid #ddd; padding: 8px; border-radius: 4px; }
+        </style>
+      </head>
+      <body>
+        ${content.innerHTML}
+      </body>
+      </html>
+    `;
 
-      while (remainingHeight > 0) {
-        position -= pageHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 10, position, width, height);
-        remainingHeight -= pageHeight;
-      }
-      
-      pdf.save(fileName);
+    asBlob(htmlString, {
+      orientation: "portrait",
+      margins: { top: 720, right: 720, bottom: 720, left: 720 },
+    }).then((blob) => {
+      saveAs(blob as Blob, `${title.replace(/ /g, "_")}.docx`);
     });
   };
 
@@ -451,44 +470,46 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
       </CardContent>
       {estimation && (
         <CardFooter className="flex-col items-start gap-4 pt-4">
-          <div className="animate-in fade-in duration-500 w-full" ref={quoteContentRef}>
-            <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
-                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">
-                  {estimation.quoteTitle}
-                </CardTitle>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Module</TableHead>
-                            <TableHead className="text-right">Cost</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {estimation.items.map((item, index) => (
-                           <TableRow key={index}>
-                                <TableCell>
-                                    <p className="font-semibold">{item.name}</p>
-                                    <p className="text-muted-foreground text-xs whitespace-pre-line">{item.description}</p>
-                                </TableCell>
-                                <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
+          <div className="animate-in fade-in duration-500 w-full">
+            <div ref={quoteContentRef}>
+                <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">
+                      {estimation.quoteTitle}
+                    </CardTitle>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Module</TableHead>
+                                <TableHead className="text-right">Cost</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                    <TableFooterComponent>
-                        <TableRow className="text-lg">
-                            <TableCell className="font-bold">Total Estimated Cost</TableCell>
-                            <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
-                        </TableRow>
-                    </TableFooterComponent>
-                </Table>
-                 <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
-                    {estimation.disclaimer}
-                </p>
-            </Card>
+                        </TableHeader>
+                        <TableBody>
+                            {estimation.items.map((item, index) => (
+                               <TableRow key={index}>
+                                    <TableCell>
+                                        <p className="font-semibold">{item.name}</p>
+                                        <p className="text-muted-foreground text-xs whitespace-pre-line">{item.description}</p>
+                                    </TableCell>
+                                    <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                        <TableFooterComponent>
+                            <TableRow className="text-lg">
+                                <TableCell className="font-bold">Total Estimated Cost</TableCell>
+                                <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
+                            </TableRow>
+                        </TableFooterComponent>
+                    </Table>
+                     <p className="disclaimer text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
+                        {estimation.disclaimer}
+                    </p>
+                </Card>
+            </div>
           </div>
             <div className="w-full pt-4 flex flex-col sm:flex-row gap-2">
                 <Button onClick={() => handleDownload('quote')} className="w-full">
-                    <Download className="mr-2 h-4 w-4" /> Download Quote
+                    <Download className="mr-2 h-4 w-4" /> Download as DOCX
                 </Button>
                  <Button onClick={handleSplitMilestones} disabled={isSplitting} className="w-full">
                     {isSplitting ? (
@@ -503,39 +524,41 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
       )}
       {milestones && (
           <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
-            <div className="animate-in fade-in duration-500 w-full" ref={milestonesContentRef}>
-                 <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
-                     <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">
-                        Project Milestones
-                    </CardTitle>
-                    <Accordion type="single" collapsible className="w-full">
-                        {milestones.milestones.map((milestone, index) => (
-                             <AccordionItem value={`milestone-${index}`} key={index}>
-                                <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                                    <div className="flex justify-between w-full pr-4">
-                                        <span>{milestone.name}</span>
-                                        <span className="text-primary">${milestone.cost.toLocaleString()}</span>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent className="pt-2">
-                                     <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
-                                     <ul className="space-y-2 px-2">
-                                        {milestone.items.map((item, itemIndex) => (
-                                            <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
-                                                <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
-                                                <p className="text-muted-foreground text-xs">{item.description}</p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
-                    </Accordion>
-                </Card>
+            <div className="animate-in fade-in duration-500 w-full">
+                <div ref={milestonesContentRef}>
+                     <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                         <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">
+                            Project Milestones
+                        </CardTitle>
+                        <Accordion type="single" collapsible className="w-full">
+                            {milestones.milestones.map((milestone, index) => (
+                                 <AccordionItem value={`milestone-${index}`} key={index}>
+                                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
+                                        <div className="flex justify-between w-full pr-4">
+                                            <span>{milestone.name}</span>
+                                            <span className="text-primary">${milestone.cost.toLocaleString()}</span>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pt-2">
+                                         <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
+                                         <ul className="space-y-2 px-2">
+                                            {milestone.items.map((item, itemIndex) => (
+                                                <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
+                                                    <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
+                                                    <p className="text-muted-foreground text-xs">{item.description}</p>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    </Card>
+                </div>
             </div>
              <div className="w-full pt-4">
                 <Button onClick={() => handleDownload('milestones')} className="w-full">
-                    <Download className="mr-2 h-4 w-4" /> Download Milestones
+                    <Download className="mr-2 h-4 w-4" /> Download as DOCX
                 </Button>
             </div>
           </CardFooter>
@@ -549,7 +572,6 @@ const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
   const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
-  const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
   const [gddTrigger, setGddTrigger] = useState(false);
   const costCalculatorRef = useRef<CostCalculatorHandle>(null);
   const gddGeneratorRef = useRef<HTMLDivElement>(null);
@@ -562,7 +584,6 @@ const AiRecommender = () => {
   };
 
   const handleGddGenerated = (gdd: GddGeneratorOutput) => {
-    setGeneratedGdd(gdd);
     setGddTrigger(false); // Reset trigger
   };
   
@@ -619,6 +640,7 @@ Monetization: ${gdd.monetization}
                 ref={gddGeneratorRef}
                 initialIdea={ideaForGdd}
                 onGddGenerated={handleGddGenerated}
+                onGddReadyForCosting={handleCalculateCostForGdd}
                 triggerGeneration={gddTrigger}
               />
             </TabsContent>
@@ -633,5 +655,3 @@ Monetization: ${gdd.monetization}
 };
 
 export default AiRecommender;
-
-    
