@@ -151,7 +151,7 @@ export const projects = [
     category: 'Games',
   },
   {
-    title: 'Zord',
+    title: 'Zord RPG',
     description: 'An ambitious AAA quality game with mechanics and a vast world inspired by epic RPGs like Skyrim.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'fantasy rpg',
