@@ -25,8 +25,8 @@ export default function Home() {
         <PortfolioSection />
         <FeaturedOnSection />
         <WorkedWithSection />
-        <AiRecommender />
         <TestimonialsSection />
+        <AiRecommender />
         <ContactSection />
       </main>
       <Footer />
