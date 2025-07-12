@@ -96,7 +96,7 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
               <CardHeader>
                 <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
                   {recommendation.gameTitle}
-                </Title>
+                </CardTitle>
                 <CardDescription>{recommendation.description}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -158,7 +158,6 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
-      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -588,7 +587,7 @@ Monetization: ${gdd.monetization}
     
     setActiveTab("cost-calculator");
   };
-
+  
   const ideaForGdd = generatedIdea ? generatedIdea.description : "";
 
   return (
@@ -634,3 +633,5 @@ Monetization: ${gdd.monetization}
 };
 
 export default AiRecommender;
+
+    
