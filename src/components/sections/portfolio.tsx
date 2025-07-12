@@ -118,7 +118,7 @@ const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>})
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
         {paginatedProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -154,9 +154,15 @@ const PortfolioSection = () => {
           
           <TabsContent value="Games">
             <Tabs defaultValue="All" className="mt-8">
-              <TabsList className="flex flex-wrap h-auto justify-center">
+              <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
                 {gameCategories.map((category) => (
-                  <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
+                  <TabsTrigger 
+                    key={category} 
+                    value={category}
+                    className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
+                  >
+                    {category}
+                  </TabsTrigger>
                 ))}
               </TabsList>
               {gameCategories.map((gameCategory) => (
