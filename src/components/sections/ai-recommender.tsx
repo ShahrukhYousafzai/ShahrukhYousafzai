@@ -157,6 +157,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
+      setGeneratedGdd(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -168,7 +169,6 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   useEffect(() => {
     if (initialIdea) {
       setGameIdea(initialIdea);
-      // We don't auto-trigger here anymore. User needs to pick a platform.
     }
   }, [initialIdea]);
 
@@ -196,7 +196,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
       <CardContent>
         <form onSubmit={handleSubmit} className="grid w-full gap-4">
           <Input
-            placeholder="Enter your game concept..."
+            placeholder="Enter your game idea..."
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
             disabled={isLoading}
@@ -403,20 +403,17 @@ const CostCalculator = ({ initialGdd, setFinalCostIdea }: CostCalculatorProps) =
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
-  // State to pass data between components
   const [generatedIdea, setGeneratedIdea] = useState("");
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
   const [finalCostIdea, setFinalCostIdea] = useState("");
 
 
-  // Effect to switch to GDD tab when an idea is generated
   useEffect(() => {
     if (generatedIdea) {
       setActiveTab("gdd-generator");
     }
   }, [generatedIdea]);
 
-  // Effect to switch to Cost Calculator tab when a GDD is generated
   useEffect(() => {
     if (generatedGdd) {
       setActiveTab("cost-calculator");
