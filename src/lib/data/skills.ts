@@ -12,11 +12,11 @@ import {
   FileCode,
   Bot
 } from "lucide-react";
-import { IconUnity, IconVisualStudio, IconFigma, IconPhotoshop } from "@/components/icons";
+import { IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconCSharp } from "@/components/icons";
 
 export const skills = [
   { name: "Unity", icon: IconUnity },
-  { name: "C#", icon: Code },
+  { name: "C#", icon: IconCSharp },
   { name: "Game Development", icon: Gamepad2 },
   { name: "Game Design", icon: Brush },
   { name: "Android App Development", icon: Smartphone },
