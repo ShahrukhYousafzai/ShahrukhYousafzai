@@ -23,9 +23,9 @@ export default function Home() {
         <ServicesSection />
         <SkillsSection />
         <PortfolioSection />
-        <AiRecommender />
         <FeaturedOnSection />
         <WorkedWithSection />
+        <AiRecommender />
         <TestimonialsSection />
         <ContactSection />
       </main>
