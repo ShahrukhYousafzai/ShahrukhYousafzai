@@ -471,10 +471,10 @@ export const games = [
     },
     {
       title: 'Element Royale',
-      description: 'Welcome to Element Royale, the ultimate battle game where players must conquer their opponents using the power of the elements! Engage in intense player versus player combat, break through enemy defenses and earn more trophies as you progress through the ranks.',
+      description: 'Element Royale is a card game, like Clash Royale, Multiplayer, 3D',
       image: 'https://placehold.co/600x400.png',
-      aiHint: 'battle game',
-      tags: ['Unity3D', 'Battle Royale', 'Action', 'Multiplayer'],
+      aiHint: 'card game',
+      tags: ['Unity3D', 'Card Game', 'Multiplayer', '3D'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
