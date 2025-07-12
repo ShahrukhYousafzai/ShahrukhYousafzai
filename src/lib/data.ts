@@ -316,17 +316,6 @@ export const projects = [
     category: 'Games',
   },
   {
-    title: 'Casino Clash - Multiplayer',
-    description: 'A competitive multiplayer & offline card game where players aim to win by using cards of different colors and values.',
-    image: 'https://placehold.co/600x400.png',
-    aiHint: 'casino game',
-    tags: ['Unity3D', 'Card Game', 'Casino', 'Multiplayer', '2D'],
-    link: 'https://drive.google.com/file/d/1iWDQ_spIK8w3p53_94lfTg_A_n8WVmFs/view',
-    linkText: 'Download Now',
-    linkIcon: Download,
-    category: 'Games',
-  },
-  {
     title: 'Basant Mela',
     description: 'Realistic Kite Flying and Fighting Simulator. Reached #4 trending in sports on Google Play with 500K+ downloads.',
     image: 'https://placehold.co/600x400.png',
@@ -449,7 +438,7 @@ export const projects = [
   },
   {
     title: 'Efface AI Chatbot',
-    description: 'This AI chatbot features voice-to-text speech recognition, voice response, automated email notifications, custom branding with personalized logos, and customizable contact or link buttons for easy navigation and quick access.',
+    description: 'This AI chatbot features voice-to-text speech recognition for seamless, hands-free conversations and voice response capabilities for natural interaction. It includes automated email notifications for updates and confirmations, ensuring users stay informed.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'business chatbot',
     tags: ['AI', 'Chatbot', 'Voice Recognition', 'Branding'],
