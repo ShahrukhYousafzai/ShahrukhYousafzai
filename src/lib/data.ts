@@ -372,7 +372,7 @@ export const projects = [
   },
   {
     title: 'Merge Turret: Monster Defense',
-    description: 'An exhilarating blend of defense and merge gameplay! Brace yourself for an onslaught of relentless monsters aiming to breach your castle walls. Your mission: defend the fortress by strategically merging and upgrading your powerful turrets.',
+    description: 'An exhilarating blend of defense and merge gameplay! Defend your fortress by strategically merging and upgrading powerful turrets to combat waves of relentless monsters.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'tower defense',
     tags: ['Unity3D', 'Defense', 'Merge', 'Single Player', 'Strategy'],
@@ -415,8 +415,19 @@ export const projects = [
     category: 'Games',
   },
   {
+    title: 'Boosted!™ - An Original Card Game',
+    description: 'An original card game where players use skill, tactics, and special Booster Cards to be the first to get rid of all their playing cards. Features unique mechanics like calling "higher" or "lower" to outwit opponents.',
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'card game',
+    tags: ['Unity3D', 'Card Game', 'Casino', 'Multiplayer', 'Strategy'],
+    link: '#',
+    linkText: 'Learn More',
+    linkIcon: Play,
+    category: 'Games',
+  },
+  {
     title: 'Multi-Avatar AI 3D Chatbot',
-    description: 'Discover the future of interactive communication with our AI 3D Chatbot, featuring a diverse range of customizable avatars to suit your style! This cutting-edge chatbot offers Wikipedia integration, providing you instant access to a wealth of knowledge at your fingertips.',
+    description: 'Discover the future of interactive communication with our AI 3D Chatbot, featuring customizable avatars, Wikipedia integration, Text-to-Speech, and voice recognition for a truly conversational experience.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'ai chatbot',
     tags: ['AI', '3D', 'Chatbot', 'TTS', 'Voice Recognition'],
@@ -427,7 +438,7 @@ export const projects = [
   },
   {
     title: 'Interactive AI Chatbot App',
-    description: 'This innovative app allows the chatbot to remember your name and high scores, making each session personalized and engaging. The chatbot can listen and understand your preferences and you can interact with the friendly 3D chatbot through voice commands or by typing.',
+    description: 'An innovative app where a 3D chatbot remembers your name and high scores for a personalized experience. Interact via voice or text to influence the game world, like changing colors to match your favorite!',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'interactive chatbot',
     tags: ['AI', 'Chatbot', 'Personalization', 'Voice Recognition'],
@@ -438,7 +449,7 @@ export const projects = [
   },
   {
     title: 'Efface AI Chatbot',
-    description: 'This AI chatbot features voice-to-text speech recognition for seamless, hands-free conversations and voice response capabilities for natural interaction. It includes automated email notifications for updates and confirmations, ensuring users stay informed.',
+    description: 'A business-focused AI chatbot with voice-to-text, voice responses, automated email notifications, and full custom branding including logos, colors, and contact buttons for a seamless user experience.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'business chatbot',
     tags: ['AI', 'Chatbot', 'Voice Recognition', 'Branding'],
