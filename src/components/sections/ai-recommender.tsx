@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -127,11 +127,10 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
 type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
-  onCalculateCost: (gdd: GddGeneratorOutput) => void;
   triggerGeneration: boolean;
 };
 
-const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, triggerGeneration }: GddGeneratorProps) => {
+const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIdea, onGddGenerated, triggerGeneration }, ref) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -200,6 +199,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, triggerGen
     if (triggerGeneration && initialIdea && platform) {
       triggerGddGeneration(initialIdea, platform);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerGeneration, initialIdea, platform]);
 
 
@@ -305,7 +305,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, triggerGen
             <Button onClick={handleDownload} className="w-full">
                 <Download className="mr-2 h-4 w-4" /> Download GDD
             </Button>
-            <Button onClick={() => onCalculateCost(gdd)} className="w-full">
+            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -313,7 +313,8 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, triggerGen
       )}
     </Card>
   );
-};
+});
+GddGenerator.displayName = "GddGenerator";
 
 
 type CostCalculatorHandle = {
@@ -321,7 +322,7 @@ type CostCalculatorHandle = {
   setGameIdea: (idea: string) => void;
 };
 
-const CostCalculator = React.forwardRef<CostCalculatorHandle, {}>((props, ref) => {
+const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
   const [gameIdea, setGameIdea] = useState("");
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
   const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
@@ -352,7 +353,7 @@ const CostCalculator = React.forwardRef<CostCalculatorHandle, {}>((props, ref) =
     }
   };
 
-  React.useImperativeHandle(ref, () => ({
+  useImperativeHandle(ref, () => ({
     triggerCostCalculation,
     setGameIdea,
   }));
@@ -552,6 +553,7 @@ const AiRecommender = () => {
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
   const [gddTrigger, setGddTrigger] = useState(false);
   const costCalculatorRef = useRef<CostCalculatorHandle>(null);
+  const gddGeneratorRef = useRef<HTMLDivElement>(null);
 
   const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
     const ideaForGdd = `${idea.gameTitle}: ${idea.description}`;
@@ -615,9 +617,9 @@ Monetization: ${gdd.monetization}
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
+                ref={gddGeneratorRef}
                 initialIdea={ideaForGdd}
                 onGddGenerated={handleGddGenerated}
-                onCalculateCost={handleCalculateCostForGdd}
                 triggerGeneration={gddTrigger}
               />
             </TabsContent>
