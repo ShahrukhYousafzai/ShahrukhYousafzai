@@ -132,9 +132,11 @@ const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>})
 const PortfolioSection = () => {
   const categories = ["Games", "Apps", "Animations"];
   const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
-  
+  const appCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
+
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
   const gameProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Games' && (tag === 'All' || p.tags.includes(tag)));
+  const appProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Apps' && (tag === 'All' || p.tags.includes(tag)));
 
   return (
     <section id="portfolio" className="py-16 sm:py-24 bg-secondary">
@@ -174,7 +176,24 @@ const PortfolioSection = () => {
           </TabsContent>
 
           <TabsContent value="Apps">
-             <PaginatedProjects projects={projectsByCategory("Apps")} />
+             <Tabs defaultValue="All" className="mt-8">
+                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
+                  {appCategories.map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                {appCategories.map((appCategory) => (
+                  <TabsContent key={appCategory} value={appCategory}>
+                    <PaginatedProjects projects={appProjectsByTag(appCategory)} />
+                  </TabsContent>
+                ))}
+              </Tabs>
           </TabsContent>
 
           <TabsContent value="Animations">
