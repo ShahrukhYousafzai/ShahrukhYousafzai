@@ -3,6 +3,14 @@ import {
   Gamepad2,
   Brush,
   Cpu,
+  Globe,
+  Monitor,
+  Smartphone,
+  Server,
+  Palette,
+  Layout,
+  FileCode,
+  Bot
 } from "lucide-react";
 import { IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconAdobeXD } from "@/components/icons";
 
@@ -11,12 +19,16 @@ export const skills = [
   { name: "C#", icon: Code },
   { name: "Game Development", icon: Gamepad2 },
   { name: "Game Design", icon: Brush },
-  { name: "Android App Development", icon: Cpu },
-  { name: "iOS Development", icon: Cpu },
+  { name: "Android App Development", icon: Smartphone },
+  { name: "iOS Development", icon: Smartphone },
   { name: "Visual Studio", icon: IconVisualStudio },
   { name: "Figma", icon: IconFigma },
   { name: "Photoshop", icon: IconPhotoshop },
   { name: "Adobe XD", icon: IconAdobeXD },
+  { name: "HTML", icon: FileCode },
+  { name: "CSS", icon: Palette },
+  { name: "JavaScript", icon: Code },
+  { name: "Python", icon: Cpu },
 ];
 
 export const languages = ["English", "Urdu", "Hindi", "Punjabi"];
