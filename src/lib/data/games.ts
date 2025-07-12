@@ -2,6 +2,17 @@ import { Download, Play, Video } from "lucide-react";
 
 export const games = [
     {
+      title: 'Ultimate Cricket 24',
+      description: 'Experience the ultimate cricket gaming thrill with "Ultimate Cricket 24" - a realistic and immersive mobile cricket game with features like tournaments, premier leagues, test matches, and daily rewards.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'cricket game',
+      tags: ['Unity3D', 'Sports', '3D', 'Single Player', 'Simulation'],
+      link: 'https://play.google.com/store/apps/details?id=com.effacestudios.uc24',
+      linkText: 'Play Store',
+      linkIcon: Play,
+      category: 'Games',
+    },
+    {
       title: 'CrabGrab',
       description: 'An engaging 2D game focused on environmental cleanup. Players control a crab to grab litter and clean up the ocean.',
       image: 'https://placehold.co/600x400.png',
