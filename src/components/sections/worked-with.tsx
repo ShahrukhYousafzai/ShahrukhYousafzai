@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Globe, Twitter } from "lucide-react";
 
 const clients = [
   {
-    name: "RugDollz",
+    name: "RugDollz / RugLabz",
     logo: "/Images/worked-with/rugdollz.webp",
     website: "https://rugdollz.com/",
     x: "https://x.com/RugdollzNFT",
@@ -43,7 +43,7 @@ const WorkedWithSection = () => {
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {clients.map((client) => (
             <Card key={client.name} className="flex flex-col justify-between items-center text-center p-6 bg-secondary/50 transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
-              <CardContent className="flex-grow flex items-center justify-center">
+              <CardContent className="flex-grow flex items-center justify-center py-6">
                 <Image
                   src={client.logo}
                   alt={`${client.name} Logo`}
@@ -52,18 +52,21 @@ const WorkedWithSection = () => {
                   className="object-contain"
                 />
               </CardContent>
-              <CardFooter className="flex gap-4 p-0">
-                <Button variant="outline" asChild>
-                  <a href={client.website} target="_blank" rel="noopener noreferrer">
-                    <Globe className="mr-2 h-4 w-4" /> Website
-                  </a>
-                </Button>
-                <Button variant="outline" asChild>
-                  <a href={client.x} target="_blank" rel="noopener noreferrer">
-                    <Twitter className="mr-2 h-4 w-4" /> X Profile
-                  </a>
-                </Button>
-              </CardFooter>
+              <div className="w-full">
+                <h3 className="text-lg font-semibold font-headline mb-4">{client.name}</h3>
+                <CardFooter className="flex gap-4 p-0">
+                  <Button variant="outline" asChild className="w-full">
+                    <a href={client.website} target="_blank" rel="noopener noreferrer">
+                      <Globe className="mr-2 h-4 w-4" /> Website
+                    </a>
+                  </Button>
+                  <Button variant="outline" asChild className="w-full">
+                    <a href={client.x} target="_blank" rel="noopener noreferrer">
+                      <Twitter className="mr-2 h-4 w-4" /> X Profile
+                    </a>
+                  </Button>
+                </CardFooter>
+              </div>
             </Card>
           ))}
         </div>
