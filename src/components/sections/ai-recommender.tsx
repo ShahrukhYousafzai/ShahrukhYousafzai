@@ -159,6 +159,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGen
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
+      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -170,20 +171,12 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGen
   const handleDownload = () => {
     const input = gddContentRef.current;
     if (!input || !gdd) return;
+    const isDarkMode = document.documentElement.classList.contains('dark');
 
     html2canvas(input, {
         scale: 2, 
         useCORS: true, 
-        backgroundColor: document.documentElement.classList.contains('dark') ? '#18181B' : '#ffffff',
-        onclone: (document) => {
-            // Un-collapse accordion for PDF rendering
-            document.querySelectorAll('[data-state="closed"]').forEach(el => {
-                const trigger = el.querySelector('[aria-expanded="false"]');
-                const content = el.querySelector('[data-state="closed"]');
-                if (trigger) trigger.setAttribute('data-state', 'open');
-                if (content) content.setAttribute('data-state', 'open');
-            });
-        }
+        backgroundColor: isDarkMode ? '#18181B' : '#ffffff',
     }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -380,13 +373,14 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
     const fileName = type === 'quote' 
       ? `${(data as CostCalculatorOutput)?.quoteTitle.replace(/ /g, '_')}_Quote.pdf`
       : 'Project_Milestones.pdf';
-
+    
     if (!input || !data) return;
+    const isDarkMode = document.documentElement.classList.contains('dark');
 
     html2canvas(input, {
       scale: 2,
       useCORS: true,
-      backgroundColor: document.documentElement.classList.contains('dark') ? '#18181B' : '#ffffff',
+      backgroundColor: isDarkMode ? '#18181B' : '#ffffff',
     }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -426,8 +420,9 @@ Target Audience: ${initialGdd.targetAudience}
 Art Style: ${initialGdd.artStyle}
 Monetization: ${initialGdd.monetization}
       `;
-      setGameIdea(ideaFromGdd.trim());
-      triggerCostCalculation(ideaFromGdd.trim());
+      const trimmedIdea = ideaFromGdd.trim();
+      setGameIdea(trimmedIdea);
+      triggerCostCalculation(trimmedIdea);
     }
   }, [initialGdd]);
 
@@ -486,7 +481,7 @@ Monetization: ${initialGdd.monetization}
                            <TableRow key={index}>
                                 <TableCell>
                                     <p className="font-semibold">{item.name}</p>
-                                    <p className="text-muted-foreground text-xs">{item.description}</p>
+                                    <p className="text-muted-foreground text-xs whitespace-pre-line">{item.description}</p>
                                 </TableCell>
                                 <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
                             </TableRow>
