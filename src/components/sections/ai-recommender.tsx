@@ -12,8 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
-import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
-import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download } from "lucide-react";
+import { calculateCost } from "@/ai/flows/cost-calculator";
+import { splitIntoMilestones, type MilestoneSplitterOutput, type CostCalculatorOutput } from "@/ai/flows/milestone-splitter";
+import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -239,7 +240,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGen
             </Select>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading || !platform} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || !platform || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -328,10 +329,12 @@ type CostCalculatorProps = {
 const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
+  const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSplitting, setIsSplitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const quoteContentRef = useRef<HTMLDivElement>(null);
-
+  const milestonesContentRef = useRef<HTMLDivElement>(null);
 
   const triggerCostCalculation = async (idea: string) => {
     if (!idea.trim()) {
@@ -341,6 +344,7 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
     setIsLoading(true);
     setError(null);
     setEstimation(null);
+    setMilestones(null);
     onGenerationStart();
 
     try {
@@ -353,10 +357,31 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
       setIsLoading(false);
     }
   };
+  
+  const handleSplitMilestones = async () => {
+    if (!estimation) return;
+    
+    setIsSplitting(true);
+    setMilestones(null);
+    try {
+      const result = await splitIntoMilestones(estimation);
+      setMilestones(result);
+    } catch (err) {
+       setError("Sorry, something went wrong while splitting milestones. Please try again later.");
+       console.error(err);
+    } finally {
+      setIsSplitting(false);
+    }
+  }
 
-  const handleDownload = () => {
-    const input = quoteContentRef.current;
-    if (!input || !estimation) return;
+  const handleDownload = (type: 'quote' | 'milestones') => {
+    const input = type === 'quote' ? quoteContentRef.current : milestonesContentRef.current;
+    const data = type === 'quote' ? estimation : milestones;
+    const fileName = type === 'quote' 
+      ? `${(data as CostCalculatorOutput)?.quoteTitle.replace(/ /g, '_')}_Quote.pdf`
+      : 'Project_Milestones.pdf';
+
+    if (!input || !data) return;
 
     html2canvas(input, {
       scale: 2,
@@ -373,21 +398,18 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
       let height = width / ratio;
       const pageHeight = pdf.internal.pageSize.getHeight() - 20;
       let position = 10;
+      
+      pdf.addImage(imgData, 'PNG', 10, position, width, height);
+      let remainingHeight = height - pageHeight;
 
-      if (height > pageHeight) {
+      while (remainingHeight > 0) {
+        position -= pageHeight;
+        pdf.addPage();
         pdf.addImage(imgData, 'PNG', 10, position, width, height);
-        height -= pageHeight;
-        while (height > 0) {
-            position = -height - 10;
-            pdf.addPage();
-            pdf.addImage(imgData, 'PNG', 10, position, width, height);
-            height -= pageHeight;
-        }
-      } else {
-        pdf.addImage(imgData, 'PNG', 10, position, width, height);
+        remainingHeight -= pageHeight;
       }
       
-      pdf.save(`${estimation.quoteTitle.replace(/ /g, '_')}_Quote.pdf`);
+      pdf.save(fileName);
     });
   };
 
@@ -427,10 +449,10 @@ Monetization: ${initialGdd.monetization}
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
             rows={6}
-            disabled={isLoading}
+            disabled={isLoading || isSplitting}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || isSplitting || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -482,12 +504,59 @@ Monetization: ${initialGdd.monetization}
                 </p>
             </Card>
           </div>
-            <div className="w-full pt-4">
-                <Button onClick={handleDownload} className="w-full">
+            <div className="w-full pt-4 flex flex-col sm:flex-row gap-2">
+                <Button onClick={() => handleDownload('quote')} className="w-full">
                     <Download className="mr-2 h-4 w-4" /> Download Quote
+                </Button>
+                 <Button onClick={handleSplitMilestones} disabled={isSplitting} className="w-full">
+                    {isSplitting ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Milestone className="mr-2 h-4 w-4" />
+                    )}
+                    Split into Milestones
                 </Button>
             </div>
         </CardFooter>
+      )}
+      {milestones && (
+          <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
+            <div className="animate-in fade-in duration-500 w-full" ref={milestonesContentRef}>
+                 <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                     <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">
+                        Project Milestones
+                    </CardTitle>
+                    <Accordion type="single" collapsible className="w-full">
+                        {milestones.milestones.map((milestone, index) => (
+                             <AccordionItem value={`milestone-${index}`} key={index}>
+                                <AccordionTrigger className="font-semibold text-lg hover:no-underline">
+                                    <div className="flex justify-between w-full pr-4">
+                                        <span>{milestone.name}</span>
+                                        <span className="text-primary">${milestone.cost.toLocaleString()}</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="pt-2">
+                                     <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
+                                     <ul className="space-y-2 px-2">
+                                        {milestone.items.map((item, itemIndex) => (
+                                            <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
+                                                <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
+                                                <p className="text-muted-foreground text-xs">{item.description}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </AccordionContent>
+                            </AccordionItem>
+                        ))}
+                    </Accordion>
+                </Card>
+            </div>
+             <div className="w-full pt-4">
+                <Button onClick={() => handleDownload('milestones')} className="w-full">
+                    <Download className="mr-2 h-4 w-4" /> Download Milestones
+                </Button>
+            </div>
+          </CardFooter>
       )}
     </Card>
   );
