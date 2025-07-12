@@ -15,7 +15,7 @@ const clients = [
   {
     name: "Solar Studios",
     logo: "/Images/worked-with/SolarStudios.png",
-    website: "https://solarstudios.co/",
+    website: "https://solarstudios.co",
     x: "https://x.com/solar_dex",
     width: 180,
     height: 50,
