@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
 import { calculateCost, type CostCalculatorOutput } from "@/ai/flows/cost-calculator";
-import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight } from "lucide-react";
+import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -18,11 +20,7 @@ const portfolioDescription = `${about.description} Key projects include: ${proje
 
 type AiToolTab = "game-idea" | "gdd-generator" | "cost-calculator";
 
-type GameIdeaGeneratorProps = {
-  setGeneratedIdea: (idea: string) => void;
-};
-
-const GameIdeaGenerator = ({ setGeneratedIdea }: GameIdeaGeneratorProps) => {
+const GameIdeaGenerator = ({ setGeneratedIdea }: { setGeneratedIdea: (idea: string) => void }) => {
   const [preferences, setPreferences] = useState("");
   const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -127,15 +125,16 @@ const GameIdeaGenerator = ({ setGeneratedIdea }: GameIdeaGeneratorProps) => {
 
 type GddGeneratorProps = {
   initialIdea: string;
-  setGeneratedGdd: (gdd: GddGeneratorOutput) => void;
+  onGddGenerated: (gdd: GddGeneratorOutput) => void;
 };
 
-const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
-  const [gameIdea, setGameIdea] = useState(initialIdea);
+const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
+  const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const gddContentRef = useRef<HTMLDivElement>(null);
 
   const triggerGddGeneration = async (idea: string, plat: string) => {
     if (!idea.trim()) {
@@ -157,7 +156,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
-      setGeneratedGdd(result);
+      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -165,10 +164,39 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
       setIsLoading(false);
     }
   };
+  
+  const handleDownload = () => {
+    const input = gddContentRef.current;
+    if (!input || !gdd) return;
+
+    html2canvas(input, {
+        scale: 2, 
+        useCORS: true, 
+        backgroundColor: document.documentElement.classList.contains('dark') ? '#0a0a0a' : '#ffffff',
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const ratio = canvasWidth / canvasHeight;
+      const width = pdfWidth - 20; // with margin
+      const height = width / ratio;
+
+      let position = 10;
+      pdf.addImage(imgData, 'PNG', 10, position, width, height);
+      
+      pdf.save(`${gdd.title.replace(/ /g, '_')}_GDD.pdf`);
+    });
+  };
 
   useEffect(() => {
     if (initialIdea) {
       setGameIdea(initialIdea);
+      if (platform) {
+        triggerGddGeneration(initialIdea, platform);
+      }
     }
   }, [initialIdea]);
 
@@ -179,13 +207,6 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   };
   
   const platforms = ["Web", "Windows", "Mac", "Android", "iOS", "Desktop (All)", "Mobile (All)", "Cross-Platform (All)"];
-
-  const handleGenerateCost = () => {
-    if (gdd) {
-      setGeneratedGdd(gdd);
-    }
-  };
-
 
   return (
      <Card>
@@ -228,7 +249,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
       </CardContent>
       {gdd && (
          <CardFooter className="flex-col items-start gap-4 pt-4">
-          <div className="animate-in fade-in duration-500 w-full">
+          <div className="animate-in fade-in duration-500 w-full" ref={gddContentRef}>
             <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
               <CardHeader>
                 <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
@@ -276,12 +297,15 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
                   </AccordionItem>
                 </Accordion>
               </CardContent>
-              <CardFooter>
-                 <Button onClick={handleGenerateCost} className="w-full">
-                   Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
-                 </Button>
-              </CardFooter>
             </Card>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 w-full pt-4">
+            <Button onClick={handleDownload} className="w-full">
+                <Download className="mr-2 h-4 w-4" /> Download GDD
+            </Button>
+            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
+              Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </CardFooter>
       )}
@@ -291,10 +315,9 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
 
 type CostCalculatorProps = {
   initialGdd: GddGeneratorOutput | null;
-  setFinalCostIdea: (idea: string) => void;
 };
 
-const CostCalculator = ({ initialGdd, setFinalCostIdea }: CostCalculatorProps) => {
+const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -332,10 +355,6 @@ const CostCalculator = ({ initialGdd, setFinalCostIdea }: CostCalculatorProps) =
     e.preventDefault();
     triggerCostCalculation(gameIdea);
   };
-  
-  useEffect(() => {
-    setFinalCostIdea(gameIdea);
-  }, [gameIdea]);
 
   return (
     <Card>
@@ -405,20 +424,17 @@ const AiRecommender = () => {
   
   const [generatedIdea, setGeneratedIdea] = useState("");
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
-  const [finalCostIdea, setFinalCostIdea] = useState("");
 
 
-  useEffect(() => {
-    if (generatedIdea) {
-      setActiveTab("gdd-generator");
-    }
-  }, [generatedIdea]);
+  const handleGeneratedIdea = (idea: string) => {
+    setGeneratedIdea(idea);
+    setActiveTab("gdd-generator");
+  };
 
-  useEffect(() => {
-    if (generatedGdd) {
-      setActiveTab("cost-calculator");
-    }
-  }, [generatedGdd]);
+  const handleGddGenerated = (gdd: GddGeneratorOutput) => {
+    setGeneratedGdd(gdd);
+    setActiveTab("cost-calculator");
+  };
 
   return (
     <section id="ai-recommender" className="py-16 sm:py-24 relative overflow-hidden">
@@ -442,18 +458,17 @@ const AiRecommender = () => {
               <TabsTrigger value="cost-calculator"><DollarSign className="mr-2"/>Cost Calculator</TabsTrigger>
             </TabsList>
             <TabsContent value="game-idea" className="mt-6">
-              <GameIdeaGenerator setGeneratedIdea={setGeneratedIdea} />
+              <GameIdeaGenerator setGeneratedIdea={handleGeneratedIdea} />
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
                 initialIdea={generatedIdea}
-                setGeneratedGdd={setGeneratedGdd}
+                onGddGenerated={handleGddGenerated}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
               <CostCalculator 
                 initialGdd={generatedGdd}
-                setFinalCostIdea={setFinalCostIdea}
               />
             </TabsContent>
           </Tabs>
