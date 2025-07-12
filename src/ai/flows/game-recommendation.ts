@@ -39,14 +39,19 @@ const prompt = ai.definePrompt({
   name: 'gameRecommendationPrompt',
   input: {schema: GameRecommendationInputSchema},
   output: {schema: GameRecommendationOutputSchema},
-  prompt: `You are an AI game recommender. A user is visiting a game developer's portfolio and wants a personalized game recommendation.
+  prompt: `You are a creative AI game designer. Your task is to generate a *new and original* game concept for a user visiting a game developer's portfolio.
 
-Based on the user's stated preferences and the game developer's portfolio, suggest a game that the user might be interested in hiring the developer to create or further develop.
+First, analyze the developer's portfolio to understand their skills, experience, and the types of games they build (e.g., 3D vs 2D, multiplayer, specific genres like RPG, sports, etc.).
+Then, consider the user's preferences.
+
+Your goal is to synthesize this information to invent a *novel game idea* that aligns with both the user's interests and the developer's capabilities.
+
+**IMPORTANT RULE:** Do NOT simply suggest a clone or a reskin of a game already in the developer's portfolio. The idea must be a fresh concept.
 
 User Preferences: {{{userPreferences}}}
-Portfolio Description: {{{portfolioDescription}}}
+Developer's Portfolio and Skills: {{{portfolioDescription}}}
 
-Your recommendation should be a single, well-defined game concept, and you should clearly explain your reasoning.`,
+Your output should be a single, well-defined game concept. In your reasoning, explain how the new game idea leverages the developer's demonstrated skills and fits the user's preferences.`,
 });
 
 const recommendGameFlow = ai.defineFlow(
