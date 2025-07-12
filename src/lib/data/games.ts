@@ -158,7 +158,7 @@ export const games = [
       platform: 'Web3',
     },
     {
-      title: 'Solar Clicker: Click to Earn',
+      title: 'Solar Clicker',
       description: 'A simple clicker game that increases the tap count and stores user taps in a leaderboard, with database implementation inspired by trending clicker crypto games.',
       image: 'https://placehold.co/600x400.png',
       aiHint: 'clicker game',
@@ -494,4 +494,5 @@ export const games = [
       platform: 'Web2',
     },
 ];
+
 
