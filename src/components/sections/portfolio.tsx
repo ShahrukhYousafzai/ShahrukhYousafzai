@@ -1,9 +1,15 @@
+"use client";
+
+import React, { useState } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { projects } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
+
+const PROJECTS_PER_PAGE = 6;
 
 const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
   <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
@@ -39,11 +45,96 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
   </Card>
 );
 
+const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+
+  const paginatedProjects = projects.slice(
+    (currentPage - 1) * PROJECTS_PER_PAGE,
+    currentPage * PROJECTS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const renderPagination = () => {
+    if (totalPages <= 1) return null;
+
+    const pageNumbers = [];
+    const maxPagesToShow = 5;
+    const halfMaxPages = Math.floor(maxPagesToShow / 2);
+    
+    let startPage = Math.max(1, currentPage - halfMaxPages);
+    let endPage = Math.min(totalPages, currentPage + halfMaxPages);
+
+    if (currentPage - halfMaxPages < 1) {
+      endPage = Math.min(totalPages, maxPagesToShow);
+    }
+    if (currentPage + halfMaxPages > totalPages) {
+      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
+    }
+
+    if (startPage > 1) {
+      pageNumbers.push(<PaginationItem key="1"><PaginationLink onClick={() => handlePageChange(1)}>1</PaginationLink></PaginationItem>);
+      if (startPage > 2) {
+        pageNumbers.push(<PaginationItem key="start-ellipsis"><PaginationEllipsis /></PaginationItem>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <PaginationItem key={i}>
+          <PaginationLink isActive={i === currentPage} onClick={() => handlePageChange(i)}>
+            {i}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push(<PaginationItem key="end-ellipsis"><PaginationEllipsis /></PaginationItem>);
+      }
+      pageNumbers.push(<PaginationItem key={totalPages}><PaginationLink onClick={() => handlePageChange(totalPages)}>{totalPages}</PaginationLink></PaginationItem>);
+    }
+
+    return (
+       <Pagination className="mt-8">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
+          </PaginationItem>
+          {pageNumbers}
+          <PaginationItem>
+            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  };
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {paginatedProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </div>
+      {renderPagination()}
+    </>
+  );
+};
+
 
 const PortfolioSection = () => {
   const categories = ["Games", "Apps", "Animations"];
   const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting"];
-  const gameProjects = projects.filter(p => p.category === 'Games');
+  
+  const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
+  const gameProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Games' && (tag === 'All' || p.tags.includes(tag)));
 
   return (
     <section id="portfolio" className="py-16 sm:py-24 bg-secondary">
@@ -70,32 +161,18 @@ const PortfolioSection = () => {
               </TabsList>
               {gameCategories.map((gameCategory) => (
                 <TabsContent key={gameCategory} value={gameCategory}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                    {gameProjects
-                      .filter(p => gameCategory === 'All' || p.tags.includes(gameCategory))
-                      .map((project) => (
-                        <ProjectCard key={project.title} project={project} />
-                      ))}
-                  </div>
+                  <PaginatedProjects projects={gameProjectsByTag(gameCategory)} />
                 </TabsContent>
               ))}
             </Tabs>
           </TabsContent>
 
           <TabsContent value="Apps">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-              {projects.filter(p => p.category === "Apps").map((project) => (
-                 <ProjectCard key={project.title} project={project} />
-              ))}
-            </div>
+             <PaginatedProjects projects={projectsByCategory("Apps")} />
           </TabsContent>
 
           <TabsContent value="Animations">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-              {projects.filter(p => p.category === "Animations").map((project) => (
-                 <ProjectCard key={project.title} project={project} />
-              ))}
-            </div>
+             <PaginatedProjects projects={projectsByCategory("Animations")} />
           </TabsContent>
         </Tabs>
       </div>
