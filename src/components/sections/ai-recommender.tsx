@@ -18,6 +18,7 @@ import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Downlo
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { generateDocx } from "@/app/actions";
+import React from 'react';
 
 const portfolioDescription = `${about.description} Key projects include: ${projects.map(p => p.title).join(", ")}.`;
 
@@ -99,19 +100,7 @@ const GameIdeaGenerator = ({
   );
 };
 
-const GddGenerator = ({
-  gdd,
-  isLoading,
-  error,
-  isDownloading,
-  onSubmit,
-  onDownload,
-  onCalculateCost,
-  gameIdea,
-  setGameIdea,
-  platform,
-  setPlatform,
-}: {
+const GddGenerator = React.forwardRef<HTMLDivElement, {
   gdd: GddGeneratorOutput | null;
   isLoading: boolean;
   error: string | null;
@@ -123,8 +112,19 @@ const GddGenerator = ({
   setGameIdea: (value: string) => void;
   platform: string;
   setPlatform: (value: string) => void;
-}) => {
-  const gddContentRef = useRef<HTMLDivElement>(null);
+}>(({
+  gdd,
+  isLoading,
+  error,
+  isDownloading,
+  onSubmit,
+  onDownload,
+  onCalculateCost,
+  gameIdea,
+  setGameIdea,
+  platform,
+  setPlatform,
+}, ref) => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,7 +165,7 @@ const GddGenerator = ({
       {gdd && (
          <CardFooter className="flex-col items-start gap-4 pt-4">
           <div className="animate-in fade-in duration-500 w-full">
-            <div ref={gddContentRef}>
+            <div ref={ref}>
                 <Card className="bg-card text-card-foreground p-4">
                   <CardHeader className="p-2">
                     <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">{gdd.title}</CardTitle>
@@ -227,22 +227,11 @@ const GddGenerator = ({
       )}
     </Card>
   );
-};
+});
+GddGenerator.displayName = "GddGenerator";
 
-const CostCalculator = ({
-    estimation,
-    milestones,
-    isLoading,
-    isSplitting,
-    isDownloading,
-    error,
-    onSubmit,
-    onSplit,
-    onDownloadQuote,
-    onDownloadMilestones,
-    gameIdea,
-    setGameIdea,
-}: {
+
+const CostCalculator = React.forwardRef<HTMLDivElement, {
     estimation: CostCalculatorOutput | null;
     milestones: MilestoneSplitterOutput | null;
     isLoading: boolean;
@@ -255,14 +244,40 @@ const CostCalculator = ({
     onDownloadMilestones: () => void;
     gameIdea: string;
     setGameIdea: (value: string) => void;
-}) => {
-  const quoteContentRef = useRef<HTMLDivElement>(null);
-  const milestonesContentRef = useRef<HTMLDivElement>(null);
+}>(({
+    estimation,
+    milestones,
+    isLoading,
+    isSplitting,
+    isDownloading,
+    error,
+    onSubmit,
+    onSplit,
+    onDownloadQuote,
+    onDownloadMilestones,
+    gameIdea,
+    setGameIdea,
+}, ref) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(gameIdea);
   };
+  
+  // Use React.useImperativeHandle to expose a ref for the content
+  const quoteContentRef = useRef<HTMLDivElement>(null);
+  const milestonesContentRef = useRef<HTMLDivElement>(null);
+
+  React.useImperativeHandle(ref, () => ({
+    // This is a bit of a trick to handle multiple refs. We're only using one at a time for downloads.
+    get quoteNode() {
+      return quoteContentRef.current;
+    },
+    get milestonesNode() {
+      return milestonesContentRef.current;
+    },
+    ...({} as HTMLDivElement) // Satisfy the type
+  }));
 
   return (
     <Card>
@@ -374,7 +389,8 @@ const CostCalculator = ({
       )}
     </Card>
   );
-};
+});
+CostCalculator.displayName = "CostCalculator";
 
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
@@ -395,8 +411,8 @@ const AiRecommender = () => {
   const [costCalculatorIdea, setCostCalculatorIdea] = useState("");
 
   const gddContentRef = useRef<HTMLDivElement>(null);
-  const quoteContentRef = useRef<HTMLDivElement>(null);
-  const milestonesContentRef = useRef<HTMLDivElement>(null);
+  const costCalculatorRef = useRef<any>(null);
+
 
   const handleGenerateIdea = async (preferences: string) => {
     if (!preferences.trim()) {
@@ -497,11 +513,11 @@ const AiRecommender = () => {
             title = gdd?.title || "GDD";
             break;
         case 'quote':
-            contentEl = quoteContentRef.current;
+            contentEl = costCalculatorRef.current?.quoteNode;
             title = estimation?.quoteTitle || "Quote";
             break;
         case 'milestones':
-            contentEl = milestonesContentRef.current;
+            contentEl = costCalculatorRef.current?.milestonesNode;
             title = "Project_Milestones";
             break;
     }
@@ -564,6 +580,7 @@ const AiRecommender = () => {
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
+                ref={gddContentRef}
                 gdd={gdd}
                 isLoading={isLoading}
                 isDownloading={isDownloading}
@@ -579,6 +596,7 @@ const AiRecommender = () => {
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
               <CostCalculator
+                 ref={costCalculatorRef}
                  estimation={estimation}
                  milestones={milestones}
                  isLoading={isLoading}
@@ -601,5 +619,3 @@ const AiRecommender = () => {
 };
 
 export default AiRecommender;
-
-    
