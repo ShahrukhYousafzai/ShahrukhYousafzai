@@ -9,8 +9,12 @@ export const IconVisualStudio = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export const IconFigma = (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M15 12a3 3 0 01-3 3h-3v-3a3 3 0 013-3h3zm-3-6a3 3 0 000 6h3V9a3 3 0 00-3-3zm-3 3a3 3 0 00-3-3v6h3a3 3 0 000-6zm6 3a3 3 0 003-3h-3v3zm-3 6a3 3 0 000-6H9v3a3 3 0 003 3z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 129" fill="currentColor" {...props}>
+        <path d="M45.5 129c11.9 0 21.5-9.6 21.5-21.5V86H45.5C33.6 86 24 95.6 24 107.5S33.6 129 45.5 129z"/>
+        <path d="M24 64.5C24 52.6 33.6 43 45.5 43H67v43H45.5C33.6 86 24 76.4 24 64.5z"/>
+        <path d="M24 21.5C24 9.6 33.6 0 45.5 0H67v43H45.5C33.6 43 24 33.4 24 21.5z"/>
+        <path d="M67 0h21.5C100.4 0 110 9.6 110 21.5S100.4 43 88.5 43H67z"/>
+        <path d="M110 64.5c0 11.9-9.6 21.5-21.5 21.5S67 76.4 67 64.5 76.6 43 88.5 43 110 52.6 110 64.5z"/>
     </svg>
 );
 
