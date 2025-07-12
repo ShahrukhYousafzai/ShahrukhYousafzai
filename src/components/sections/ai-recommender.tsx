@@ -96,7 +96,7 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
               <CardHeader>
                 <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
                   {recommendation.gameTitle}
-                </CardTitle>
+                </Title>
                 <CardDescription>{recommendation.description}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -128,10 +128,10 @@ type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
   onCalculateCost: (gdd: GddGeneratorOutput) => void;
-  onGenerationStart: () => void;
+  triggerGeneration: boolean;
 };
 
-const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, onGenerationStart }: GddGeneratorProps) => {
+const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, triggerGeneration }: GddGeneratorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -151,7 +151,6 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, onGenerati
     setIsLoading(true);
     setError(null);
     setGdd(null);
-    onGenerationStart();
 
     try {
       const result = await generateGdd({
@@ -194,13 +193,14 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, onGenerati
   };
 
   useEffect(() => {
-    if (initialIdea) {
-      setGameIdea(initialIdea);
-      if (platform) {
-        triggerGddGeneration(initialIdea, platform);
-      }
-    }
+    setGameIdea(initialIdea);
   }, [initialIdea]);
+  
+  useEffect(() => {
+    if (triggerGeneration && initialIdea && platform) {
+      triggerGddGeneration(initialIdea, platform);
+    }
+  }, [triggerGeneration, initialIdea, platform]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -315,12 +315,13 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, onGenerati
   );
 };
 
-type CostCalculatorProps = {
-  initialGdd: GddGeneratorOutput | null;
-  onGenerationStart: () => void;
+
+type CostCalculatorHandle = {
+  triggerCostCalculation: (idea: string) => Promise<void>;
+  setGameIdea: (idea: string) => void;
 };
 
-const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) => {
+const CostCalculator = React.forwardRef<CostCalculatorHandle, {}>((props, ref) => {
   const [gameIdea, setGameIdea] = useState("");
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
   const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
@@ -339,7 +340,6 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
     setError(null);
     setEstimation(null);
     setMilestones(null);
-    onGenerationStart();
 
     try {
       const result = await calculateCost({ gameIdea: idea });
@@ -351,6 +351,11 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
       setIsLoading(false);
     }
   };
+
+  React.useImperativeHandle(ref, () => ({
+    triggerCostCalculation,
+    setGameIdea,
+  }));
   
   const handleSplitMilestones = async () => {
     if (!estimation) return;
@@ -407,25 +412,6 @@ const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) 
       pdf.save(fileName);
     });
   };
-
-  useEffect(() => {
-    if (initialGdd) {
-      const ideaFromGdd = `
-Title: ${initialGdd.title}
-Overview: ${initialGdd.overview}
-Platform: ${initialGdd.gameplay.playerControls}
-Core Mechanics: ${initialGdd.gameplay.coreMechanics}
-Game Loop: ${initialGdd.gameplay.gameLoop}
-Player Controls: ${initialGdd.gameplay.playerControls}
-Target Audience: ${initialGdd.targetAudience}
-Art Style: ${initialGdd.artStyle}
-Monetization: ${initialGdd.monetization}
-      `;
-      const trimmedIdea = ideaFromGdd.trim();
-      setGameIdea(trimmedIdea);
-      triggerCostCalculation(trimmedIdea);
-    }
-  }, [initialGdd]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -556,42 +542,52 @@ Monetization: ${initialGdd.monetization}
       )}
     </Card>
   );
-};
+});
+CostCalculator.displayName = "CostCalculator";
 
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
   const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
-  const [generatedGddForCosting, setGeneratedGddForCosting] = useState<GddGeneratorOutput | null>(null);
-
+  const [gddTrigger, setGddTrigger] = useState(false);
+  const costCalculatorRef = useRef<CostCalculatorHandle>(null);
 
   const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
-    setGeneratedIdea(idea);
+    const ideaForGdd = `${idea.gameTitle}: ${idea.description}`;
+    setGeneratedIdea({ ...idea, description: ideaForGdd });
     setActiveTab("gdd-generator");
+    setGddTrigger(true); // Automatically trigger GDD generation
   };
 
   const handleGddGenerated = (gdd: GddGeneratorOutput) => {
     setGeneratedGdd(gdd);
+    setGddTrigger(false); // Reset trigger
   };
   
   const handleCalculateCostForGdd = (gdd: GddGeneratorOutput) => {
-    setGeneratedGddForCosting(gdd);
+    const ideaFromGdd = `
+Title: ${gdd.title}
+Overview: ${gdd.overview}
+Platform: ${gdd.gameplay.playerControls}
+Core Mechanics: ${gdd.gameplay.coreMechanics}
+Game Loop: ${gdd.gameplay.gameLoop}
+Player Controls: ${gdd.gameplay.playerControls}
+Target Audience: ${gdd.targetAudience}
+Art Style: ${gdd.artStyle}
+Monetization: ${gdd.monetization}
+      `;
+    const trimmedIdea = ideaFromGdd.trim();
+    
+    if (costCalculatorRef.current) {
+      costCalculatorRef.current.setGameIdea(trimmedIdea);
+      costCalculatorRef.current.triggerCostCalculation(trimmedIdea);
+    }
+    
     setActiveTab("cost-calculator");
   };
 
-  const handleGenerationStart = () => {
-    // This function can be used to clear previous results if needed
-    if (activeTab === 'gdd-generator') {
-      setGeneratedGdd(null);
-      setGeneratedGddForCosting(null);
-    }
-    if (activeTab === 'cost-calculator') {
-      setGeneratedGddForCosting(null);
-    }
-  }
-
-  const ideaForGdd = generatedIdea ? `${generatedIdea.gameTitle}: ${generatedIdea.description}` : "";
+  const ideaForGdd = generatedIdea ? generatedIdea.description : "";
 
   return (
     <section id="ai-recommender" className="py-16 sm:py-24 relative overflow-hidden">
@@ -622,14 +618,11 @@ const AiRecommender = () => {
                 initialIdea={ideaForGdd}
                 onGddGenerated={handleGddGenerated}
                 onCalculateCost={handleCalculateCostForGdd}
-                onGenerationStart={handleGenerationStart}
+                triggerGeneration={gddTrigger}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
-              <CostCalculator 
-                initialGdd={generatedGddForCosting}
-                onGenerationStart={handleGenerationStart}
-              />
+              <CostCalculator ref={costCalculatorRef} />
             </TabsContent>
           </Tabs>
         </div>
