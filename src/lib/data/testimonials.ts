@@ -28,10 +28,10 @@ export const testimonials = [
         rating: 5,
     },
     {
-        name: '3D Monster hunt & Kingdom Defense',
-        title: 'Client on Upwork',
-        comment: "It's been great working with you. Probably we can both do a little better in communication as we have done some things twice. Overall experience has been great.",
+        name: 'Anatoliy',
+        title: 'Client from United States',
+        comment: "Working with this seller has been an incredible experience. They have completely created my vision from paper to an actual video game. The seller is easy to communicate with when working on bugs and tweaking the game... Really you can put your trust in to this small team. Repeat client, absolutely.",
         avatar: 'https://placehold.co/100x100.png',
-        rating: 4.7,
+        rating: 5,
     }
 ];
