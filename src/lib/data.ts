@@ -14,9 +14,8 @@ import {
   Wallet,
   Network,
   Cpu,
-  Globe,
 } from "lucide-react";
-import { IconFiverr, IconUpwork, IconUnity } from "@/components/icons";
+import { IconFiverr, IconUpwork, IconUnity, IconVisualStudio, IconFigma, IconPhotoshop, IconAdobeXD } from "@/components/icons";
 
 export const navLinks = [
   { href: "#services", label: "Services" },
@@ -65,6 +64,10 @@ export const skills = [
   { name: "Game Design", icon: Brush },
   { name: "Android App Development", icon: Cpu },
   { name: "iOS Development", icon: Cpu },
+  { name: "Visual Studio", icon: IconVisualStudio },
+  { name: "Figma", icon: IconFigma },
+  { name: "Photoshop", icon: IconPhotoshop },
+  { name: "Adobe XD", icon: IconAdobeXD },
 ];
 
 export const languages = ["English", "Urdu", "Hindi", "Punjabi"];
@@ -82,7 +85,7 @@ export const projects = [
     category: 'Games',
   },
   {
-    title: 'SUILobster Game',
+    title: 'The Pod',
     description: 'A social game where players can meet and interact with others, chat, make friends, and explore a vibrant world together.',
     image: 'https://placehold.co/600x400.png',
     aiHint: 'social game',
