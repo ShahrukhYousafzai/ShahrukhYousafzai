@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { testimonials } from "@/lib/data/testimonials";
 import { allReviews } from "@/lib/data/all-reviews";
 import { Star, MessageSquare } from "lucide-react";
@@ -76,22 +75,33 @@ const TestimonialsSection = () => {
                   <DialogHeader>
                       <DialogTitle className="text-2xl font-headline">All Reviews</DialogTitle>
                   </DialogHeader>
-                  <ScrollArea className="h-[70vh] pr-6">
-                    <div className="space-y-8">
+                  <ScrollArea className="h-[70vh] -mr-6 pr-6">
+                    <div className="space-y-6">
                       {allReviews.map((review, index) => (
-                        <div key={index} className="flex flex-col gap-4">
-                          <div className="flex gap-1 text-yellow-400">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-5 w-5 fill-current" />
-                            ))}
-                          </div>
-                          <blockquote className="italic text-muted-foreground">"{review.review}"</blockquote>
-                          <Separator />
-                          <div className="text-right">
-                            <p className="font-semibold">{review.author}</p>
-                            <p className="text-sm text-muted-foreground">{review.country}</p>
-                          </div>
-                        </div>
+                        <Card key={index} className="bg-background/50 border-border/50">
+                          <CardHeader>
+                            <div className="flex justify-between items-start gap-4">
+                              <div className="flex items-center gap-4">
+                                <Avatar>
+                                  <AvatarImage src={`https://placehold.co/40x40.png?text=${review.author.charAt(0)}`} alt={review.author} data-ai-hint="person alphabet" />
+                                  <AvatarFallback>{review.author.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                  <p className="font-semibold">{review.author}</p>
+                                  <p className="text-sm text-muted-foreground">{review.country}</p>
+                                </div>
+                              </div>
+                              <div className="flex gap-1 text-yellow-400 shrink-0">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star key={i} className="h-5 w-5 fill-current" />
+                                ))}
+                              </div>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground italic">"{review.review}"</p>
+                          </CardContent>
+                        </Card>
                       ))}
                     </div>
                   </ScrollArea>
