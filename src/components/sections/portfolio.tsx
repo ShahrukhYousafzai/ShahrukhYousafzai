@@ -48,6 +48,11 @@ const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
 
 const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>}) => {
   const [currentPage, setCurrentPage] = useState(1);
+  
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [projects]);
+  
   const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
 
   const paginatedProjects = projects.slice(
@@ -106,11 +111,11 @@ const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>
        <Pagination className="mt-8">
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
+            <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}/>
           </PaginationItem>
           {pageNumbers}
           <PaginationItem>
-            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
@@ -148,6 +153,8 @@ const PortfolioSection = () => {
   };
 
   const appProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Apps' && (tag === 'All' || p.tags.includes(tag)));
+  
+  const filteredGameProjects = gameProjectsByTag(gamePlatform, activeGameTag);
 
   return (
     <section id="portfolio" className="py-16 sm:py-24 bg-secondary">
@@ -166,8 +173,9 @@ const PortfolioSection = () => {
           </TabsList>
           
           <TabsContent value="Games">
-            <Tabs defaultValue="All" onValueChange={setGamePlatform} className="mt-8">
-               <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0 mb-4">
+            <div className="mt-8">
+              <Tabs value={gamePlatform} onValueChange={setGamePlatform}>
+                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0 mb-4">
                   <TabsTrigger value="All" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
                     <Globe className="mr-2 h-4 w-4" /> All Platforms
                   </TabsTrigger>
@@ -177,9 +185,10 @@ const PortfolioSection = () => {
                   <TabsTrigger value="Web3" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
                     <Package className="mr-2 h-4 w-4" /> Web3/Blockchain
                   </TabsTrigger>
-              </TabsList>
+                </TabsList>
+              </Tabs>
               
-              <Tabs defaultValue="All" onValueChange={setActiveGameTag}>
+              <Tabs value={activeGameTag} onValueChange={setActiveGameTag}>
                 <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
                   {gameCategories.map((category) => (
                     <TabsTrigger 
@@ -191,17 +200,10 @@ const PortfolioSection = () => {
                     </TabsTrigger>
                   ))}
                 </TabsList>
-                {['All', 'Web2', 'Web3'].map(platform => (
-                  <TabsContent key={platform} value={platform} forceMount={platform === gamePlatform}>
-                    {gameCategories.map((gameCategory) => (
-                      <TabsContent key={gameCategory} value={gameCategory} forceMount={gameCategory === activeGameTag}>
-                        <PaginatedProjects projects={gameProjectsByTag(gamePlatform, gameCategory)} />
-                      </TabsContent>
-                    ))}
-                  </TabsContent>
-                ))}
               </Tabs>
-            </Tabs>
+              
+              <PaginatedProjects projects={filteredGameProjects} />
+            </div>
           </TabsContent>
 
           <TabsContent value="Apps">
