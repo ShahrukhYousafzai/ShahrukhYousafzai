@@ -127,10 +127,11 @@ const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRe
 type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
+  onCalculateCost: (gdd: GddGeneratorOutput) => void;
   onGenerationStart: () => void;
 };
 
-const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGeneratorProps) => {
+const GddGenerator = ({ initialIdea, onGddGenerated, onCalculateCost, onGenerationStart }: GddGeneratorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -304,7 +305,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGen
             <Button onClick={handleDownload} className="w-full">
                 <Download className="mr-2 h-4 w-4" /> Download GDD
             </Button>
-            <Button onClick={() => onGddGenerated(gdd)} className="w-full">
+            <Button onClick={() => onCalculateCost(gdd)} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -562,6 +563,8 @@ const AiRecommender = () => {
   
   const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
+  const [generatedGddForCosting, setGeneratedGddForCosting] = useState<GddGeneratorOutput | null>(null);
+
 
   const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
     setGeneratedIdea(idea);
@@ -570,16 +573,21 @@ const AiRecommender = () => {
 
   const handleGddGenerated = (gdd: GddGeneratorOutput) => {
     setGeneratedGdd(gdd);
-    setActiveTab("cost-calculator");
   };
   
+  const handleCalculateCostForGdd = (gdd: GddGeneratorOutput) => {
+    setGeneratedGddForCosting(gdd);
+    setActiveTab("cost-calculator");
+  };
+
   const handleGenerationStart = () => {
     // This function can be used to clear previous results if needed
     if (activeTab === 'gdd-generator') {
       setGeneratedGdd(null);
+      setGeneratedGddForCosting(null);
     }
     if (activeTab === 'cost-calculator') {
-      // Potentially clear cost estimator state if needed
+      setGeneratedGddForCosting(null);
     }
   }
 
@@ -613,12 +621,13 @@ const AiRecommender = () => {
               <GddGenerator 
                 initialIdea={ideaForGdd}
                 onGddGenerated={handleGddGenerated}
+                onCalculateCost={handleCalculateCostForGdd}
                 onGenerationStart={handleGenerationStart}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
               <CostCalculator 
-                initialGdd={generatedGdd}
+                initialGdd={generatedGddForCosting}
                 onGenerationStart={handleGenerationStart}
               />
             </TabsContent>
