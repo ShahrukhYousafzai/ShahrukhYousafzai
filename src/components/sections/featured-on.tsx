@@ -19,18 +19,18 @@ const featuredOn = [
 
 const FeaturedOnSection = () => {
     return (
-        <section id="featured-on" className="py-12 bg-background">
+        <section id="featured-on" className="py-12 bg-secondary/50">
             <div className="container">
                 <div className="flex flex-col items-center justify-center gap-6 text-center">
-                    <h3 className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">As Seen On</h3>
-                    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 grayscale opacity-75">
+                    <h3 className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">Featured On</h3>
+                    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-75">
                         {featuredOn.map((feature) => (
                              <a
                                 key={feature.name}
                                 href={feature.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="transition-all hover:opacity-100 hover:grayscale-0"
+                                className="transition-all hover:opacity-100"
                             >
                                 <Image
                                   src={feature.logo}
