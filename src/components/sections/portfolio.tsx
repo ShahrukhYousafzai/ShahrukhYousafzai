@@ -131,7 +131,7 @@ const PaginatedProjects = ({ projects }: { projects: Array<typeof projects[0]>})
 
 const PortfolioSection = () => {
   const categories = ["Games", "Apps", "Animations"];
-  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
+  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
   
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
   const gameProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Games' && (tag === 'All' || p.tags.includes(tag)));
