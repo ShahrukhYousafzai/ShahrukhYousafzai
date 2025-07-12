@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import { asBlob } from "html-to-docx";
 import { saveAs } from "file-saver";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter as TableFooterComponent } from "@/components/ui/table";
@@ -17,6 +16,7 @@ import { splitIntoMilestones, type MilestoneSplitterOutput, type CostCalculatorO
 import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { generateDocx } from "@/app/actions";
 
 const portfolioDescription = `${about.description} Key projects include: ${projects.map(p => p.title).join(", ")}.`;
 
@@ -136,6 +136,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const gddContentRef = useRef<HTMLDivElement>(null);
 
@@ -168,38 +169,41 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
     }
   };
   
-  const handleDownload = () => {
+  const handleDownload = async () => {
     const content = gddContentRef.current;
     if (!content || !gdd) return;
+    setIsDownloading(true);
 
-    const htmlString = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>${gdd.title} GDD</title>
-        <style>
-          body { font-family: Arial, sans-serif; font-size: 11pt; color: #333; }
-          h1, h2, h3, h4 { color: #000; }
-          h1 { font-size: 24pt; }
-          h2 { font-size: 18pt; }
-          h3 { font-size: 14pt; }
-          h4 { font-size: 12pt; font-weight: bold; }
-          p { white-space: pre-line; }
-        </style>
-      </head>
-      <body>
-        ${content.innerHTML}
-      </body>
-      </html>
-    `;
-
-    asBlob(htmlString, {
-      orientation: "portrait",
-      margins: { top: 720, right: 720, bottom: 720, left: 720 },
-    }).then((blob) => {
-      saveAs(blob as Blob, `${gdd.title.replace(/ /g, "_")}_GDD.docx`);
-    });
+    try {
+      const htmlString = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>${gdd.title} GDD</title>
+        </head>
+        <body>
+          ${content.innerHTML}
+        </body>
+        </html>
+      `;
+      
+      const base64 = await generateDocx(htmlString, gdd.title);
+      const byteCharacters = atob(base64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+      
+      saveAs(blob, `${gdd.title.replace(/ /g, "_")}_GDD.docx`);
+    } catch (err) {
+      setError("Failed to download the document. Please try again.");
+      console.error(err);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   useEffect(() => {
@@ -233,9 +237,9 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
             placeholder="Enter your game idea..."
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
-            disabled={isLoading}
+            disabled={isLoading || isDownloading}
           />
-           <Select value={platform} onValueChange={setPlatform} disabled={isLoading}>
+           <Select value={platform} onValueChange={setPlatform} disabled={isLoading || isDownloading}>
               <SelectTrigger>
                 <SelectValue placeholder="Select Target Platform" />
               </SelectTrigger>
@@ -245,7 +249,7 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
             </Select>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading || !platform || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || isDownloading || !platform || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -264,14 +268,14 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
          <CardFooter className="flex-col items-start gap-4 pt-4">
           <div className="animate-in fade-in duration-500 w-full">
             <div ref={gddContentRef}>
-                <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
-                  <CardHeader className="p-6">
+                <Card className="bg-card text-card-foreground p-4">
+                  <CardHeader className="p-2">
                     <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
                       {gdd.title}
                     </CardTitle>
                     <CardDescription>{gdd.overview}</CardDescription>
                   </CardHeader>
-                  <CardContent className="p-6">
+                  <CardContent className="p-2">
                      <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
                       <AccordionItem value="item-1">
                         <AccordionTrigger className="font-semibold text-lg">Gameplay</AccordionTrigger>
@@ -315,8 +319,9 @@ const GddGenerator = forwardRef<HTMLDivElement, GddGeneratorProps>(({ initialIde
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full pt-4">
-            <Button onClick={handleDownload} className="w-full">
-                <Download className="mr-2 h-4 w-4" /> Download as DOCX
+            <Button onClick={handleDownload} disabled={isDownloading} className="w-full">
+                {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
+                Download as DOCX
             </Button>
             <Button onClick={() => onGddReadyForCosting(gdd)} className="w-full">
               Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
@@ -341,6 +346,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
   const [milestones, setMilestones] = useState<MilestoneSplitterOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSplitting, setIsSplitting] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const quoteContentRef = useRef<HTMLDivElement>(null);
   const milestonesContentRef = useRef<HTMLDivElement>(null);
@@ -387,7 +393,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
     }
   }
 
-  const handleDownload = (type: 'quote' | 'milestones') => {
+  const handleDownload = async (type: 'quote' | 'milestones') => {
     const contentRef = type === 'quote' ? quoteContentRef : milestonesContentRef;
     const data = type === 'quote' ? estimation : milestones;
     const title = type === 'quote' 
@@ -396,40 +402,38 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
     
     const content = contentRef.current;
     if (!content || !data) return;
+    setIsDownloading(true);
 
-    const htmlString = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>${title}</title>
-        <style>
-          body { font-family: Arial, sans-serif; font-size: 11pt; color: #333; }
-          h1, h2, h3, h4 { color: #000; }
-          table { width: 100%; border-collapse: collapse; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-          th { background-color: #f2f2f2; }
-          .font-semibold { font-weight: 600; }
-          .text-muted-foreground { color: #666; font-size: 9pt; }
-          .whitespace-pre-line { white-space: pre-line; }
-          .text-right { text-align: right; }
-          .font-bold { font-weight: bold; }
-          .text-primary { color: #FF6600; } /* Example color */
-          .disclaimer { font-size: 9pt; color: #666; margin-top: 16px; border: 1px solid #ddd; padding: 8px; border-radius: 4px; }
-        </style>
-      </head>
-      <body>
-        ${content.innerHTML}
-      </body>
-      </html>
-    `;
+    try {
+      const htmlString = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>${title}</title>
+        </head>
+        <body>
+          ${content.innerHTML}
+        </body>
+        </html>
+      `;
 
-    asBlob(htmlString, {
-      orientation: "portrait",
-      margins: { top: 720, right: 720, bottom: 720, left: 720 },
-    }).then((blob) => {
-      saveAs(blob as Blob, `${title.replace(/ /g, "_")}.docx`);
-    });
+      const base64 = await generateDocx(htmlString, title);
+      const byteCharacters = atob(base64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+
+      saveAs(blob, `${title.replace(/ /g, "_")}.docx`);
+    } catch(err) {
+       setError("Failed to download the document. Please try again.");
+       console.error(err);
+    } finally {
+        setIsDownloading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -450,10 +454,10 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
             rows={6}
-            disabled={isLoading || isSplitting}
+            disabled={isLoading || isSplitting || isDownloading}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading || isSplitting || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || isSplitting || isDownloading || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -472,7 +476,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
         <CardFooter className="flex-col items-start gap-4 pt-4">
           <div className="animate-in fade-in duration-500 w-full">
             <div ref={quoteContentRef}>
-                <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                <Card className="bg-card text-card-foreground p-4">
                     <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">
                       {estimation.quoteTitle}
                     </CardTitle>
@@ -501,17 +505,18 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
                             </TableRow>
                         </TableFooterComponent>
                     </Table>
-                     <p className="disclaimer text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
+                     <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
                         {estimation.disclaimer}
                     </p>
                 </Card>
             </div>
           </div>
             <div className="w-full pt-4 flex flex-col sm:flex-row gap-2">
-                <Button onClick={() => handleDownload('quote')} className="w-full">
-                    <Download className="mr-2 h-4 w-4" /> Download as DOCX
+                <Button onClick={() => handleDownload('quote')} disabled={isDownloading || isSplitting} className="w-full">
+                    {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
+                    Download as DOCX
                 </Button>
-                 <Button onClick={handleSplitMilestones} disabled={isSplitting} className="w-full">
+                 <Button onClick={handleSplitMilestones} disabled={isSplitting || isDownloading} className="w-full">
                     {isSplitting ? (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
@@ -526,7 +531,7 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
           <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
             <div className="animate-in fade-in duration-500 w-full">
                 <div ref={milestonesContentRef}>
-                     <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                     <Card className="bg-card text-card-foreground p-4">
                          <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">
                             Project Milestones
                         </CardTitle>
@@ -557,8 +562,9 @@ const CostCalculator = forwardRef<CostCalculatorHandle, {}>((props, ref) => {
                 </div>
             </div>
              <div className="w-full pt-4">
-                <Button onClick={() => handleDownload('milestones')} className="w-full">
-                    <Download className="mr-2 h-4 w-4" /> Download as DOCX
+                <Button onClick={() => handleDownload('milestones')} disabled={isDownloading} className="w-full">
+                    {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Download className="mr-2 h-4 w-4" />} 
+                    Download as DOCX
                 </Button>
             </div>
           </CardFooter>
@@ -572,6 +578,7 @@ const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
   const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
+  const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
   const [gddTrigger, setGddTrigger] = useState(false);
   const costCalculatorRef = useRef<CostCalculatorHandle>(null);
   const gddGeneratorRef = useRef<HTMLDivElement>(null);
@@ -580,11 +587,12 @@ const AiRecommender = () => {
     const ideaForGdd = `${idea.gameTitle}: ${idea.description}`;
     setGeneratedIdea({ ...idea, description: ideaForGdd });
     setActiveTab("gdd-generator");
-    setGddTrigger(true); // Automatically trigger GDD generation
+    setGddTrigger(true);
   };
 
   const handleGddGenerated = (gdd: GddGeneratorOutput) => {
-    setGddTrigger(false); // Reset trigger
+    setGeneratedGdd(gdd);
+    setGddTrigger(false); 
   };
   
   const handleCalculateCostForGdd = (gdd: GddGeneratorOutput) => {
@@ -603,10 +611,11 @@ Monetization: ${gdd.monetization}
     
     if (costCalculatorRef.current) {
       costCalculatorRef.current.setGameIdea(trimmedIdea);
-      costCalculatorRef.current.triggerCostCalculation(trimmedIdea);
+      setActiveTab("cost-calculator");
+      setTimeout(() => {
+        costCalculatorRef.current?.triggerCostCalculation(trimmedIdea);
+      }, 100);
     }
-    
-    setActiveTab("cost-calculator");
   };
   
   const ideaForGdd = generatedIdea ? generatedIdea.description : "";
