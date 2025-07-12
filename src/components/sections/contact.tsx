@@ -1,17 +1,13 @@
 "use client";
 
-import { useEffect, useActionState } from "react";
-import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
-import { submitContactForm } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Send, Loader2, Briefcase } from "lucide-react";
+import { Mail, Send, Briefcase } from "lucide-react";
 import { about } from "@/lib/data/about";
 import { socialLinks } from "@/lib/data/social";
 import { IconFiverr, IconUpwork } from "@/components/icons";
@@ -24,56 +20,25 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? (
-        <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
-        </>
-      ) : (
-        <>
-          <Send className="mr-2 h-4 w-4" /> Send Message
-        </>
-      )}
-    </Button>
-  );
-};
-
 const ContactSection = () => {
-  const [state, formAction] = useActionState(submitContactForm, { message: null, errors: null, success: false });
-  const { toast } = useToast();
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
   });
 
-  useEffect(() => {
-    if (state.message) {
-      if (state.success) {
-        toast({
-          title: "Message Sent!",
-          description: state.message,
-        });
-        reset();
-      } else {
-        toast({
-          title: "Error",
-          description: state.message,
-          variant: "destructive",
-        });
-      }
-    }
-  }, [state, toast, reset]);
+  const onSubmit = (data: ContactFormValues) => {
+    const subject = encodeURIComponent(`Contact from Portfolio - ${data.name}`);
+    const body = encodeURIComponent(`Name: ${data.name}\n\nEmail: ${data.email}\n\nMessage:\n${data.message}`);
+    const mailtoLink = `mailto:${about.email}?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
+    reset();
+  };
   
-  const serverErrors = state.errors;
-
   const fiverrLink = socialLinks.find(s => s.name === "Fiverr");
   const upworkLink = socialLinks.find(s => s.name === "Upwork");
 
@@ -93,20 +58,22 @@ const ContactSection = () => {
                     <CardDescription>Fill out the form below and I'll get back to you.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={formAction} className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div>
                             <Input {...register("name")} placeholder="Your Name" />
-                            {(errors.name || serverErrors?.name) && <p className="text-sm text-destructive mt-1">{errors.name?.message || serverErrors?.name?.[0]}</p>}
+                            {errors.name && <p className="text-sm text-destructive mt-1">{errors.name?.message}</p>}
                         </div>
                         <div>
                             <Input {...register("email")} placeholder="Your Email" type="email" />
-                            {(errors.email || serverErrors?.email) && <p className="text-sm text-destructive mt-1">{errors.email?.message || serverErrors?.email?.[0]}</p>}
+                            {errors.email && <p className="text-sm text-destructive mt-1">{errors.email?.message}</p>}
                         </div>
                         <div>
                            <Textarea {...register("message")} placeholder="Your Message" rows={5} />
-                           {(errors.message || serverErrors?.message) && <p className="text-sm text-destructive mt-1">{errors.message?.message || serverErrors?.message?.[0]}</p>}
+                           {errors.message && <p className="text-sm text-destructive mt-1">{errors.message?.message}</p>}
                         </div>
-                        <SubmitButton />
+                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                          <Send className="mr-2 h-4 w-4" /> Send Message
+                        </Button>
                     </form>
                 </CardContent>
             </Card>
