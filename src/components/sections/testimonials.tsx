@@ -77,20 +77,20 @@ const TestimonialsSection = () => {
                       <DialogTitle className="text-2xl font-headline">All Reviews</DialogTitle>
                   </DialogHeader>
                   <ScrollArea className="h-[70vh] pr-6">
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       {allReviews.map((review, index) => (
-                        <div key={index}>
-                           <div className="flex gap-1 text-yellow-400 mb-2">
+                        <div key={index} className="flex flex-col gap-4">
+                          <div className="flex gap-1 text-yellow-400">
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} className="h-5 w-5 fill-current" />
                             ))}
                           </div>
                           <blockquote className="italic text-muted-foreground">"{review.review}"</blockquote>
-                          <div className="mt-2 text-right">
+                          <Separator />
+                          <div className="text-right">
                             <p className="font-semibold">{review.author}</p>
                             <p className="text-sm text-muted-foreground">{review.country}</p>
                           </div>
-                          {index < allReviews.length - 1 && <Separator className="mt-6" />}
                         </div>
                       ))}
                     </div>
