@@ -14,9 +14,9 @@ const Footer = () => {
         </div>
         <div className="flex items-center gap-2">
           {socialLinks.map((social) => (
-             <Button key={social.name} variant="ghost" size={social.icon ? "icon" : "default"} asChild>
+             <Button key={social.name} variant="ghost" size="icon" asChild>
               <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name}>
-                 {social.icon ? <social.icon className="h-5 w-5" /> : social.name}
+                 <social.icon className="h-5 w-5" />
               </a>
             </Button>
           ))}
