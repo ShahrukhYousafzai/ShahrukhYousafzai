@@ -12,7 +12,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 const PROJECTS_PER_PAGE = 6;
 
 const ProjectCard = ({ project }: { project: typeof projects[0] }) => (
-  <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+  <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
     <CardHeader className="p-0">
       <div className="aspect-video relative">
         <Image
