@@ -132,7 +132,7 @@ type GddGeneratorProps = {
 
 const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   const [gameIdea, setGameIdea] = useState(initialIdea);
-  const [platform, setPlatform] = useState("Cross-Platform");
+  const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +140,10 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   const triggerGddGeneration = async (idea: string, plat: string) => {
     if (!idea.trim()) {
       setError("Please provide a basic game idea.");
+      return;
+    }
+     if (!plat) {
+      setError("Please select a target platform.");
       return;
     }
     setIsLoading(true);
@@ -153,7 +157,6 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
-      setGeneratedGdd(result); // Pass to parent
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -165,7 +168,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   useEffect(() => {
     if (initialIdea) {
       setGameIdea(initialIdea);
-      triggerGddGeneration(initialIdea, platform);
+      // We don't auto-trigger here anymore. User needs to pick a platform.
     }
   }, [initialIdea]);
 
@@ -176,6 +179,13 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
   };
   
   const platforms = ["Web", "Windows", "Mac", "Android", "iOS", "Desktop (All)", "Mobile (All)", "Cross-Platform (All)"];
+
+  const handleGenerateCost = () => {
+    if (gdd) {
+      setGeneratedGdd(gdd);
+    }
+  };
+
 
   return (
      <Card>
@@ -267,7 +277,7 @@ const GddGenerator = ({ initialIdea, setGeneratedGdd }: GddGeneratorProps) => {
                 </Accordion>
               </CardContent>
               <CardFooter>
-                 <Button onClick={() => setGeneratedGdd(gdd)} className="w-full">
+                 <Button onClick={handleGenerateCost} className="w-full">
                    Calculate Cost for this Project <ArrowRight className="ml-2 h-4 w-4" />
                  </Button>
               </CardFooter>
