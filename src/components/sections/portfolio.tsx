@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Package, Globe } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
@@ -131,20 +130,23 @@ const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>
 };
 
 const PortfolioSection = () => {
+  const [activeGameTag, setActiveGameTag] = useState('All');
   const [gamePlatform, setGamePlatform] = useState('All');
   const categories = ["Games", "Apps", "Animations"];
   const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
   const appCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
-  const gameProjectsByTag = (tag: string) => {
+
+  const gameProjectsByTag = (platform: string, tag: string) => {
     return projects.filter(p => {
       const isGame = p.category === 'Games';
-      const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
+      const platformMatch = platform === 'All' || p.platform === platform;
       const tagMatch = tag === 'All' || p.tags.includes(tag);
       return isGame && platformMatch && tagMatch;
     });
   };
+
   const appProjectsByTag = (tag: string) => projects.filter(p => p.category === 'Apps' && (tag === 'All' || p.tags.includes(tag)));
 
   return (
@@ -164,41 +166,41 @@ const PortfolioSection = () => {
           </TabsList>
           
           <TabsContent value="Games">
-            <Tabs defaultValue="All" className="mt-8">
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
-                <Select value={gamePlatform} onValueChange={setGamePlatform}>
-                  <SelectTrigger className="w-full sm:w-[200px]">
-                    <SelectValue placeholder="Select Platform" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">
-                      <div className="flex items-center gap-2"><Globe className="h-4 w-4" />All Platforms</div>
-                    </SelectItem>
-                    <SelectItem value="Web2">
-                      <div className="flex items-center gap-2"><Package className="h-4 w-4" />Web2</div>
-                    </SelectItem>
-                    <SelectItem value="Web3">
-                      <div className="flex items-center gap-2"><Package className="h-4 w-4" />Web3/Blockchain</div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
-                {gameCategories.map((category) => (
-                  <TabsTrigger 
-                    key={category} 
-                    value={category}
-                    className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
-                  >
-                    {category}
+            <Tabs defaultValue="All" onValueChange={setGamePlatform} className="mt-8">
+               <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0 mb-4">
+                  <TabsTrigger value="All" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                    <Globe className="mr-2 h-4 w-4" /> All Platforms
                   </TabsTrigger>
-                ))}
+                  <TabsTrigger value="Web2" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                    <Package className="mr-2 h-4 w-4" /> Web2
+                  </TabsTrigger>
+                  <TabsTrigger value="Web3" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
+                    <Package className="mr-2 h-4 w-4" /> Web3/Blockchain
+                  </TabsTrigger>
               </TabsList>
-              {gameCategories.map((gameCategory) => (
-                <TabsContent key={gameCategory} value={gameCategory}>
-                  <PaginatedProjects projects={gameProjectsByTag(gameCategory)} />
-                </TabsContent>
-              ))}
+              
+              <Tabs defaultValue="All" onValueChange={setActiveGameTag}>
+                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
+                  {gameCategories.map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                {['All', 'Web2', 'Web3'].map(platform => (
+                  <TabsContent key={platform} value={platform} forceMount={platform === gamePlatform}>
+                    {gameCategories.map((gameCategory) => (
+                      <TabsContent key={gameCategory} value={gameCategory} forceMount={gameCategory === activeGameTag}>
+                        <PaginatedProjects projects={gameProjectsByTag(gamePlatform, gameCategory)} />
+                      </TabsContent>
+                    ))}
+                  </TabsContent>
+                ))}
+              </Tabs>
             </Tabs>
           </TabsContent>
 
