@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import LenisScroller from '@/components/lenis-scroller';
 
 export const metadata: Metadata = {
-  title: 'PixelForge Portfolio',
+  title: 'Shahrukh Yousafzai Portfolio',
   description: "Shahrukh Yousafzai's Game Development Portfolio",
 };
 

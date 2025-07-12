@@ -1,4 +1,4 @@
-# **App Name**: PixelForge Portfolio
+# **App Name**: Shahrukh Yousafzai Portfolio
 
 ## Core Features:
 
