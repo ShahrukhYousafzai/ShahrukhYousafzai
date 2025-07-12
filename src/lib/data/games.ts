@@ -210,7 +210,7 @@ export const games = [
       description: 'An endless runner game inspired by Subway Surfers where the character runs with a skateboard. It is also a web3 game with NFT implementation.',
       image: 'https://placehold.co/600x400.png',
       aiHint: 'skateboarding game',
-      tags: ['Unity3D', 'Web3', '3D', 'Single Player', 'Action'],
+      tags: ['Unity3D', 'Web3', '3D', 'Single Player', 'Action', 'Endless Runner'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
@@ -354,7 +354,7 @@ export const games = [
       description: 'An exhilarating blend of defense and merge gameplay! Defend your fortress by strategically merging and upgrading powerful turrets to combat waves of relentless monsters.',
       image: 'https://placehold.co/600x400.png',
       aiHint: 'tower defense',
-      tags: ['Unity3D', 'Single Player', '2D'],
+      tags: ['Unity3D', 'Single Player', '2D', 'Tower Defense'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
@@ -426,7 +426,7 @@ export const games = [
       description: 'Car race game you can drive to feel the racing car speed and enjoy the real car racing games experience. If you have a thrill of car racing and you are handy at car driving games, try this traffic racing car game and dive into the fun of new car games.',
       image: 'https://placehold.co/600x400.png',
       aiHint: 'car racing',
-      tags: ['Unity3D', 'Racing', 'Single Player', '3D'],
+      tags: ['Unity3D', 'Racing', 'Single Player', '3D', 'Endless Runner'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
@@ -474,7 +474,7 @@ export const games = [
       description: 'A competitive 3D multiplayer card game that brings tactical, real-time strategy to life, inspired by the gameplay of Clash Royale.',
       image: 'https://placehold.co/600x400.png',
       aiHint: 'card game',
-      tags: ['Unity3D', 'Card Game', 'Multiplayer', '3D'],
+      tags: ['Unity3D', 'Card Game', 'Multiplayer', '3D', 'Tower Defense'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
@@ -494,6 +494,7 @@ export const games = [
       platform: 'Web2',
     },
 ];
+
 
 
 

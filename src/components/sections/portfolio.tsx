@@ -133,7 +133,7 @@ const PortfolioSection = () => {
   const [activeGameTag, setActiveGameTag] = useState('All');
   const [gamePlatform, setGamePlatform] = useState('All');
   const categories = ["Games", "Apps", "Animations"];
-  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale"];
+  const gameCategories = ["All", "Action", "Sports", "3D", "2D", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
   const appCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
   const projectsByCategory = (category: string) => projects.filter(p => p.category === category);
