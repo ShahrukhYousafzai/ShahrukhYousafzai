@@ -22,8 +22,7 @@ const FeaturedOnSection = () => {
         <section id="featured-on" className="py-12 bg-secondary/50">
             <div className="container">
                 <div className="flex flex-col items-center justify-center gap-6 text-center">
-                    <h2 className="text-3xl font-bold font-headline sm:text-4xl">Featured On</h2>
-                    <p className="text-lg text-muted-foreground">'Basant Mela' Press Features</p>
+                    <h2 className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">Featured On</h2>
                     <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-75">
                         {featuredOn.map((feature) => (
                              <a
