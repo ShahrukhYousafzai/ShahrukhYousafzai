@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter as TableFooterComponent } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -20,7 +21,7 @@ const portfolioDescription = `${about.description} Key projects include: ${proje
 
 type AiToolTab = "game-idea" | "gdd-generator" | "cost-calculator";
 
-const GameIdeaGenerator = ({ setGeneratedIdea }: { setGeneratedIdea: (idea: string) => void }) => {
+const GameIdeaGenerator = ({ onIdeaGenerated }: { onIdeaGenerated: (idea: GameRecommendationOutput) => void }) => {
   const [preferences, setPreferences] = useState("");
   const [recommendation, setRecommendation] = useState<GameRecommendationOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,8 +53,7 @@ const GameIdeaGenerator = ({ setGeneratedIdea }: { setGeneratedIdea: (idea: stri
 
   const handleGenerateGdd = () => {
     if (recommendation) {
-      const idea = `${recommendation.gameTitle}: ${recommendation.description}`;
-      setGeneratedIdea(idea);
+      onIdeaGenerated(recommendation);
     }
   };
 
@@ -126,9 +126,10 @@ const GameIdeaGenerator = ({ setGeneratedIdea }: { setGeneratedIdea: (idea: stri
 type GddGeneratorProps = {
   initialIdea: string;
   onGddGenerated: (gdd: GddGeneratorOutput) => void;
+  onGenerationStart: () => void;
 };
 
-const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
+const GddGenerator = ({ initialIdea, onGddGenerated, onGenerationStart }: GddGeneratorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [platform, setPlatform] = useState("");
   const [gdd, setGdd] = useState<GddGeneratorOutput | null>(null);
@@ -148,6 +149,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
     setIsLoading(true);
     setError(null);
     setGdd(null);
+    onGenerationStart();
 
     try {
       const result = await generateGdd({
@@ -156,7 +158,6 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
         portfolioDescription: portfolioDescription,
       });
       setGdd(result);
-      onGddGenerated(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again later.");
       console.error(err);
@@ -172,21 +173,27 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
     html2canvas(input, {
         scale: 2, 
         useCORS: true, 
-        backgroundColor: document.documentElement.classList.contains('dark') ? '#0a0a0a' : '#ffffff',
+        backgroundColor: document.documentElement.classList.contains('dark') ? '#18181B' : '#ffffff',
+        onclone: (document) => {
+            // Un-collapse accordion for PDF rendering
+            document.querySelectorAll('[data-state="closed"]').forEach(el => {
+                const trigger = el.querySelector('[aria-expanded="false"]');
+                const content = el.querySelector('[data-state="closed"]');
+                if (trigger) trigger.setAttribute('data-state', 'open');
+                if (content) content.setAttribute('data-state', 'open');
+            });
+        }
     }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
       const canvasWidth = canvas.width;
       const canvasHeight = canvas.height;
       const ratio = canvasWidth / canvasHeight;
       const width = pdfWidth - 20; // with margin
       const height = width / ratio;
 
-      let position = 10;
-      pdf.addImage(imgData, 'PNG', 10, position, width, height);
-      
+      pdf.addImage(imgData, 'PNG', 10, 10, width, height);
       pdf.save(`${gdd.title.replace(/ /g, '_')}_GDD.pdf`);
     });
   };
@@ -232,7 +239,7 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
             </Select>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || !platform} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -251,47 +258,47 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
          <CardFooter className="flex-col items-start gap-4 pt-4">
           <div className="animate-in fade-in duration-500 w-full" ref={gddContentRef}>
             <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
-              <CardHeader>
+              <CardHeader className="p-6">
                 <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
                   {gdd.title}
                 </CardTitle>
                 <CardDescription>{gdd.overview}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                  <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="font-semibold text-lg">Gameplay</AccordionTrigger>
-                    <AccordionContent className="space-y-4 pt-2">
+                    <AccordionContent className="space-y-4 pt-4 px-2">
                        <div>
                           <h4 className="font-semibold">Core Mechanics</h4>
-                          <p className="text-muted-foreground">{gdd.gameplay.coreMechanics}</p>
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.coreMechanics}</p>
                        </div>
                         <div>
                           <h4 className="font-semibold">Game Loop</h4>
-                          <p className="text-muted-foreground">{gdd.gameplay.gameLoop}</p>
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.gameLoop}</p>
                        </div>
                         <div>
                           <h4 className="font-semibold">Player Controls</h4>
-                          <p className="text-muted-foreground">{gdd.gameplay.playerControls}</p>
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.playerControls}</p>
                        </div>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="font-semibold text-lg">Target Audience</AccordionTrigger>
-                    <AccordionContent className="pt-2">
-                      <p className="text-muted-foreground">{gdd.targetAudience}</p>
+                    <AccordionContent className="pt-4 px-2">
+                      <p className="text-muted-foreground whitespace-pre-line">{gdd.targetAudience}</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
                     <AccordionTrigger className="font-semibold text-lg">Art Style & Monetization</AccordionTrigger>
-                     <AccordionContent className="space-y-4 pt-2">
+                     <AccordionContent className="space-y-4 pt-4 px-2">
                        <div>
                           <h4 className="font-semibold">Art Style</h4>
-                          <p className="text-muted-foreground">{gdd.artStyle}</p>
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.artStyle}</p>
                        </div>
                         <div>
                           <h4 className="font-semibold">Monetization Strategy</h4>
-                          <p className="text-muted-foreground">{gdd.monetization}</p>
+                          <p className="text-muted-foreground whitespace-pre-line">{gdd.monetization}</p>
                        </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -315,13 +322,16 @@ const GddGenerator = ({ initialIdea, onGddGenerated }: GddGeneratorProps) => {
 
 type CostCalculatorProps = {
   initialGdd: GddGeneratorOutput | null;
+  onGenerationStart: () => void;
 };
 
-const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
+const CostCalculator = ({ initialGdd, onGenerationStart }: CostCalculatorProps) => {
   const [gameIdea, setGameIdea] = useState("");
   const [estimation, setEstimation] = useState<CostCalculatorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const quoteContentRef = useRef<HTMLDivElement>(null);
+
 
   const triggerCostCalculation = async (idea: string) => {
     if (!idea.trim()) {
@@ -331,6 +341,7 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
     setIsLoading(true);
     setError(null);
     setEstimation(null);
+    onGenerationStart();
 
     try {
       const result = await calculateCost({ gameIdea: idea });
@@ -343,11 +354,58 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
     }
   };
 
+  const handleDownload = () => {
+    const input = quoteContentRef.current;
+    if (!input || !estimation) return;
+
+    html2canvas(input, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: document.documentElement.classList.contains('dark') ? '#18181B' : '#ffffff',
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const ratio = canvasWidth / canvasHeight;
+      const width = pdfWidth - 20; // with margin
+      let height = width / ratio;
+      const pageHeight = pdf.internal.pageSize.getHeight() - 20;
+      let position = 10;
+
+      if (height > pageHeight) {
+        pdf.addImage(imgData, 'PNG', 10, position, width, height);
+        height -= pageHeight;
+        while (height > 0) {
+            position = -height - 10;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 10, position, width, height);
+            height -= pageHeight;
+        }
+      } else {
+        pdf.addImage(imgData, 'PNG', 10, position, width, height);
+      }
+      
+      pdf.save(`${estimation.quoteTitle.replace(/ /g, '_')}_Quote.pdf`);
+    });
+  };
+
   useEffect(() => {
     if (initialGdd) {
-      const ideaFromGdd = `Title: ${initialGdd.title}\nOverview: ${initialGdd.overview}\nPlatform: ${initialGdd.gameplay.playerControls}\nCore Mechanics: ${initialGdd.gameplay.coreMechanics}\nArt Style: ${initialGdd.artStyle}\nTarget Audience: ${initialGdd.targetAudience}\nMonetization: ${initialGdd.monetization}`;
-      setGameIdea(ideaFromGdd);
-      triggerCostCalculation(ideaFromGdd);
+      const ideaFromGdd = `
+Title: ${initialGdd.title}
+Overview: ${initialGdd.overview}
+Platform: ${initialGdd.gameplay.playerControls}
+Core Mechanics: ${initialGdd.gameplay.coreMechanics}
+Game Loop: ${initialGdd.gameplay.gameLoop}
+Player Controls: ${initialGdd.gameplay.playerControls}
+Target Audience: ${initialGdd.targetAudience}
+Art Style: ${initialGdd.artStyle}
+Monetization: ${initialGdd.monetization}
+      `;
+      setGameIdea(ideaFromGdd.trim());
+      triggerCostCalculation(ideaFromGdd.trim());
     }
   }, [initialGdd]);
 
@@ -360,15 +418,15 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2"><DollarSign /> Get a Cost Estimate</CardTitle>
-        <CardDescription>Provide a description of your game idea, and I'll give you a rough cost estimate based on my experience.</CardDescription>
+        <CardDescription>Provide a description or GDD of your game, and I'll generate an itemized quote.</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid w-full gap-4">
           <Textarea
-            placeholder="Describe your game concept, features, platform (PC/mobile), and style (2D/3D)..."
+            placeholder="Describe your game concept, features, platform (PC/mobile), and style (2D/3D), or paste a GDD..."
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
-            rows={4}
+            rows={6}
             disabled={isLoading}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
@@ -381,7 +439,7 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
             ) : (
               <>
                 <DollarSign className="mr-2 h-4 w-4" />
-                Calculate Cost
+                Generate Quote
               </>
             )}
           </Button>
@@ -389,30 +447,46 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
       </CardContent>
       {estimation && (
         <CardFooter className="flex-col items-start gap-4 pt-4">
-          <div className="animate-in fade-in duration-500 w-full">
-            <Card className="bg-gradient-to-br from-secondary to-background border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))]">
-                  Cost Estimation
+          <div className="animate-in fade-in duration-500 w-full" ref={quoteContentRef}>
+            <Card className="bg-gradient-to-br from-secondary to-background border-primary/20 p-6">
+                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">
+                  {estimation.quoteTitle}
                 </CardTitle>
-                <CardDescription>This is a rough estimate. A detailed quote requires a full consultation.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-lg">Prototype Cost</h4>
-                  <p className="text-2xl font-bold text-primary">{estimation.prototypeCost}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg">Full Development Cost Range</h4>
-                  <p className="text-2xl font-bold text-primary">{estimation.fullDevelopmentCost}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-muted-foreground">Reasoning:</h4>
-                  <p className="mt-1 text-sm">{estimation.reasoning}</p>
-                </div>
-              </CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Module</TableHead>
+                            <TableHead className="text-right">Cost</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {estimation.items.map((item, index) => (
+                           <TableRow key={index}>
+                                <TableCell>
+                                    <p className="font-semibold">{item.name}</p>
+                                    <p className="text-muted-foreground text-xs">{item.description}</p>
+                                </TableCell>
+                                <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                    <TableFooterComponent>
+                        <TableRow className="text-lg">
+                            <TableCell className="font-bold">Total Estimated Cost</TableCell>
+                            <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
+                        </TableRow>
+                    </TableFooterComponent>
+                </Table>
+                 <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">
+                    {estimation.disclaimer}
+                </p>
             </Card>
           </div>
+            <div className="w-full pt-4">
+                <Button onClick={handleDownload} className="w-full">
+                    <Download className="mr-2 h-4 w-4" /> Download Quote
+                </Button>
+            </div>
         </CardFooter>
       )}
     </Card>
@@ -422,11 +496,10 @@ const CostCalculator = ({ initialGdd }: CostCalculatorProps) => {
 const AiRecommender = () => {
   const [activeTab, setActiveTab] = useState<AiToolTab>("game-idea");
   
-  const [generatedIdea, setGeneratedIdea] = useState("");
+  const [generatedIdea, setGeneratedIdea] = useState<GameRecommendationOutput | null>(null);
   const [generatedGdd, setGeneratedGdd] = useState<GddGeneratorOutput | null>(null);
 
-
-  const handleGeneratedIdea = (idea: string) => {
+  const handleIdeaGenerated = (idea: GameRecommendationOutput) => {
     setGeneratedIdea(idea);
     setActiveTab("gdd-generator");
   };
@@ -435,6 +508,18 @@ const AiRecommender = () => {
     setGeneratedGdd(gdd);
     setActiveTab("cost-calculator");
   };
+  
+  const handleGenerationStart = () => {
+    // This function can be used to clear previous results if needed
+    if (activeTab === 'gdd-generator') {
+      setGeneratedGdd(null);
+    }
+    if (activeTab === 'cost-calculator') {
+      // Potentially clear cost estimator state if needed
+    }
+  }
+
+  const ideaForGdd = generatedIdea ? `${generatedIdea.gameTitle}: ${generatedIdea.description}` : "";
 
   return (
     <section id="ai-recommender" className="py-16 sm:py-24 relative overflow-hidden">
@@ -458,17 +543,19 @@ const AiRecommender = () => {
               <TabsTrigger value="cost-calculator"><DollarSign className="mr-2"/>Cost Calculator</TabsTrigger>
             </TabsList>
             <TabsContent value="game-idea" className="mt-6">
-              <GameIdeaGenerator setGeneratedIdea={handleGeneratedIdea} />
+              <GameIdeaGenerator onIdeaGenerated={handleIdeaGenerated} />
             </TabsContent>
             <TabsContent value="gdd-generator" className="mt-6">
               <GddGenerator 
-                initialIdea={generatedIdea}
+                initialIdea={ideaForGdd}
                 onGddGenerated={handleGddGenerated}
+                onGenerationStart={handleGenerationStart}
               />
             </TabsContent>
             <TabsContent value="cost-calculator" className="mt-6">
               <CostCalculator 
                 initialGdd={generatedGdd}
+                onGenerationStart={handleGenerationStart}
               />
             </TabsContent>
           </Tabs>
