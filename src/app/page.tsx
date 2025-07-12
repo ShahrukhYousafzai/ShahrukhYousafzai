@@ -19,13 +19,13 @@ export default function Home() {
       <main className="flex-grow">
         <HeroSection />
         <StatsSection />
-        <FeaturedOnSection />
-        <WorkedWithSection />
         <AboutSection />
         <ServicesSection />
         <SkillsSection />
         <PortfolioSection />
         <AiRecommender />
+        <FeaturedOnSection />
+        <WorkedWithSection />
         <TestimonialsSection />
         <ContactSection />
       </main>
