@@ -2,6 +2,7 @@ import Header from "@/components/layout/header";
 import HeroSection from "@/components/sections/hero";
 import StatsSection from "@/components/sections/stats";
 import FeaturedOnSection from "@/components/sections/featured-on";
+import WorkedWithSection from "@/components/sections/worked-with";
 import AboutSection from "@/components/sections/about";
 import ServicesSection from "@/components/sections/services";
 import SkillsSection from "@/components/sections/skills";
@@ -19,6 +20,7 @@ export default function Home() {
         <HeroSection />
         <StatsSection />
         <FeaturedOnSection />
+        <WorkedWithSection />
         <AboutSection />
         <ServicesSection />
         <SkillsSection />
