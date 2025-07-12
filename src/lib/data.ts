@@ -349,6 +349,17 @@ export const projects = [
     category: 'Games',
   },
   {
+    title: 'Solar Dominion',
+    description: 'Sentries versus Serpents in this multiplayer shooting adventure. Team up or compete to earn rewards. The only shooting game that rewards players prizes weekly. Actively work your way up the ranks and earn prizes!',
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'multiplayer shooter',
+    tags: ['Unity3D', 'Web3', 'Shooting', 'Action', 'Multiplayer', 'Battle Royale', 'NFT', 'Wallet'],
+    link: '#',
+    linkText: 'Learn More',
+    linkIcon: Play,
+    category: 'Games',
+  },
+  {
     title: 'World of Gods - MMORPG',
     description: 'A massively multiplayer online role-playing game with classes, guilds, crafting, and a huge world to explore.',
     image: 'https://placehold.co/600x400.png',
