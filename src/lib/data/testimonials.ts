@@ -1,6 +1,6 @@
 export const testimonials = [
     {
-        name: 'RugDollz World Game',
+        name: 'AlexLee',
         title: 'Client on Upwork',
         comment: "If you're looking for an amazing talented Game developer who is is efficient yet meticulous at game development, then choose Shah. He also has outstanding blockchain skills which is invaluable…",
         avatar: 'https://placehold.co/100x100.png',
@@ -22,7 +22,7 @@ export const testimonials = [
     },
     {
         name: 'Pascal',
-        title: 'Client on Fiverr',
+        title: 'Client on Upwork',
         comment: "Shah have completed the job successfully as usual and he explained to me everything. The work was delivered on time.",
         avatar: 'https://placehold.co/100x100.png',
         rating: 5,
