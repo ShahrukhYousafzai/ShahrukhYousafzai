@@ -15,7 +15,7 @@ import type { CostCalculatorOutput } from './cost-calculator';
 // Re-exporting types from cost-calculator.ts to be used in the UI
 export type { QuoteItem, CostCalculatorOutput } from './cost-calculator';
 
-export const QuoteItemSchema = z.object({
+const QuoteItemSchema = z.object({
     name: z.string().describe("The name of the feature or module."),
     description: z.string().describe("A brief description of what this module includes."),
     cost: z.number().describe("The estimated cost for this specific module in USD."),
@@ -28,7 +28,7 @@ const CostCalculatorOutputSchema = z.object({
     disclaimer: z.string().describe("A concluding note or disclaimer for the user."),
 });
 
-export const MilestoneSplitterInputSchema = CostCalculatorOutputSchema.describe("The full project quote to be split into milestones.");
+const MilestoneSplitterInputSchema = CostCalculatorOutputSchema.describe("The full project quote to be split into milestones.");
 export type MilestoneSplitterInput = z.infer<typeof MilestoneSplitterInputSchema>;
 
 const MilestoneSchema = z.object({
@@ -38,7 +38,7 @@ const MilestoneSchema = z.object({
   items: z.array(QuoteItemSchema).describe("An array of the specific quote items included in this milestone."),
 });
 
-export const MilestoneSplitterOutputSchema = z.object({
+const MilestoneSplitterOutputSchema = z.object({
   milestones: z.array(MilestoneSchema).describe("An array of the project milestones."),
   totalCost: z.number().describe("The total project cost, which should match the input total cost."),
 });
