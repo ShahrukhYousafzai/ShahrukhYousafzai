@@ -15,7 +15,7 @@ export const games = [
     },
     {
       title: 'Cracked Out',
-      description: "Cracked Out is a chaotic 2.5D stickman beat 'em up game packed with outrageous humor and over-the-top action. Play as hilarious parody versions of characters like Andy Tate (Andrew Tate), Greg, Donald Trump, Joe Biden, and more — each with real face photos slapped onto stickman bodies. Brawl through waves of AI enemies using absurd weapons like bats, knives, and even dildos. Inspired by Tekken 3’s Force Mode, Cracked Out delivers wild, unpredictable fights in a ridiculous world where anything can happen.",
+      description: "A chaotic 2.5D stickman beat 'em up packed with outrageous humor. Play as parody versions of public figures, brawl through waves of enemies with absurd weapons, and fight in a wild world inspired by classic brawlers.",
       image: 'https://placehold.co/600x400.png',
       aiHint: 'stickman fighting',
       tags: ['Unity3D', '2.5D', 'Fighting', 'Action', 'Single Player', 'Parody'],
