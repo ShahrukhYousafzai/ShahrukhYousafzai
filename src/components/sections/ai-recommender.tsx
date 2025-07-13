@@ -200,15 +200,15 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
                         <AccordionContent className="space-y-4 pt-4 px-2">
                            <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Core Mechanics</h4>
-                              <p className="text-muted-foreground">{gdd.gameplay.coreMechanics}</p>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.coreMechanics}</p>
                            </div>
                             <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Game Loop</h4>
-                              <p className="text-muted-foreground">{gdd.gameplay.gameLoop}</p>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.gameLoop}</p>
                            </div>
                             <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Player Controls</h4>
-                              <p className="text-muted-foreground">{gdd.gameplay.playerControls}</p>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.gameplay.playerControls}</p>
                            </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -223,11 +223,11 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
                          <AccordionContent className="space-y-4 pt-4 px-2">
                            <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Art Style</h4>
-                              <p className="text-muted-foreground">{gdd.artStyle}</p>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.artStyle}</p>
                            </div>
                             <div className="whitespace-pre-line">
                               <h4 className="font-semibold">Monetization Strategy</h4>
-                              <p className="text-muted-foreground">{gdd.monetization}</p>
+                              <p className="text-muted-foreground whitespace-pre-line">{gdd.monetization}</p>
                            </div>
                         </AccordionContent>
                       </AccordionItem>
