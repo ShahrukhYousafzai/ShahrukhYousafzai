@@ -51,6 +51,11 @@ const ChatHistorySchema = z.object({
   content: z.string(),
 });
 
+const FlowInputSchema = z.object({
+  message: z.string(),
+  formattedHistory: z.string(),
+});
+
 const ChatInputSchema = z.object({
   message: z.string().describe('The user\'s message to the chatbot.'),
   history: z.array(ChatHistorySchema).describe('The previous conversation history.'),
@@ -60,12 +65,17 @@ export type ChatInput = z.infer<typeof ChatInputSchema>;
 export type ChatOutput = string;
 
 export async function chat(input: ChatInput): Promise<ChatOutput> {
-  return portfolioChatFlow(input);
+  // Format the history into a simple string for the prompt
+  const formattedHistory = input.history
+    .map(h => (h.role === 'user' ? `User: ${h.content}` : `AI: ${h.content}`))
+    .join('\n');
+    
+  return portfolioChatFlow({ message: input.message, formattedHistory });
 }
 
 const prompt = ai.definePrompt({
   name: 'portfolioChatPrompt',
-  input: {schema: ChatInputSchema},
+  input: {schema: FlowInputSchema},
   output: {format: 'text'},
   system: `You are a friendly and professional AI assistant for Shahrukh Yousafzai, a talented game and app developer. Your goal is to answer questions from potential clients visiting his portfolio website.
 
@@ -79,8 +89,7 @@ Use the following context about Shahrukh's work, skills, history, and typical pr
 **CONTEXT:**
 ${portfolioContext}
 `,
-  prompt: `{{#each history}}
-{{#if (eq role 'user')}}User: {{content}}\n{{else}}AI: {{content}}\n{{/if}}{{/each}}
+  prompt: `{{{formattedHistory}}}
 User: {{message}}
 AI:`,
 });
@@ -88,18 +97,11 @@ AI:`,
 const portfolioChatFlow = ai.defineFlow(
   {
     name: 'portfolioChatFlow',
-    inputSchema: ChatInputSchema,
+    inputSchema: FlowInputSchema,
     outputSchema: z.string(),
   },
   async (input) => {
-    // Genkit v1.x expects history in a specific format.
-    // We need to map our custom history to what the generate call expects.
-    const genkitHistory = input.history.map(h => ({
-        role: h.role,
-        content: [{ text: h.content }]
-    }));
-
-    const {output} = await prompt(input, { history: genkitHistory });
+    const {output} = await prompt(input);
     return output!;
   }
 );
