@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, MessageSquare, Send, X, Loader2 } from 'lucide-react';
+import { Bot, Send, X, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { chat, type ChatInput } from '@/ai/flows/portfolio-chatbot';
 
@@ -67,15 +67,27 @@ const Chatbot = () => {
 
     return (
         <>
-            <div className={cn("fixed bottom-6 right-6 z-50 transition-all duration-300", isOpen ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100")}>
-                <Button
-                    size="icon"
-                    className="rounded-full w-16 h-16 shadow-lg shadow-primary/30"
-                    onClick={() => setIsOpen(true)}
-                    aria-label="Open Chat"
+            <div className="fixed bottom-6 right-6 z-50">
+                <div 
+                    className={cn("transition-all duration-300", isOpen ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100")}
                 >
-                    <MessageSquare className="w-8 h-8" />
-                </Button>
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        className="flex items-center gap-3 p-3 rounded-full bg-card text-card-foreground shadow-lg hover:shadow-primary/20 transition-shadow"
+                        aria-label="Open Chat"
+                    >
+                       <div className="relative">
+                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground">
+                                <Bot className="h-7 w-7" />
+                            </div>
+                            <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-accent ring-2 ring-card" />
+                        </div>
+                        <div className="text-left hidden sm:block">
+                            <p className="font-semibold font-headline">AI Assistant</p>
+                            <p className="text-xs text-muted-foreground">Online</p>
+                        </div>
+                    </button>
+                </div>
             </div>
 
             <div className={cn(
