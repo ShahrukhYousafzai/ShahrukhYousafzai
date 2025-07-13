@@ -83,7 +83,7 @@ const Chatbot = () => {
                             <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-accent ring-2 ring-card" />
                         </div>
                         <div className="text-left hidden sm:block">
-                            <p className="font-semibold font-headline">AI Assistant</p>
+                            <p className="font-semibold font-headline">Shahrukh's AI Assistant</p>
                             <p className="text-xs text-muted-foreground">Online</p>
                         </div>
                     </button>
