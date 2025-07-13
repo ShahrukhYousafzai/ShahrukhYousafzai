@@ -156,13 +156,13 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
             disabled={isLoading || isDownloading}
           />
            <div className="space-y-2">
-            <Label>Target Platforms</Label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 rounded-lg border p-2">
+            <Label className="text-center block">Target Platforms</Label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 rounded-lg border p-2 justify-items-center">
               {platformOptions.map((p) => (
                 <Label
                   key={p.id}
                   htmlFor={p.id}
-                  className="flex items-center gap-2 p-2 rounded-md hover:bg-secondary transition-colors cursor-pointer"
+                  className="flex items-center gap-2 p-2 rounded-md hover:bg-secondary transition-colors cursor-pointer w-fit"
                 >
                   <Checkbox
                     id={p.id}
