@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { saveAs } from "file-saver";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter as TableFooterComponent } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -320,13 +320,11 @@ const QuoteGenerator = React.forwardRef<any, {
                                     <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
                                 </TableRow>
                             ))}
-                        </TableBody>
-                         <TableFooterComponent>
-                            <TableRow className="text-lg">
+                            <TableRow className="text-lg border-t-2 border-primary/20">
                                 <TableCell className="font-bold">Total Estimated Cost</TableCell>
                                 <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
                             </TableRow>
-                        </TableFooterComponent>
+                        </TableBody>
                     </Table>
                      <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">{estimation.disclaimer}</p>
                 </Card>
@@ -347,7 +345,7 @@ const QuoteGenerator = React.forwardRef<any, {
       {milestones && (
           <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
             <div className="animate-in fade-in duration-500 w-full">
-                <div ref={milestonesContentRef}>
+                 <div ref={milestonesContentRef}>
                      <Card className="bg-card text-card-foreground p-4">
                          <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
                         <Accordion type="single" collapsible className="w-full" defaultValue="milestone-0">
