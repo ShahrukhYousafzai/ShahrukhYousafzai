@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
 import LenisScroller from '@/components/lenis-scroller';
+import Chatbot from '@/components/chatbot';
 
 export const metadata: Metadata = {
   title: 'Shahrukh Yousafzai Portfolio',
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </LenisScroller>
         <Toaster />
+        <Chatbot />
       </body>
     </html>
   );
