@@ -346,20 +346,18 @@ const QuoteGenerator = React.forwardRef<any, {
           <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
             <div className="animate-in fade-in duration-500 w-full">
                  <div ref={milestonesContentRef}>
-                     <Card className="bg-card text-card-foreground p-4">
-                         <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
-                        <Accordion type="single" collapsible className="w-full" defaultValue="milestone-0">
+                    <Card className="bg-card text-card-foreground p-4">
+                        <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
+                        <div className="space-y-4">
                             {milestones.milestones.map((milestone, index) => (
-                                 <AccordionItem value={`milestone-${index}`} key={index}>
-                                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                                        <div className="flex justify-between w-full pr-4">
-                                            <span>{milestone.name}</span>
-                                            <span className="text-primary">${milestone.cost.toLocaleString()}</span>
-                                        </div>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="pt-2">
-                                         <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
-                                         <ul className="space-y-2 px-2">
+                                <div key={index} className="border-b pb-4 last:border-b-0">
+                                    <div className="flex justify-between w-full pr-4 font-semibold text-lg">
+                                        <span>{milestone.name}</span>
+                                        <span className="text-primary">${milestone.cost.toLocaleString()}</span>
+                                    </div>
+                                    <div className="pt-2">
+                                        <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
+                                        <ul className="space-y-2 px-2">
                                             {milestone.items.map((item, itemIndex) => (
                                                 <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
                                                     <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
@@ -367,10 +365,10 @@ const QuoteGenerator = React.forwardRef<any, {
                                                 </li>
                                             ))}
                                         </ul>
-                                    </AccordionContent>
-                                </AccordionItem>
+                                    </div>
+                                </div>
                             ))}
-                        </Accordion>
+                        </div>
                     </Card>
                 </div>
             </div>
@@ -614,3 +612,5 @@ const AiRecommender = () => {
 };
 
 export default AiRecommender;
+
+    
