@@ -14,7 +14,7 @@ import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-re
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
 import { generateQuote, type QuoteGeneratorOutput } from "@/ai/flows/quote-generator";
 import { splitIntoMilestones, type MilestoneSplitterOutput } from "@/ai/flows/milestone-splitter";
-import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone } from "lucide-react";
+import { Bot, Sparkles, Loader2, Wand2, FileText, DollarSign, ArrowRight, Download, Milestone, Globe, Monitor, Smartphone, Copy, Apple } from "lucide-react";
 import { about, projects } from "@/lib/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { generateDocx } from "@/app/actions";
@@ -131,7 +131,17 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
     onSubmit();
   };
 
-  const platforms = ["Web", "Windows", "Mac", "Android", "iOS", "Desktop (All)", "Mobile (All)", "Cross-Platform (All)"];
+  const platforms = [
+    { name: "Web", icon: Globe },
+    { name: "Windows", icon: Monitor },
+    { name: "Mac", icon: Apple },
+    { name: "Linux", icon: Monitor },
+    { name: "Android", icon: Smartphone },
+    { name: "iOS", icon: Smartphone },
+    { name: "Desktop (All)", icon: Monitor },
+    { name: "Mobile (All)", icon: Smartphone },
+    { name: "Cross-Platform (All)", icon: Copy },
+  ];
 
   return (
      <Card>
@@ -152,7 +162,14 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
                 <SelectValue placeholder="Select Target Platform" />
               </SelectTrigger>
               <SelectContent>
-                {platforms.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                {platforms.map(p => (
+                  <SelectItem key={p.name} value={p.name}>
+                    <div className="flex items-center gap-2">
+                      <p.icon className="h-4 w-4" />
+                      <span>{p.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -612,5 +629,3 @@ const AiRecommender = () => {
 };
 
 export default AiRecommender;
-
-    
