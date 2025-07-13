@@ -2,6 +2,18 @@ import { Download, Play, Video } from "lucide-react";
 
 export const games = [
     {
+      title: 'Combat Heroes',
+      description: 'A low-poly battle royale shooting game. Fast-paced action and stylized graphics for a thrilling last-man-standing experience.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'battle royale shooting',
+      tags: ['Unity3D', '3D', 'Shooting', 'Action', 'Multiplayer', 'Battle Royale', 'Single Player'],
+      link: '#',
+      linkText: 'Learn More',
+      linkIcon: Play,
+      category: 'Games',
+      platform: 'Web2',
+    },
+    {
       title: 'Ultimate Cricket 24',
       description: 'Experience the ultimate cricket gaming thrill with "Ultimate Cricket 24" - a realistic and immersive mobile cricket game with features like tournaments, premier leagues, test matches, and daily rewards.',
       image: 'https://placehold.co/600x400.png',
