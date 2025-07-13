@@ -80,7 +80,7 @@ const Chatbot = () => {
                             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground">
                                 <Bot className="h-7 w-7" />
                             </div>
-                            <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-accent ring-2 ring-card" />
+                            <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-card" />
                         </div>
                         <div className="text-left hidden sm:block">
                             <p className="font-semibold font-headline">Shahrukh's AI Assistant</p>
