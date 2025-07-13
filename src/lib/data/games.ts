@@ -18,7 +18,7 @@ export const games = [
       description: "A chaotic 2.5D stickman beat 'em up packed with outrageous humor. Play as parody versions of public figures, brawl through waves of enemies with absurd weapons, and fight in a wild world inspired by classic brawlers.",
       image: 'https://placehold.co/600x400.png',
       aiHint: 'stickman fighting',
-      tags: ['Unity3D', '2.5D', 'Fighting', 'Action', 'Single Player', 'Parody'],
+      tags: ['Unity3D', '2.5D', '2D', '3D', 'Fighting', 'Action', 'Single Player', 'Parody'],
       link: '#',
       linkText: 'Learn More',
       linkIcon: Play,
