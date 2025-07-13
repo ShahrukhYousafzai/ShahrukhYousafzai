@@ -34,7 +34,7 @@ const AboutSection = () => {
 
                   <div 
                     className={cn(
-                      "pl-8 md:pl-0 md:pr-0",
+                      "pl-12 md:pl-0 md:pr-0",
                        index % 2 === 0 ? "md:order-2" : "md:order-1"
                     )}
                   >
