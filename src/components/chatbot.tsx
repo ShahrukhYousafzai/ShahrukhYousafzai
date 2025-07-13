@@ -86,7 +86,7 @@ const Chatbot = () => {
                     <CardHeader className="flex flex-row items-center justify-between border-b">
                         <div className="flex items-center gap-3">
                             <Bot className="w-6 h-6 text-primary" />
-                            <CardTitle className="text-lg font-headline">AI Assistant</CardTitle>
+                            <CardTitle className="text-lg font-headline">Shahrukh's AI Assistant</CardTitle>
                         </div>
                         <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
                             <X className="w-4 h-4" />
