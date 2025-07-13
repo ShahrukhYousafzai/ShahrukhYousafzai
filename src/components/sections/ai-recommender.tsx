@@ -9,7 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { recommendGame, type GameRecommendationOutput } from "@/ai/flows/game-recommendation";
 import { generateGdd, type GddGeneratorOutput } from "@/ai/flows/gdd-generator";
 import { generateQuote, type QuoteGeneratorOutput } from "@/ai/flows/quote-generator";
@@ -110,8 +111,8 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
   onGenerateQuote: () => void;
   gameIdea: string;
   setGameIdea: (value: string) => void;
-  platform: string;
-  setPlatform: (value: string) => void;
+  platforms: string[];
+  onPlatformChange: (platform: string, checked: boolean) => void;
 }>(({
   gdd,
   isLoading,
@@ -122,8 +123,8 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
   onGenerateQuote,
   gameIdea,
   setGameIdea,
-  platform,
-  setPlatform,
+  platforms: selectedPlatforms,
+  onPlatformChange,
 }, ref) => {
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -131,16 +132,13 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
     onSubmit();
   };
 
-  const platforms = [
-    { name: "Web", icon: Globe },
-    { name: "Windows", icon: Monitor },
-    { name: "Mac", icon: Apple },
-    { name: "Linux", icon: Monitor },
-    { name: "Android", icon: Smartphone },
-    { name: "iOS", icon: Smartphone },
-    { name: "Desktop (All)", icon: Monitor },
-    { name: "Mobile (All)", icon: Smartphone },
-    { name: "Cross-Platform (All)", icon: Copy },
+  const platformOptions = [
+    { id: "web", name: "Web", icon: Globe },
+    { id: "windows", name: "Windows", icon: Monitor },
+    { id: "mac", name: "Mac", icon: Apple },
+    { id: "linux", name: "Linux", icon: Monitor },
+    { id: "android", name: "Android", icon: Smartphone },
+    { id: "ios", name: "iOS", icon: Smartphone },
   ];
 
   return (
@@ -157,24 +155,30 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
             onChange={(e) => setGameIdea(e.target.value)}
             disabled={isLoading || isDownloading}
           />
-           <Select value={platform} onValueChange={setPlatform} disabled={isLoading || isDownloading}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Target Platform" />
-              </SelectTrigger>
-              <SelectContent>
-                {platforms.map(p => (
-                  <SelectItem key={p.name} value={p.name}>
-                    <div className="flex items-center gap-2">
-                      <p.icon className="h-4 w-4" />
-                      <span>{p.name}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+           <div className="space-y-2">
+            <Label>Target Platforms</Label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 rounded-lg border p-2">
+              {platformOptions.map((p) => (
+                <Label
+                  key={p.id}
+                  htmlFor={p.id}
+                  className="flex items-center gap-2 p-2 rounded-md hover:bg-secondary transition-colors cursor-pointer"
+                >
+                  <Checkbox
+                    id={p.id}
+                    checked={selectedPlatforms.includes(p.name)}
+                    onCheckedChange={(checked) => onPlatformChange(p.name, !!checked)}
+                    disabled={isLoading || isDownloading}
+                  />
+                  <p.icon className="h-4 w-4" />
+                  <span>{p.name}</span>
+                </Label>
+              ))}
+            </div>
+          </div>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={isLoading || isDownloading || !platform || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+          <Button type="submit" disabled={isLoading || isDownloading || selectedPlatforms.length === 0 || !gameIdea} className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
             {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating GDD...</> : <><FileText className="mr-2 h-4 w-4" /> Generate GDD</>}
           </Button>
         </form>
@@ -316,36 +320,34 @@ const QuoteGenerator = React.forwardRef<any, {
       </CardContent>
       {estimation && (
         <CardFooter className="flex-col items-start gap-4 pt-4">
-          <div className="animate-in fade-in duration-500 w-full">
-            <div ref={quoteContentRef}>
-                <Card className="bg-card text-card-foreground p-4">
-                    <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">{estimation.quoteTitle}</CardTitle>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Module</TableHead>
-                                <TableHead className="text-right">Cost</TableHead>
+          <div ref={quoteContentRef} className="animate-in fade-in duration-500 w-full">
+            <Card className="bg-card text-card-foreground p-4">
+                <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-2">{estimation.quoteTitle}</CardTitle>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Module</TableHead>
+                            <TableHead className="text-right">Cost</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {estimation.items.map((item, index) => (
+                           <TableRow key={index}>
+                                <TableCell>
+                                    <p className="font-semibold">{item.name}</p>
+                                    <p className="text-muted-foreground text-xs whitespace-pre-line">{item.description}</p>
+                                </TableCell>
+                                <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
                             </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {estimation.items.map((item, index) => (
-                               <TableRow key={index}>
-                                    <TableCell>
-                                        <p className="font-semibold">{item.name}</p>
-                                        <p className="text-muted-foreground text-xs whitespace-pre-line">{item.description}</p>
-                                    </TableCell>
-                                    <TableCell className="text-right font-semibold">${item.cost.toLocaleString()}</TableCell>
-                                </TableRow>
-                            ))}
-                            <TableRow className="text-lg border-t-2 border-primary/20">
-                                <TableCell className="font-bold">Total Estimated Cost</TableCell>
-                                <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                     <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">{estimation.disclaimer}</p>
-                </Card>
-            </div>
+                        ))}
+                        <TableRow className="text-lg border-t-2 border-primary/20">
+                            <TableCell className="font-bold">Total Estimated Cost</TableCell>
+                            <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+                 <p className="text-xs text-muted-foreground mt-4 p-4 border rounded-md bg-background">{estimation.disclaimer}</p>
+            </Card>
           </div>
             <div className="w-full pt-4 flex flex-col sm:flex-row gap-2">
                 <Button onClick={onDownloadQuote} disabled={isDownloading || isSplitting} className="w-full">
@@ -361,33 +363,31 @@ const QuoteGenerator = React.forwardRef<any, {
       )}
       {milestones && (
           <CardFooter className="flex-col items-start gap-4 pt-4 w-full">
-            <div className="animate-in fade-in duration-500 w-full">
-                 <div ref={milestonesContentRef}>
-                    <Card className="bg-card text-card-foreground p-4">
-                        <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
-                        <div className="space-y-4">
-                            {milestones.milestones.map((milestone, index) => (
-                                <div key={index} className="border-b pb-4 last:border-b-0">
-                                    <div className="flex justify-between w-full pr-4 font-semibold text-lg">
-                                        <span>{milestone.name}</span>
-                                        <span className="text-primary">${milestone.cost.toLocaleString()}</span>
-                                    </div>
-                                    <div className="pt-2">
-                                        <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
-                                        <ul className="space-y-2 px-2">
-                                            {milestone.items.map((item, itemIndex) => (
-                                                <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
-                                                    <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
-                                                    <p className="text-muted-foreground text-xs">{item.description}</p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </Card>
-                </div>
+            <div ref={milestonesContentRef} className="animate-in fade-in duration-500 w-full">
+              <Card className="bg-card text-card-foreground p-4">
+                  <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
+                  <div className="space-y-4">
+                      {milestones.milestones.map((milestone, index) => (
+                          <div key={index} className="border-b pb-4 last:border-b-0">
+                              <div className="flex justify-between w-full pr-4 font-semibold text-lg">
+                                  <span>{milestone.name}</span>
+                                  <span className="text-primary">${milestone.cost.toLocaleString()}</span>
+                              </div>
+                              <div className="pt-2">
+                                  <p className="text-muted-foreground mb-4 px-2">{milestone.description}</p>
+                                  <ul className="space-y-2 px-2">
+                                      {milestone.items.map((item, itemIndex) => (
+                                          <li key={itemIndex} className="text-sm border-l-2 border-primary/50 pl-3">
+                                              <p className="font-semibold">{item.name} - ${item.cost.toLocaleString()}</p>
+                                              <p className="text-muted-foreground text-xs">{item.description}</p>
+                                          </li>
+                                      ))}
+                                  </ul>
+                              </div>
+                          </div>
+                      ))}
+                  </div>
+              </Card>
             </div>
              <div className="w-full pt-4">
                 <Button onClick={onDownloadMilestones} disabled={isDownloading} className="w-full">
@@ -417,7 +417,7 @@ const AiRecommender = () => {
 
   const [gameIdeaPreferences, setGameIdeaPreferences] = useState("");
   const [gddGeneratorIdea, setGddGeneratorIdea] = useState("");
-  const [gddPlatform, setGddPlatform] = useState("");
+  const [gddPlatforms, setGddPlatforms] = useState<string[]>([]);
   const [quoteGeneratorIdea, setQuoteGeneratorIdea] = useState("");
 
   const gddContentRef = useRef<HTMLDivElement>(null);
@@ -451,16 +451,22 @@ const AiRecommender = () => {
     }
   };
   
+  const handleGddPlatformChange = (platform: string, checked: boolean) => {
+    setGddPlatforms(prev => 
+      checked ? [...prev, platform] : prev.filter(p => p !== platform)
+    );
+  };
+
   const handleGenerateGdd = async () => {
-    if (!gddGeneratorIdea.trim() || !gddPlatform) {
-      setError("Please provide a game idea and select a platform.");
+    if (!gddGeneratorIdea.trim() || gddPlatforms.length === 0) {
+      setError("Please provide a game idea and select at least one platform.");
       return;
     }
     setIsLoading(true);
     setError(null);
     setGdd(null);
     try {
-      const result = await generateGdd({ gameIdea: gddGeneratorIdea, platform: gddPlatform, portfolioDescription });
+      const result = await generateGdd({ gameIdea: gddGeneratorIdea, platform: gddPlatforms.join(', '), portfolioDescription });
       setGdd(result);
     } catch (err) {
       setError("Sorry, something went wrong. Please try again.");
@@ -600,8 +606,8 @@ const AiRecommender = () => {
                 onGenerateQuote={handleGddToQuote}
                 gameIdea={gddGeneratorIdea}
                 setGameIdea={setGddGeneratorIdea}
-                platform={gddPlatform}
-                setPlatform={setGddPlatform}
+                platforms={gddPlatforms}
+                onPlatformChange={handleGddPlatformChange}
               />
             </TabsContent>
             <TabsContent value="quote-generator" className="mt-6">
