@@ -231,7 +231,7 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
 GddGenerator.displayName = "GddGenerator";
 
 
-const QuoteGenerator = React.forwardRef<HTMLDivElement, {
+const QuoteGenerator = React.forwardRef<any, {
     estimation: QuoteGeneratorOutput | null;
     milestones: MilestoneSplitterOutput | null;
     isLoading: boolean;
@@ -274,7 +274,6 @@ const QuoteGenerator = React.forwardRef<HTMLDivElement, {
     get milestonesNode() {
       return milestonesContentRef.current;
     },
-    ...({} as HTMLDivElement)
   }));
 
   return (
@@ -322,7 +321,7 @@ const QuoteGenerator = React.forwardRef<HTMLDivElement, {
                                 </TableRow>
                             ))}
                         </TableBody>
-                        <TableFooterComponent>
+                         <TableFooterComponent>
                             <TableRow className="text-lg">
                                 <TableCell className="font-bold">Total Estimated Cost</TableCell>
                                 <TableCell className="text-right font-bold text-primary">${estimation.totalCost.toLocaleString()}</TableCell>
@@ -351,7 +350,7 @@ const QuoteGenerator = React.forwardRef<HTMLDivElement, {
                 <div ref={milestonesContentRef}>
                      <Card className="bg-card text-card-foreground p-4">
                          <CardTitle className="text-2xl font-headline text-primary drop-shadow-[0_0_8px_hsl(var(--primary))] mb-4">Project Milestones</CardTitle>
-                        <Accordion type="single" collapsible className="w-full">
+                        <Accordion type="single" collapsible className="w-full" defaultValue="milestone-0">
                             {milestones.milestones.map((milestone, index) => (
                                  <AccordionItem value={`milestone-${index}`} key={index}>
                                     <AccordionTrigger className="font-semibold text-lg hover:no-underline">
