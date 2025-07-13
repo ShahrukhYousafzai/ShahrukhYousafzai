@@ -149,11 +149,12 @@ const GddGenerator = React.forwardRef<HTMLDivElement, {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid w-full gap-4">
-          <Input
+          <Textarea
             placeholder="Enter your game idea..."
             value={gameIdea}
             onChange={(e) => setGameIdea(e.target.value)}
             disabled={isLoading || isDownloading}
+            rows={4}
           />
            <div className="space-y-2">
             <Label className="text-center block">Target Platforms</Label>
