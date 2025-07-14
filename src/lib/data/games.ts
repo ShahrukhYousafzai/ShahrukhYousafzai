@@ -256,7 +256,7 @@ export const games = [
     {
       title: 'RugDollz Shooter',
       description: 'A fast-paced PvP multiplayer shooter with four action-packed maps. Engage in intense battles where only the quickest and sharpest competitors come out on top.',
-      image: '/Images/portfolio/games/RugDollzShooter.png',
+      image: '/Images/portfolio/games/RugDollzShooter.webp',
       aiHint: 'pvp shooter',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Shooting', 'Action', '3D'],
       link: '#',
@@ -268,7 +268,7 @@ export const games = [
     {
       title: 'RugDollz Racing',
       description: 'A high-speed multiplayer racing game featuring two exhilarating tracks, power-ups, and the ability to collect different kart NFTs for unique in-game vehicles.',
-      image: '/Images/portfolio/games/RugDollzRacing.png',
+      image: '/Images/portfolio/games/RugDollzRacing.webp',
       aiHint: 'kart racing',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Racing', 'Action', '3D'],
       link: '#',
