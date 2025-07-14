@@ -1,6 +1,39 @@
-import { Play } from "lucide-react";
+import { Play, Video } from "lucide-react";
 
 export const apps = [
+    {
+      title: 'AI Assignment Writer',
+      description: 'An AI-powered tool to help students draft, write, and format their assignments, essays, and reports with ease. Overcome writer\'s block and improve your writing quality.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'assignment writer',
+      tags: ['AI', 'Mobile', 'Productivity', 'Education'],
+      link: 'https://play.google.com/store/apps/details?id=com.effacestudios.instant.studywritingassistant',
+      linkText: 'Play Store',
+      linkIcon: Play,
+      category: 'Apps',
+    },
+    {
+      title: 'Flash 2.0 - AI Presentations Maker',
+      description: 'Create stunning presentations in minutes. Just provide a topic, and Flash 2.0 uses AI to generate slides, content, and designs for you.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'presentation maker',
+      tags: ['AI', 'Mobile', 'Productivity', 'Creative Tools'],
+      link: 'https://play.google.com/store/apps/details?id=com.effacestudios.flashpresentationmaker',
+      linkText: 'Play Store',
+      linkIcon: Play,
+      category: 'Apps',
+    },
+    {
+      title: 'Instant - AI Video Maker',
+      description: 'Transform your ideas into engaging videos instantly. This AI video maker automates the creation process, from script to final cut, perfect for content creators and marketers.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'video maker',
+      tags: ['AI', 'Mobile', 'Creative Tools', 'Productivity'],
+      link: 'https://youtu.be/bbBeo480n2M',
+      linkText: 'Watch on YouTube',
+      linkIcon: Video,
+      category: 'Apps',
+    },
     {
       title: 'Multi-Avatar AI 3D Chatbot',
       description: 'Experience the future of communication with our AI 3D Chatbot! Choose from customizable avatars, enjoy Wikipedia integration, advanced Text-to-Speech, voice recognition, and real-time translation for seamless, hands-free interaction in any language.',
