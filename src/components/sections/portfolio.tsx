@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { projects } from "@/lib/data";
@@ -33,6 +33,9 @@ const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
           </div>
         </DialogTrigger>
         <DialogContent className="max-w-4xl p-2">
+            <DialogHeader>
+                <DialogTitle className="sr-only">{project.title}</DialogTitle>
+            </DialogHeader>
           <div className="relative aspect-video">
              <Image
                 src={project.image}
