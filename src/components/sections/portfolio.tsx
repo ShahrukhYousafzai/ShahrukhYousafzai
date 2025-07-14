@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { projects } from "@/lib/data";
@@ -9,22 +10,39 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Package, Globe, Layers, Bot } from "lucide-react";
+import { Package, Globe, Layers, Bot, ZoomIn } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
 
 const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
   <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
     <CardHeader className="p-0">
-      <div className="aspect-video relative bg-black">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-contain"
-          data-ai-hint={project.aiHint}
-        />
-      </div>
+       <Dialog>
+        <DialogTrigger asChild>
+          <div className="aspect-video relative bg-black group cursor-pointer">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-contain"
+              data-ai-hint={project.aiHint}
+            />
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <ZoomIn className="h-12 w-12 text-white" />
+            </div>
+          </div>
+        </DialogTrigger>
+        <DialogContent className="max-w-4xl p-2">
+          <div className="relative aspect-video">
+             <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-contain"
+             />
+          </div>
+        </DialogContent>
+      </Dialog>
     </CardHeader>
     <div className="p-4 flex-grow flex flex-col">
       <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
