@@ -3,8 +3,19 @@ import { Play } from "lucide-react";
 export const apps = [
     {
       title: 'Multi-Avatar AI 3D Chatbot',
-      description: 'Discover the future of interactive communication with our AI 3D Chatbot, featuring a diverse range of customizable avatars to suit your style! This cutting-edge chatbot offers Wikipedia integration, providing you instant access to a wealth of knowledge at your fingertips. With advanced Text-to-Speech (TTS) capabilities, the chatbot can read information aloud, enhancing your learning experience. Its voice recognition technology allows for natural, hands-free interactions, while powerful translation features enable seamless communication in any language.',
-      image: 'https://placehold.co/600x400.png',
+      description: 'Experience the future of communication with our AI 3D Chatbot! Choose from customizable avatars, enjoy Wikipedia integration, advanced Text-to-Speech, voice recognition, and real-time translation for seamless, hands-free interaction in any language.',
+      image: '/Images/portfolio/apps/ArtificialIntelligence3DChatbot.png',
+      aiHint: 'ai chatbot',
+      tags: ['AI', '3D', 'Chatbot', 'TTS', 'Voice Recognition', 'Wikipedia', 'Translation', 'Mobile'],
+      link: '#',
+      linkText: 'Learn More',
+      linkIcon: Play,
+      category: 'Apps',
+    },
+    {
+      title: 'Artificial Intelligence 3D Chatbot',
+      description: 'Discover the future of interactive communication with our AI 3D Chatbot, featuring a diverse range of customizable avatars to suit your style! providing you instant access to a wealth of knowledge at your fingertips. Its voice recognition technology allows for natural, hands-free interaction',
+      image: '/Images/portfolio/apps/ArtificialIntelligence3DChatbot.jpg',
       aiHint: 'ai chatbot',
       tags: ['AI', '3D', 'Chatbot', 'TTS', 'Voice Recognition', 'Wikipedia', 'Translation', 'Mobile'],
       link: '#',
@@ -14,8 +25,8 @@ export const apps = [
     },
     {
       title: 'Interactive AI Chatbot App',
-      description: 'This innovative app allows the chatbot to remember your name and high scores, making each session personalized and engaging. The chatbot can listen and understand your preferences—tell it your favorite color, and watch as the game sphere changes to match your choice! You can interact with the friendly 3D chatbot through voice commands using your microphone or by typing via the keyboard, creating a dynamic conversation that enhances gameplay.',
-      image: 'https://placehold.co/600x400.png',
+      description: 'This app personalizes your experience by remembering your name, high scores, and preferences. Use voice or keyboard to chat with the 3D chatbot, and see the game adapt—like changing colors to match your favorites!',
+      image: '/Images/portfolio/apps/InteractiveAIChatbotApp.jpg',
       aiHint: 'interactive chatbot',
       tags: ['AI', 'Chatbot', 'Personalization', 'Voice Recognition', 'Mobile'],
       link: '#',
@@ -25,8 +36,8 @@ export const apps = [
     },
     {
       title: 'Efface AI Chatbot',
-      description: 'This AI chatbot features voice-to-text speech recognition for seamless, hands-free conversations and voice response capabilities for natural interaction. It includes automated email notifications for updates and confirmations, ensuring users stay informed. The chatbot supports custom branding with personalized logos and a variety of color options to match your business identity. Additionally, it offers customizable contact or link buttons for easy navigation and quick access. Designed for an engaging, branded user experience.',
-      image: 'https://placehold.co/600x400.png',
+      description: 'This AI chatbot offers voice-to-text recognition, voice responses, and automated email updates. Enjoy custom branding with your logo, colors, and contact buttons for a seamless, hands-free, and branded user experience.',
+      image: '/Images/portfolio/apps/EffaceAIChatbot.jpg',
       aiHint: 'business chatbot',
       tags: ['AI', 'Chatbot', 'Voice Recognition', 'Branding', 'Email', 'Web'],
       link: '#',
@@ -37,7 +48,7 @@ export const apps = [
     {
       title: 'AI Chatbots With Avatar',
       description: 'An interactive, multi-modal AI chatbot featuring advanced voice-to-text, voice response, a visually engaging 3D avatar, email notifications, and custom branding.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/AIChatbotsWithAvatar.jpg',
       aiHint: 'avatar chatbot',
       tags: ['AI', 'Chatbot', '3D Avatar', 'Voice Recognition', 'Web'],
       link: '#',
@@ -48,7 +59,7 @@ export const apps = [
     {
       title: 'AI Image Generator',
       description: 'A web app that creates custom images from text prompts using AI. Features an intuitive UI with React.js and Tailwind CSS, perfect for artists and designers.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/AIImageGenerator.jpg',
       aiHint: 'image generation',
       tags: ['AI', 'Web', 'Productivity', 'Creative Tools'],
       link: '#',
@@ -59,7 +70,7 @@ export const apps = [
     {
       title: 'QuickChef - AI Recipe Guide',
       description: 'The ultimate cooking companion that transforms your available ingredients into delicious recipes using AI. Features a vast, ever-expanding library for all dietary needs.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/QuickChef.jpg',
       aiHint: 'recipe app',
       tags: ['AI', 'Mobile', 'Productivity'],
       link: '#',
@@ -70,7 +81,7 @@ export const apps = [
     {
       title: 'DateShate - Random Chat & Date',
       description: 'A social media mobile app to meet and chat with random people worldwide. Features voice chat, custom avatars, and a clever AI chatbot fallback for when no users are available.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/DateShate.jpg',
       aiHint: 'dating app',
       tags: ['Social', 'Mobile', 'Chatbot'],
       link: '#',
@@ -81,7 +92,7 @@ export const apps = [
     {
       title: 'Efface Character Creator',
       description: 'Create and customize game characters in no time. Export them as 2D sprites for use in game engines like Unity, Unreal Engine, and Construct 2.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/EffaceCharacterCreator.png',
       aiHint: 'character creator',
       tags: ['Windows', 'Productivity', 'Creative Tools'],
       link: '#',
@@ -92,7 +103,7 @@ export const apps = [
     {
       title: 'WP Chatbot Builder',
       description: 'A WordPress plugin that allows you to build and manage multiple chatbots for your websites with full customization and a live preview system.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/WPChatbotBuilder.jpg',
       aiHint: 'wordpress plugin',
       tags: ['Web', 'Chatbot', 'AI', 'Productivity'],
       link: '#',
@@ -103,7 +114,7 @@ export const apps = [
     {
       title: 'Spectruma - Audio Visualizer Maker',
       description: 'A lightweight mobile application for musicians, artists, and podcasters to create professional audio spectrum visualizers for their tracks and podcasts.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/Spectruma.jpg',
       aiHint: 'audio visualizer',
       tags: ['Mobile', 'Creative Tools', 'Productivity'],
       link: '#',
@@ -114,7 +125,7 @@ export const apps = [
     {
       title: 'Efface Auto Typing Bot',
       description: 'A handy bot that automates typing for you. Enter your text, set a delay, and let the bot type it out in any application, saving you time from repetitive copy-pasting.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/AutoTypingBot.jpg',
       aiHint: 'typing bot',
       tags: ['Windows', 'Productivity'],
       link: '#',
@@ -125,7 +136,7 @@ export const apps = [
     {
       title: 'Efface Text Story Maker',
       description: 'A simple Windows application that lets you write text message-style stories and export them as videos to share with friends. Features full customization of the chat interface.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/EffaceTextStoryMaker.png',
       aiHint: 'story maker',
       tags: ['Windows', 'Creative Tools', 'Social'],
       link: '#',
@@ -136,7 +147,7 @@ export const apps = [
     {
       title: 'Efface AI Chatbot Builder',
       description: 'Create AI Chatbots for your website offline with this Windows application. Features full customization and multiple export options, including Web App, WordPress Plugin, and Windows Application.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/EffaceChatbotBuilder.png',
       aiHint: 'chatbot builder',
       tags: ['Windows', 'AI', 'Chatbot', 'Productivity'],
       link: '#',
@@ -147,7 +158,7 @@ export const apps = [
     {
       title: 'PDF Flipbook Builder',
       description: 'A Windows application to convert any PDF file into a responsive, interactive flipbook. Works offline and offers extensive customization for a professional look.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/PDFFlipbookBuilder.jpeg',
       aiHint: 'pdf flipbook',
       tags: ['Windows', 'Productivity', 'Creative Tools'],
       link: '#',
@@ -158,7 +169,7 @@ export const apps = [
     {
       title: 'AnimStorm 2.0 Chatbot & Spokesperson',
       description: 'A dual-mode Windows application to create animated spokesperson videos or an AI chatbot using AIML. Features 720p HD recording and character customization.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/Animstorm2.jpg',
       aiHint: 'animated spokesperson',
       tags: ['Windows', 'Creative Tools', 'AI', 'Chatbot'],
       link: '#',
@@ -169,7 +180,7 @@ export const apps = [
     {
       title: 'AnimStorm Studio',
       description: 'A highly customizable animation software for creating spokesperson videos. Features funny skins, various emotions, and more to bring your characters to life.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/AnimstormStudio.png',
       aiHint: 'animation studio',
       tags: ['Windows', 'Creative Tools'],
       link: '#',
