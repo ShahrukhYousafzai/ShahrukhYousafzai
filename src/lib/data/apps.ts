@@ -4,7 +4,7 @@ export const apps = [
     {
       title: 'Spark - AI Shorts Maker',
       description: 'An AI-powered tool that helps you create engaging short-form videos for platforms like TikTok, Reels, and YouTube Shorts. Automatically generate scripts, find visuals, and edit clips to produce viral content effortlessly.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/SparkAIShortsMaker.webp',
       aiHint: 'video shorts',
       tags: ['AI', 'Mobile', 'Creative Tools', 'Social'],
       link: 'https://apkpure.net/spark-ai-shorts-maker/com.effacestudios.spark',
@@ -15,7 +15,7 @@ export const apps = [
     {
       title: 'AI Assignment Writer',
       description: 'An AI-powered tool to help students draft, write, and format their assignments, essays, and reports with ease. Overcome writer\'s block and improve your writing quality.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/AIAssignmentWriter.webp',
       aiHint: 'assignment writer',
       tags: ['AI', 'Mobile', 'Productivity', 'Education'],
       link: 'https://play.google.com/store/apps/details?id=com.effacestudios.instant.studywritingassistant',
@@ -26,7 +26,7 @@ export const apps = [
     {
       title: 'Flash 2.0 - AI Presentations Maker',
       description: 'Create stunning presentations in minutes. Just provide a topic, and Flash 2.0 uses AI to generate slides, content, and designs for you.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/Flash.jpeg',
       aiHint: 'presentation maker',
       tags: ['AI', 'Mobile', 'Productivity', 'Creative Tools'],
       link: 'https://play.google.com/store/apps/details?id=com.effacestudios.flashpresentationmaker',
@@ -37,7 +37,7 @@ export const apps = [
     {
       title: 'Instant - AI Video Maker',
       description: 'Transform your ideas into engaging videos instantly. This AI video maker automates the creation process, from script to final cut, perfect for content creators and marketers.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/apps/InstantAIVideoMaker.png',
       aiHint: 'video maker',
       tags: ['AI', 'Mobile', 'Creative Tools', 'Productivity'],
       link: 'https://youtu.be/bbBeo480n2M',

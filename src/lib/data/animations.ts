@@ -4,7 +4,7 @@ export const animations = [
   {
     title: 'MultiPlanetary Inus Official Teaser #1',
     description: 'First official teaser for the MultiPlanetary Inus MMORPG, showcasing initial concepts and world-building.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/MultiPlanetaryInusTeaser1.jpg',
     aiHint: 'game teaser',
     tags: ['Unity3D', 'Cinemachine', 'VFX', 'Teaser'],
     link: '#',
@@ -15,7 +15,7 @@ export const animations = [
   {
     title: 'MultiPlanetary Inus Official Teaser #2',
     description: 'Second teaser revealing more gameplay elements and character designs for the upcoming blockchain MMORPG.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/MultiPlanetaryInusTeaser2.png',
     aiHint: 'game trailer',
     tags: ['Unity3D', 'Cinemachine', 'VFX', 'Teaser'],
     link: '#',
@@ -26,7 +26,7 @@ export const animations = [
   {
     title: 'MultiPlanetary Inus Official Teaser #3',
     description: 'The third and final teaser building excitement for the launch of MultiPlanetary Inus with cinematic action.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/MultiPlanetaryInusTeaser3.jpg',
     aiHint: 'cinematic teaser',
     tags: ['Unity3D', 'Cinemachine', 'VFX', 'Teaser'],
     link: '#',
@@ -37,7 +37,7 @@ export const animations = [
   {
     title: 'Solar Dominion Cinematic Teaser',
     description: 'A cinematic teaser for the multiplayer shooting adventure, Solar Dominion, showcasing the conflict between Sentries and Serpents.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/SolarDominion.png',
     aiHint: 'cinematic teaser',
     tags: ['Unity3D', 'Cinemachine', 'VFX', 'Teaser'],
     link: '#',
@@ -48,7 +48,7 @@ export const animations = [
   {
     title: 'UFO.KO - Cinematic Trailer',
     description: 'Promotional cinematic trailer for the fun and competitive game UFO Knockout.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/UFOKO.png',
     aiHint: 'game trailer',
     tags: ['Unity3D', 'Animation', 'Marketing'],
     link: 'https://www.youtube.com/watch?v=Vv1W0IwO42s',
@@ -59,7 +59,7 @@ export const animations = [
   {
     title: 'Main Tota: Hindi Nursery Rhyme',
     description: 'A charming animated rhyme about a parrot, created for young audiences to enjoy and learn.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/MainTota.jpg',
     aiHint: 'parrot rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -70,7 +70,7 @@ export const animations = [
   {
     title: 'Kalu Madari Aaya: Bear Charmer Rhyme',
     description: 'A delightful Hindi nursery rhyme featuring a bear charmer, brought to life with engaging animation.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/KaluMadari.jpg',
     aiHint: 'bear charmer',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -81,7 +81,7 @@ export const animations = [
   {
     title: 'Gubbare Wala: Balloon Seller Song',
     description: 'A colorful and lively animated song about a balloon seller, perfect for children.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/GubbareWala.jpg',
     aiHint: 'balloon seller',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -92,7 +92,7 @@ export const animations = [
   {
     title: 'Lal Tamatar: Red Tomato Rhyme',
     description: 'A fun and educational animated rhyme about a red tomato, designed to entertain and teach kids.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/LalTamatar.jpg',
     aiHint: 'red tomato',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -103,7 +103,7 @@ export const animations = [
   {
     title: 'Chunnu Munnu: Two Brothers Rhyme',
     description: 'An endearing Hindi rhyme about two brothers, Chunnu and Munnu, with heartwarming animation.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/ChunnuMunnu.jpg',
     aiHint: 'two brothers',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -114,7 +114,7 @@ export const animations = [
   {
     title: 'Ek Bandar Ne Kholi Dukan: Monkey\'s Shop Song',
     description: 'A popular and humorous Hindi rhyme about a monkey opening a shop, animated for kids.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/BandarNeKholiDukaan.png',
     aiHint: 'monkey shop',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -125,7 +125,7 @@ export const animations = [
   {
     title: 'Hathi Raja: Elephant King Rhyme',
     description: 'A classic and beloved Hindi nursery rhyme about the Elephant King, with joyful animation.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/HathiRaja.jpg',
     aiHint: 'elephant king',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -136,7 +136,7 @@ export const animations = [
   {
     title: 'Gaiya Meri Aati Hai: My Cow Comes',
     description: 'A sweet and simple animated rhyme about a cow, perfect for young children.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/GaiyaMeri.jpg',
     aiHint: 'cow rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -147,7 +147,7 @@ export const animations = [
   {
     title: 'Meow Meow Billi Karti: The Cat\'s Meow',
     description: 'An entertaining animated rhyme about the sounds a cat makes, sure to delight kids.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/MeowMeow.jpg',
     aiHint: 'cat meow',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
@@ -158,7 +158,7 @@ export const animations = [
   {
     title: 'Lakdi Ki Kathi: Wooden Horse Song',
     description: 'A famous and energetic Hindi song about a wooden horse, brought to life with fun animation.',
-    image: 'https://placehold.co/600x400.png',
+    image: '/Images/portfolio/animations/LakdiKiKathi.jpg',
     aiHint: 'wooden horse',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '3D Animation', 'Unity3D'],
     link: '#',
