@@ -4,7 +4,7 @@ export const games = [
     {
       title: 'Combat Heroes',
       description: 'A low-poly battle royale shooting game. Fast-paced action and stylized graphics for a thrilling last-man-standing experience.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CombatHeroes.png',
       aiHint: 'battle royale shooting',
       tags: ['Unity3D', '3D', 'Shooting', 'Action', 'Multiplayer', 'Battle Royale', 'Single Player'],
       link: '#',
@@ -16,7 +16,7 @@ export const games = [
     {
       title: 'Cracked Out',
       description: "A chaotic 2.5D stickman beat 'em up packed with outrageous humor. Play as parody versions of public figures, brawl through waves of enemies with absurd weapons, and fight in a wild world inspired by classic brawlers.",
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CrackedOut.png',
       aiHint: 'stickman fighting',
       tags: ['Unity3D', '2.5D', '2D', '3D', 'Fighting', 'Action', 'Single Player', 'Parody'],
       link: '#',
@@ -28,7 +28,7 @@ export const games = [
     {
       title: 'Ultimate Cricket 24',
       description: 'Experience the ultimate cricket gaming thrill with "Ultimate Cricket 24" - a realistic and immersive mobile cricket game with features like tournaments, premier leagues, test matches, and daily rewards.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/UltimateCricket24.webp',
       aiHint: 'cricket game',
       tags: ['Unity3D', 'Sports', '3D', 'Single Player', 'Simulation'],
       link: 'https://play.google.com/store/apps/details?id=com.effacestudios.uc24',
@@ -40,7 +40,7 @@ export const games = [
     {
       title: 'Wrath of the Quest',
       description: 'An innovative educational game inspired by "Among Us." Players on a spaceship collaborate to solve educational challenges. Note: This game is not yet available.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/',
       aiHint: 'educational space',
       tags: ['Unity3D', 'Educational', 'Multiplayer', '2D', 'Single Player'],
       link: 'https://play.google.com/store/apps/details?id=com.innersloth.spacemafia',
@@ -52,7 +52,7 @@ export const games = [
     {
       title: 'CrabGrab',
       description: 'An engaging 2D game focused on environmental cleanup. Players control a crab to grab litter and clean up the ocean.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CrabGrab.png',
       aiHint: 'crab game',
       tags: ['Unity3D', '2D', 'Single Player', 'Simulation'],
       link: '#',
@@ -64,7 +64,7 @@ export const games = [
     {
       title: 'The Pod',
       description: 'A social game where players can meet and interact with others, chat, make friends, and explore a vibrant world together.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ThePod.png',
       aiHint: 'social game',
       tags: ['Unity3D', '3D', 'Multiplayer', 'Simulation'],
       link: '#',
@@ -76,7 +76,7 @@ export const games = [
     {
       title: 'Panda Bear Mafia',
       description: 'A high-stakes casino blockchain game on the Solana chain. Players can stake $100 worth of SOL for a chance to win $1000.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/PandaBearMafia.png',
       aiHint: 'casino game',
       tags: ['Unity3D', 'Web3', 'Card Game', 'Casino', 'Multiplayer', '2D'],
       link: '#',
@@ -88,7 +88,7 @@ export const games = [
     {
       title: 'RugDollz World',
       description: 'An innovative mini-games library with Web2/Web3 compatibility, featuring a variety of game modes like PvP shooter, racing, and treasure hunting. Use NFTs to unlock exclusive content!',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RugDollzWorld.jpg',
       aiHint: 'minigames world',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Shooting', 'Racing', 'Action', 'RPG', '3D'],
       link: '#',
@@ -100,7 +100,7 @@ export const games = [
     {
       title: 'Arcanes Edge',
       description: 'A Web3 blockchain survival game set in an endless, procedurally generated world. Features a building system that combines elements from Minecraft and Fortnite.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ArcanesEdge.png',
       aiHint: 'survival game',
       tags: ['Unity3D', 'Web3', 'RPG', 'Action', '3D'],
       link: '#',
@@ -112,7 +112,7 @@ export const games = [
     {
       title: 'FutDice',
       description: 'A unique 2D sports game that blends the excitement of football with the strategy of dice rolls to control the action.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/FutDice.jpg',
       aiHint: 'football dice',
       tags: ['Unity3D', '2D', 'Sports', 'Board Game', 'Single Player', 'Multiplayer'],
       link: '#',
@@ -124,7 +124,7 @@ export const games = [
     {
       title: 'Many Cold Nights',
       description: 'A 3D open-world sandbox survival game set in a harsh, snowy environment. Players must build, thrive, and survive against the elements.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ManyColdNights.png',
       aiHint: 'snow survival',
       tags: ['Unity3D', '3D', 'Simulation'],
       link: '#',
@@ -136,7 +136,7 @@ export const games = [
     {
       title: 'Zord RPG',
       description: 'An ambitious AAA quality game with mechanics and a vast world inspired by epic RPGs like Skyrim.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ZordRPG.png',
       aiHint: 'fantasy rpg',
       tags: ['Unity3D', '3D', 'RPG', 'Action', 'Fighting'],
       link: '#',
@@ -148,7 +148,7 @@ export const games = [
     {
       title: 'Social Hub',
       description: 'A vibrant social game where you can meet new people, chat, make friends, and explore a dynamic world together.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/',
       aiHint: 'social game',
       tags: ['Unity3D', '3D', 'Multiplayer', 'Simulation'],
       link: '#',
@@ -158,9 +158,9 @@ export const games = [
       platform: 'Web2',
     },
     {
-      title: 'Shooting Arena 3D',
+      title: 'Shooting Range',
       description: 'A classic arcade-style shooting game where players can practice their aim on metal targets or take on waves of enemies, reminiscent of Virtua Cop.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ShootingRange.png',
       aiHint: 'shooting range',
       tags: ['Unity3D', '3D', 'Shooting', 'Action', 'Single Player'],
       link: '#',
@@ -172,7 +172,7 @@ export const games = [
     {
       title: 'Gear Head Racing',
       description: 'A 2D drag racing Web3 blockchain game with NFT integration for in-game assets, multiplayer functionality, and database implementation.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/GearHeadRacing.png',
       aiHint: 'drag racing',
       tags: ['Unity3D', 'Web3', 'Racing', '2D', 'Multiplayer'],
       link: '#',
@@ -184,7 +184,7 @@ export const games = [
     {
       title: 'Companion Tap',
       description: 'A simple clicker game that increases the tap count and stores user taps with their eclipse address in a leaderboard, with database implementation inspired by trending clicker crypto games.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CompanionTap.png',
       aiHint: 'Companion Tap',
       tags: ['Unity3D', 'Web3', 'Single Player', '2D'],
       link: '#',
@@ -196,7 +196,7 @@ export const games = [
     {
       title: 'Crypto Commando',
       description: 'Web3 Blockchain 3D Shooting game with a multiplayer battle royale mode and an offline single-player mode.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CryptoCommando.png',
       aiHint: 'soldier shooting',
       tags: ['Unity3D', 'Web3', 'Shooting', '3D', 'Multiplayer', 'Single Player', 'Action', 'Battle Royale'],
       link: '#',
@@ -208,7 +208,7 @@ export const games = [
     {
       title: 'Hall of Fame Racing',
       description: 'A Web3 goat racing game where users can choose from many types of goats, featuring database and multiplayer implementation.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/HallofFameRacing.png',
       aiHint: 'goat racing',
       tags: ['Unity3D', 'Web3', 'Racing', '2D', 'Multiplayer'],
       link: '#',
@@ -220,7 +220,7 @@ export const games = [
     {
       title: 'Plowed: Earth',
       description: 'A web-based web3 blockchain, player-vs-player strategy game where you roll dice to move across a dynamic board, claim plots of land, and earn rent from other players.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/PlowedEarth.png',
       aiHint: 'board game',
       tags: ['Unity3D', 'Web3', 'Board Game', 'Multiplayer', '2D'],
       link: '#',
@@ -232,7 +232,7 @@ export const games = [
     {
       title: 'ToxicRipper',
       description: 'An endless runner game inspired by Subway Surfers where the character runs with a skateboard. It is also a web3 game with NFT implementation.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ToxicRipper.png',
       aiHint: 'skateboarding game',
       tags: ['Unity3D', 'Web3', '3D', 'Single Player', 'Action', 'Endless Runner'],
       link: '#',
@@ -244,7 +244,7 @@ export const games = [
     {
       title: 'RugDollz Shooter',
       description: 'A fast-paced PvP multiplayer shooter with four action-packed maps. Engage in intense battles where only the quickest and sharpest competitors come out on top.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RugDollzShooter.png',
       aiHint: 'pvp shooter',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Shooting', 'Action', '3D'],
       link: '#',
@@ -256,7 +256,7 @@ export const games = [
     {
       title: 'RugDollz Racing',
       description: 'A high-speed multiplayer racing game featuring two exhilarating tracks, power-ups, and the ability to collect different kart NFTs for unique in-game vehicles.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RugDollzRacing.png',
       aiHint: 'kart racing',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Racing', 'Action', '3D'],
       link: '#',
@@ -268,7 +268,7 @@ export const games = [
     {
       title: 'RugDollz Treasure',
       description: 'A unique PvP spin on capture the flag. Compete solo to secure treasure, defending it fiercely against rivals. Fight alongside powerful companions and upgrade your spell deck.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RugDollzTreasure.png',
       aiHint: 'treasure hunt',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Action', '3D'],
       link: '#',
@@ -280,7 +280,7 @@ export const games = [
     {
       title: 'RugDollz Battle Royale',
       description: 'A thrilling battle royale minigame set in the RugDollz universe. Be the last one standing to claim victory.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RugDollzBattleRoyale.png',
       aiHint: 'battle royale',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Shooting', 'Action', 'Battle Royale', '3D'],
       link: '#',
@@ -292,7 +292,7 @@ export const games = [
     {
       title: 'Crazy Punch',
       description: 'A hyper-casual brawler with wild ragdoll physics on floating islands. Knock opponents off to be the last one standing!',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CrazyPunch.png',
       aiHint: 'brawler game',
       tags: ['Unity3D', 'Action', '3D', 'Single Player', 'Fighting'],
       link: 'https://drive.google.com/file/d/1Ww0gwXKG3slvU7sB3i2Gkdj87PdDxvER/view?usp=sharing',
@@ -304,7 +304,7 @@ export const games = [
     {
       title: 'Fall of Cars: Multiplayer',
       description: 'Maneuver your car to the correct color block before time runs out. Features real-time multiplayer battles.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/FallofCars.png',
       aiHint: 'car game',
       tags: ['Unity3D', 'Multiplayer', '3D', 'Action', 'Racing'],
       link: 'https://www.dropbox.com/scl/fi/qi35thnupym0fhwir6sry/Fallofcars.apk?rlkey=upylas6l84xmoum8gkrbi74dy&dl=0',
@@ -316,7 +316,7 @@ export const games = [
     {
       title: 'Basant Mela',
       description: 'Realistic Kite Flying and Fighting Simulator. Reached #4 trending in sports on Google Play with 500K+ downloads.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/BasantMela.webp',
       aiHint: 'kite game',
       tags: ['Unity3D', 'Simulation', 'Sports', '3D', 'Single Player'],
       link: 'https://play.google.com/store/apps/details?id=com.EffaceStudios.BasantMela',
@@ -326,9 +326,9 @@ export const games = [
       platform: 'Web2',
     },
     {
-      title: 'Planet of Inus',
+      title: 'MultiPlanetary Inus',
       description: 'An ambitious NFT Blockchain based MMORPG project. Built on MultiPlanetary INUS, which is the first-ever token to unify the top MEME Coin communities. This unique aspect of the game allows players to experience a truly decentralized gaming ecosystem where they can trade, buy, and sell in-game assets using NFTs.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/MultiPlanetaryInus.png',
       aiHint: 'planet mmorpg',
       tags: ['Unity3D', 'Web3', 'MMORPG', 'Action', 'RPG', '3D'],
       link: '#',
@@ -340,7 +340,7 @@ export const games = [
     {
       title: 'Solar Dominion',
       description: 'Sentries versus Serpents in this multiplayer shooting adventure. Team up or compete to earn rewards. The only shooting game that rewards players prizes weekly. Actively work your way up the ranks and earn prizes!',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/SolarDominion.jpg',
       aiHint: 'multiplayer shooter',
       tags: ['Unity3D', 'Web3', 'Shooting', 'Action', 'Multiplayer', 'Battle Royale', '3D'],
       link: '#',
@@ -352,7 +352,7 @@ export const games = [
     {
       title: 'World of Gods - MMORPG',
       description: 'A massively multiplayer online role-playing game with classes, guilds, crafting, and a huge world to explore.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/WorldofGods.png',
       aiHint: 'fantasy rpg',
       tags: ['Unity3D', 'MMORPG', 'Multiplayer', '3D', 'Action', 'RPG'],
       link: 'https://www.youtube.com/watch?v=ndsaZBDBJRw',
@@ -364,7 +364,7 @@ export const games = [
     {
       title: 'Checkers Fall',
       description: 'A casual Checkers game with a unique twist - pieces fall with each move. Features multiplayer for endless fun.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CheckersFall.jpg',
       aiHint: 'board game',
       tags: ['Unity3D', 'Board Game', 'Multiplayer', '3D', 'Sports'],
       link: 'https://www.crazygames.com/game/checkers-fall',
@@ -376,7 +376,7 @@ export const games = [
     {
       title: 'Merge Turret: Monster Defense',
       description: 'An exhilarating blend of defense and merge gameplay! Defend your fortress by strategically merging and upgrading powerful turrets to combat waves of relentless monsters.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/MergeTurret.jpg',
       aiHint: 'tower defense',
       tags: ['Unity3D', 'Single Player', '2D', 'Tower Defense'],
       link: '#',
@@ -388,7 +388,7 @@ export const games = [
     {
       title: 'QuizGenius',
       description: 'A cutting-edge mobile app with AI-powered functionality that generates unlimited quizzes to stimulate your cognitive abilities and enhance your mental agility.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/QuizGenius.jpg',
       aiHint: 'quiz app',
       tags: ['Unity3D', 'AI', 'Single Player', '2D'],
       link: '#',
@@ -400,7 +400,7 @@ export const games = [
     {
       title: 'Color Clash - Multiplayer Card Game',
       description: 'A competitive multiplayer & offline card game where players aim to win by using cards of different colors and values. Features special cards to counter opponents and strategic round-based gameplay.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ColorClash.jpg',
       aiHint: 'card game',
       tags: ['Unity3D', 'Card Game', 'Casino', 'Multiplayer', '2D'],
       link: '#',
@@ -412,7 +412,7 @@ export const games = [
     {
       title: 'Casino Bomb - Multiplayer Game',
       description: 'A competitive multiplayer & offline card game where players aim to win by getting rid of all pairs of identical cards in hand to win while using elimination cards to eliminate other players. Includes an avatar system and matchmaking.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/CasinoBomb.jpg',
       aiHint: 'casino game',
       tags: ['Unity3D', 'Card Game', 'Casino', 'Multiplayer', '2D'],
       link: '#',
@@ -424,7 +424,7 @@ export const games = [
     {
       title: 'Boosted!™ - An Original Card Game',
       description: 'An original card game where players use skill, tactics, and special Booster Cards to be the first to get rid of all their playing cards.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/Boosted.jpg',
       aiHint: 'card game',
       tags: ['Unity3D', 'Card Game', 'Casino', 'Multiplayer', '2D'],
       link: '#',
@@ -436,7 +436,7 @@ export const games = [
     {
       title: 'UFO.KO - Multiplayer UFO Game',
       description: 'A super fun UFO beam it all up arena map game. Fly a round as a cool UFO and beam up as much as you can to grow in size which will allow you to get bigger items, even beam up other players! Explore four worlds that are city, desert, temple, and ice themed.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/UFOKO.png',
       aiHint: 'ufo game',
       tags: ['Unity3D', 'Multiplayer', 'Action', '3D'],
       link: '#',
@@ -448,7 +448,7 @@ export const games = [
     {
       title: 'Traffic Loop - Car Racing Mobile Game',
       description: 'Car race game you can drive to feel the racing car speed and enjoy the real car racing games experience. If you have a thrill of car racing and you are handy at car driving games, try this traffic racing car game and dive into the fun of new car games.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/TrafficLoop.png',
       aiHint: 'car racing',
       tags: ['Unity3D', 'Racing', 'Single Player', '3D', 'Endless Runner'],
       link: '#',
@@ -460,7 +460,7 @@ export const games = [
     {
       title: 'Super Style Volley - SSV',
       description: 'Super Style Volley is a 2D volleyball game that features fast-paced and action-packed gameplay. Players can choose from a variety of cards, each with their own unique abilities and attributes. The game features multiple game modes, including single player, local multiplayer, and online multiplayer.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/SuperStyleVolley.png',
       aiHint: 'volleyball game',
       tags: ['Unity3D', 'Sports', '2D', 'Multiplayer', 'Single Player', 'Action'],
       link: '#',
@@ -472,7 +472,7 @@ export const games = [
     {
       title: 'Football Tactics',
       description: 'FootBall Tactics is an innovative multiplayer tactical sports game that combines the strategic gameplay of turn-based games like Fire Emblem with the competitive spirit of online sports games such as FIFA. The game is played on a football field where players will compete against each other by placing their characters on the field and issuing orders for the next turn.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/FootballTactics.jpg',
       aiHint: 'football tactics',
       tags: ['Unity3D', 'Sports', 'Multiplayer', '3D'],
       link: '#',
@@ -484,7 +484,7 @@ export const games = [
     {
       title: 'Restaurant Game Prototype',
       description: 'In this fast-paced and addictive game, you take on the role of a coffee shop owner, tasked with serving up delicious drinks and snacks to a steady stream of customers. The gameplay loop is simple but challenging, as you race against the clock to fulfill each order and keep your customers happy.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/RestaurantGamePrototype.jpg',
       aiHint: 'restaurant game',
       tags: ['Unity3D', 'Simulation', 'Single Player', '2D'],
       link: '#',
@@ -496,7 +496,7 @@ export const games = [
     {
       title: 'Element Royale',
       description: 'A competitive 3D multiplayer card game that brings tactical, real-time strategy to life, inspired by the gameplay of Clash Royale.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/ElementRoyale.jpg',
       aiHint: 'card game',
       tags: ['Unity3D', 'Card Game', 'Multiplayer', '3D', 'Tower Defense'],
       link: '#',
@@ -508,7 +508,7 @@ export const games = [
     {
       title: 'Letter Crush: Fun Crossword',
       description: 'Letter Crush: Fun Crossword Game. Play it for at least 10 minutes a day, and it will help you stay sharp and prepared for everyday challenges! This daily themed crossword puzzle text twist game is tremendously brain challenging and fun to play.',
-      image: 'https://placehold.co/600x400.png',
+      image: '/Images/portfolio/games/LetterCrush.jpg',
       aiHint: 'word puzzle',
       tags: ['Unity3D', 'Single Player', '2D'],
       link: '#',
