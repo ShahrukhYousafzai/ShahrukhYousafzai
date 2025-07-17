@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo } from 'react';
@@ -59,11 +60,13 @@ const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
       </CardDescription>
     </div>
     <CardFooter className="p-4">
-      <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-        <a href={project.link} target="_blank" rel="noopener noreferrer">
-          <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
-        </a>
-      </Button>
+        {project.linkText && (
+            <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
+                </a>
+            </Button>
+        )}
     </CardFooter>
   </Card>
 );
