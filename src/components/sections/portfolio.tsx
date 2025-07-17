@@ -167,7 +167,7 @@ const PortfolioSection = () => {
   const [activeAppTag, setActiveAppTag] = useState('All');
 
   const categories = ["Games", "Apps", "Animations"];
-  const allGameCategories = ["All", "Action", "Sports", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
+  const allGameCategories = ["All", "AAA", "Action", "Sports", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
   const allAppCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
   const gameProjects = useMemo(() => projects.filter(p => p.category === 'Games'), []);
