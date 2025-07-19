@@ -8,10 +8,12 @@
 ---
 
 ## 🌐 Connect with Me:
-[![Fiverr](https://img.shields.io/badge/Fiverr-%2300B22D.svg?style=for-the-badge&logo=fiverr&logoColor=white)](https://www.fiverr.com/shahrukhkhan9) 
-[![Upwork](https://img.shields.io/badge/Upwork-%233FE04D.svg?style=for-the-badge&logo=upwork&logoColor=white)]([shahrukhpk](https://www.upwork.com/freelancers/~01d270e621d61cf22f)) 
+[![Fiverr](https://img.shields.io/badge/Fiverr-%2300B22D.svg?style=for-the-badge&logo=fiverr&logoColor=white)](fiverr.com/shahrukhkhan9)
+[![Upwork](https://img.shields.io/badge/Upwork-%233FE04D.svg?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01d270e621d61cf22f)
+[![Twitter](https://img.shields.io/badge/X-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://x.com/SRKYousafzai)  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shahrukh-yousafzai-b86b2b225/)
 [![Email](https://img.shields.io/badge/Email-%23D14836.svg?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shahrukhyousafzaipk@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-%23000000?style=for-the-badge&logo=firefox&logoColor=%23FF7139)](https://shahrukhyousafzai.netlify.app/)
 
 ---
 
