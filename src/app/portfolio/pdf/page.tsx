@@ -73,12 +73,12 @@ const PrintablePortfolioPage = () => {
             <style jsx global>{`
                 @media print {
                     body {
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
+                        -webkit-print-color-adjust: exact !important;
+                        print-color-adjust: exact !important;
                     }
                     .printable-content {
-                        background-color: #ffffff !important;
-                        color: #000000 !important;
+                        background-color: hsl(var(--background)) !important;
+                        color: hsl(var(--foreground)) !important;
                     }
                     .A4-sheet {
                         margin: 0;
@@ -96,26 +96,23 @@ const PrintablePortfolioPage = () => {
                         font-family: 'Inter', sans-serif;
                     }
                     .section-title {
-                        color: #000000 !important;
+                        color: hsl(var(--foreground)) !important;
                         border-bottom-color: hsl(var(--primary)) !important;
                     }
-                    .text-primary, .text-primary-dark {
+                    .text-primary {
                         color: hsl(var(--primary)) !important;
                     }
                     .bg-primary-light {
                         background-color: hsl(var(--primary) / 0.1) !important;
                     }
                     .text-muted-foreground {
-                        color: #555555 !important;
+                        color: hsl(var(--muted-foreground)) !important;
                     }
                     .bg-secondary {
-                        background-color: #f9f9f9 !important;
+                        background-color: hsl(var(--secondary)) !important;
                     }
                     .border, .border-border, .border-primary\\/50 {
-                        border-color: #dddddd !important;
-                    }
-                    .logo-image {
-                        filter: brightness(0);
+                        border-color: hsl(var(--border)) !important;
                     }
                 }
 
@@ -149,7 +146,6 @@ const PrintablePortfolioPage = () => {
                 }
                 
                 .text-primary { color: hsl(var(--primary)); }
-                .text-primary-dark { color: hsl(var(--primary-foreground)); }
                 .bg-primary-light { background-color: hsl(var(--primary) / 0.1); }
 
             `}</style>
@@ -272,7 +268,7 @@ const PrintablePortfolioPage = () => {
                                     alt={feature.name}
                                     width={180}
                                     height={50}
-                                    className="object-contain logo-image"
+                                    className="object-contain"
                                 />
                             </div>
                         ))}
@@ -292,7 +288,7 @@ const PrintablePortfolioPage = () => {
                                     alt={client.name}
                                     width={150}
                                     height={60}
-                                    className="object-contain logo-image mb-2"
+                                    className="object-contain mb-2"
                                 />
                                 <p className="text-sm font-semibold">{client.name}</p>
                             </div>
