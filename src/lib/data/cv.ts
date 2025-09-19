@@ -29,7 +29,7 @@ export const cvData = {
         {
             date: "2019 - 2024",
             title: "Game Developer at Efface Studios",
-            description: "Founded Efface Studios and led the design, development, and launch of numerous games and applications. Responsible for system architecture, UI/UX implementation, and monetization strategies. Successfully launched titles that achieved over 500,000+ organic downloads on Google Play and media recognition."
+            description: "Led the design, development, and launch of numerous games and applications. Responsible for system architecture, UI/UX implementation, and monetization strategies. Successfully launched titles that achieved over 500,000+ organic downloads on Google Play and media recognition."
         },
     ],
     education: [
@@ -55,16 +55,16 @@ export const cvData = {
         description: '(Unity3D, Simulation) – Achieved 500K+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
        },
        { 
-        title: 'Combat Heroes',
-        description: '(Unity3D, Multiplayer Shooter) – Developed a fast-paced 3D action game with a complete battle royale mode and single-player options.'
-       },
-       { 
         title: 'RugDollz World',
         description: '(Unity3D, Web3, MMO) – Led development on a large-scale Web3 mini-games library with PvP, racing, and NFT integration.'
        },
        { 
-        title: 'Multi-Avatar AI 3D Chatbot',
-        description: '(Unity3D, AI) – Created a customizable 3D chatbot with Wikipedia integration, TTS, voice recognition, and real-time translation.'
+        title: 'Solar Dominion',
+        description: '(Unity3D, Web3, Epic Games) – A multiplayer shooter on the Epic Games Store that rewards players with prizes for ranking up.'
+       },
+       { 
+        title: 'Multiplanetary Inus',
+        description: '(Unity3D, Web3, MMORPG) – An ambitious NFT Blockchain based MMORPG project with a decentralized gaming ecosystem.'
        },
     ],
     achievements: [
