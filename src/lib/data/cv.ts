@@ -2,7 +2,7 @@
 import { socialLinks } from './social';
 import { about } from './about';
 import { skills } from './skills';
-import { projects } from './data';
+import { projects } from '../data';
 
 export const cvData = {
     name: 'Shahrukh Yousafzai',
