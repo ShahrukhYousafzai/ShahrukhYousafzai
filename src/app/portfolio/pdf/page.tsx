@@ -72,7 +72,6 @@ const PrintablePortfolioPage = () => {
             <style jsx global>{`
                 body {
                     background-color: hsl(var(--background)) !important;
-                    color: hsl(var(--foreground)) !important;
                 }
                 @media print {
                     body {
@@ -263,7 +262,7 @@ const PrintablePortfolioPage = () => {
                 {/* Featured On Section */}
                 <section className="break-inside-avoid">
                     <h2 className="section-title">Featured On</h2>
-                    <div className="flex flex-wrap items-center justify-around gap-8">
+                    <div className="flex flex-wrap items-center justify-around gap-8 mt-8">
                         {featuredOn.map((feature, index) => (
                             <div key={index} className="flex-shrink-0">
                                 <Image
@@ -283,7 +282,7 @@ const PrintablePortfolioPage = () => {
                 {/* Worked With Section */}
                 <section className="break-inside-avoid">
                     <h2 className="section-title">Worked With</h2>
-                    <div className="grid grid-cols-3 gap-8 items-center">
+                    <div className="grid grid-cols-3 gap-8 items-center mt-8">
                         {clients.map((client) => (
                             <div key={client.name} className="flex flex-col items-center text-center">
                                 <div className="h-16 flex items-center justify-center">
@@ -292,10 +291,10 @@ const PrintablePortfolioPage = () => {
                                         alt={client.name}
                                         width={150}
                                         height={60}
-                                        className="object-contain mb-2"
+                                        className="object-contain mb-4"
                                     />
                                 </div>
-                                <p className="text-sm font-semibold mt-2">{client.name}</p>
+                                <p className="text-sm font-semibold">{client.name}</p>
                             </div>
                         ))}
                     </div>
