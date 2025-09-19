@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import React from 'react';
+import Image from 'next/image';
 
 const PrintablePortfolioPage = () => {
     
@@ -14,7 +16,7 @@ const PrintablePortfolioPage = () => {
         'MultiPlanetary Inus',
         'Solar Dominion',
         'Basant Mela',
-        'Spark - AI Shorts Maker',
+        'Instant AI Video Maker',
         'AI Assignment Writer',
         'Flash 2.0 - AI Presentations Maker',
         'Multi-Avatar AI 3D Chatbot',
@@ -200,9 +202,17 @@ const PrintablePortfolioPage = () => {
                 {/* Key Projects Section */}
                 <section>
                     <h2 className="section-title">Key Projects</h2>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {keyProjects.map(project => (
                             <div key={project.title} className="break-inside-avoid">
+                                <div className="relative w-full aspect-video rounded-lg overflow-hidden border mb-4">
+                                     <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
                                 <h3 className="text-lg font-bold font-headline">{project.title} <span className="text-sm font-normal text-muted-foreground">- {project.category}</span></h3>
                                 <p className="text-muted-foreground my-1">{project.description}</p>
                                 <div className="flex flex-wrap gap-2">
