@@ -11,6 +11,7 @@ import AiRecommender from "@/components/sections/ai-recommender";
 import TestimonialsSection from "@/components/sections/testimonials";
 import ContactSection from "@/components/sections/contact";
 import Footer from "@/components/layout/footer";
+import Chatbot from "@/components/chatbot";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 }
