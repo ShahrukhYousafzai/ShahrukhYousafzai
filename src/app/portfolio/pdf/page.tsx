@@ -1,3 +1,4 @@
+'use client';
 
 import { about, socialLinks, skills, timeline, projects, testimonials, stats } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
