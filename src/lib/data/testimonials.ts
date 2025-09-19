@@ -7,9 +7,9 @@ export const testimonials = [
         rating: 5,
     },
     {
-        name: 'ike417',
-        title: 'Client on Fiverr',
-        comment: "Been a joy working with him. Responds and works quickly and efficiently. Any updates I have he accomplishes them and does a great job",
+        name: 'coolies_p',
+        title: 'Client from Switzerland',
+        comment: "I started working with this developer and loved his speed, communication, motivation and how experienced he is. I think his biggest gift is, he knows how the market works, he shares his knowledge with the customers and somehow finds solutions to problems. I can highly recommend him!",
         avatar: 'https://placehold.co/100x100.png',
         rating: 5,
     },
