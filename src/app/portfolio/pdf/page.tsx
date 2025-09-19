@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { about, socialLinks, skills, timeline, projects, stats } from '@/lib/data';
@@ -283,7 +284,7 @@ const PrintablePortfolioPage = () => {
                 {/* Worked With Section */}
                 <section className="break-inside-avoid">
                     <h2 className="section-title">Worked With</h2>
-                    <div className="grid grid-cols-3 gap-8 items-center justify-items-center">
+                    <div className="grid grid-cols-3 gap-8 items-center justify-items-center text-center">
                         {clients.map((client) => (
                             <div key={client.name}>
                                 <Image
@@ -291,8 +292,9 @@ const PrintablePortfolioPage = () => {
                                     alt={client.name}
                                     width={150}
                                     height={60}
-                                    className="object-contain logo-image"
+                                    className="object-contain logo-image mb-2"
                                 />
+                                <p className="text-sm font-semibold">{client.name}</p>
                             </div>
                         ))}
                     </div>
