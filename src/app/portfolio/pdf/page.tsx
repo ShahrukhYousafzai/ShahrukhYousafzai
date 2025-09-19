@@ -1,3 +1,4 @@
+
 'use client';
 
 import { about, socialLinks, skills, timeline, projects, stats } from '@/lib/data';
@@ -166,6 +167,8 @@ const PrintablePortfolioPage = () => {
                     <p className="text-2xl text-muted-foreground mt-2 font-headline">Game & App Developer</p>
                     <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-sm text-muted-foreground">
                         <a href={`mailto:${about.email}`} className="hover:text-primary">{about.email}</a>
+                        <span className="hidden sm:inline">|</span>
+                        <a href="https://shahrukhyousafzai.netlify.app/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Portfolio</a>
                         {socialLinks.map(link => (
                            <React.Fragment key={link.name}>
                              <span className="hidden sm:inline">|</span>
