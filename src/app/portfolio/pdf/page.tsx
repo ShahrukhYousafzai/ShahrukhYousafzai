@@ -280,17 +280,19 @@ const PrintablePortfolioPage = () => {
                 {/* Worked With Section */}
                 <section className="break-inside-avoid">
                     <h2 className="section-title">Worked With</h2>
-                    <div className="grid grid-cols-3 gap-8 items-center justify-items-center text-center">
+                    <div className="grid grid-cols-3 gap-8 items-center">
                         {clients.map((client) => (
-                            <div key={client.name}>
-                                <Image
-                                    src={client.logo}
-                                    alt={client.name}
-                                    width={150}
-                                    height={60}
-                                    className="object-contain mb-2"
-                                />
-                                <p className="text-sm font-semibold">{client.name}</p>
+                            <div key={client.name} className="flex flex-col items-center text-center">
+                                <div className="h-16 flex items-center justify-center">
+                                    <Image
+                                        src={client.logo}
+                                        alt={client.name}
+                                        width={150}
+                                        height={60}
+                                        className="object-contain mb-2"
+                                    />
+                                </div>
+                                <p className="text-sm font-semibold mt-2">{client.name}</p>
                             </div>
                         ))}
                     </div>
