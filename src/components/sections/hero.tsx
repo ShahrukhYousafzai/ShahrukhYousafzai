@@ -22,12 +22,6 @@ const HeroSection = () => {
           I’m also an app developer and general doodler with a keen eye for creating engaging products, and bringing them to life with code and design.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <Button size="lg" variant="outline" asChild>
-              <Link href="/portfolio/pdf" target="_blank">
-                <Download className="mr-2 h-5 w-5" />
-                Download PDF
-              </Link>
-          </Button>
           {fiverrLink && (
             <Button size="lg" asChild className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
               <a href={fiverrLink.url} target="_blank" rel="noopener noreferrer">
