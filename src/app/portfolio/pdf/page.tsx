@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { about, socialLinks, skills, timeline, projects, stats } from '@/lib/data';
@@ -71,6 +70,10 @@ const PrintablePortfolioPage = () => {
     return (
         <div className="bg-background text-foreground font-body A4-sheet">
             <style jsx global>{`
+                body {
+                    background-color: hsl(var(--background)) !important;
+                    color: hsl(var(--foreground)) !important;
+                }
                 @media print {
                     body {
                         -webkit-print-color-adjust: exact !important;
