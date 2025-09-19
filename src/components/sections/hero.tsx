@@ -36,6 +36,14 @@ const HeroSection = () => {
               </a>
             </Button>
           )}
+          {upworkLink && (
+            <Button size="lg" asChild className="shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+              <a href={upworkLink.url} target="_blank" rel="noopener noreferrer">
+                <upworkLink.icon className="mr-2 h-5 w-5" />
+                Hire me on Upwork
+              </a>
+            </Button>
+          )}
         </div>
       </div>
       <a
