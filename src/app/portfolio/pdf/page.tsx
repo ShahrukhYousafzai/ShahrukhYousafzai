@@ -1,6 +1,6 @@
 'use client';
 
-import { about, socialLinks, skills, timeline, projects, testimonials, stats } from '@/lib/data';
+import { about, socialLinks, skills, timeline, projects, stats } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
@@ -19,6 +19,24 @@ const PrintablePortfolioPage = () => {
         'Flash 2.0 - AI Presentations Maker',
         'Multi-Avatar AI 3D Chatbot',
     ].includes(p.title));
+    
+    const testimonialsForPdf = [
+        {
+            name: 'AlexLee',
+            title: 'Client on Upwork',
+            comment: "If you're looking for an amazing talented Game developer who is is efficient yet meticulous at game development, then choose Shah. He also has outstanding blockchain skills which is invaluable…",
+        },
+        {
+            name: 'Pascal',
+            title: 'from France',
+            comment: "Shah was very responsive to my messages and questions. He always completed the tasks on time and to my satisfaction. I was particularly impressed with Shah's attention to details. He always checked with me to make sure that I was happy with the work before submitting it. I really recommend this genius for your Unity projects !",
+        },
+        {
+            name: 'Anatoliy',
+            title: 'Client on Fiverr',
+            comment: "Working with this seller has been an incredible experience. They have completely created my vision from paper to an actual video game. The seller is easy to communicate with when working on bugs and tweaking the game... Really you can put your trust in to this small team. Repeat client, absolutely.",
+        }
+    ];
 
     return (
         <div className="bg-background text-foreground font-body A4-sheet">
@@ -27,21 +45,19 @@ const PrintablePortfolioPage = () => {
                     body {
                         -webkit-print-color-adjust: exact;
                         print-color-adjust: exact;
-                        background-color: #ffffff !important;
-                        color: #000000 !important;
                     }
                     .printable-content {
                         background-color: #ffffff !important;
                         color: #000000 !important;
-                    }
-                    .no-print {
-                        display: none;
                     }
                     .A4-sheet {
                         margin: 0;
                         padding: 1.5rem;
                         box-shadow: none;
                         border: none;
+                    }
+                    .no-print {
+                        display: none;
                     }
                     h1, h2, h3, h4, .font-headline {
                         font-family: 'Space Grotesk', sans-serif;
@@ -59,17 +75,14 @@ const PrintablePortfolioPage = () => {
                     .bg-primary-light {
                         background-color: hsl(var(--primary) / 0.1) !important;
                     }
-                    .text-gray-500, .text-gray-600, .text-gray-700, .text-muted-foreground {
+                    .text-muted-foreground {
                         color: #555555 !important;
                     }
-                    .bg-gray-50 {
+                    .bg-secondary {
                         background-color: #f9f9f9 !important;
                     }
-                    .border, .border-gray-200, .border-primary\\/50 {
+                    .border, .border-border, .border-primary\\/50 {
                         border-color: #dddddd !important;
-                    }
-                    .bg-gray-200 {
-                        background-color: #eeeeee !important;
                     }
                 }
 
@@ -102,12 +115,12 @@ const PrintablePortfolioPage = () => {
                 }
                 
                 .text-primary { color: hsl(var(--primary)); }
+                .text-primary-dark { color: hsl(var(--primary-foreground)); }
                 .bg-primary-light { background-color: hsl(var(--primary) / 0.1); }
-                .border-primary { border-color: hsl(var(--primary)); }
 
             `}</style>
             
-            <div className="no-print fixed top-4 right-4">
+            <div className="no-print fixed top-4 right-4 z-50">
                 <Button onClick={() => window.print()}>
                     <Download className="mr-2 h-4 w-4" />
                     Download as PDF
@@ -119,11 +132,13 @@ const PrintablePortfolioPage = () => {
                 <header className="text-center mb-8">
                     <h1 className="text-5xl font-bold font-headline">Shahrukh Yousafzai</h1>
                     <p className="text-2xl text-muted-foreground mt-2 font-headline">Game & App Developer</p>
-                    <div className="flex justify-center gap-6 mt-4 text-sm text-muted-foreground">
+                    <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-sm text-muted-foreground">
                         <a href={`mailto:${about.email}`} className="hover:text-primary">{about.email}</a>
-                        <span>|</span>
                         {socialLinks.map(link => (
-                            <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{link.name}</a>
+                           <React.Fragment key={link.name}>
+                             <span className="hidden sm:inline">|</span>
+                            <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{link.name}</a>
+                           </React.Fragment>
                         ))}
                     </div>
                 </header>
@@ -206,7 +221,7 @@ const PrintablePortfolioPage = () => {
                 <section>
                     <h2 className="section-title">Testimonials</h2>
                     <div className="space-y-4">
-                        {testimonials.slice(0, 3).map((testimonial, index) => (
+                        {testimonialsForPdf.map((testimonial, index) => (
                             <div key={index} className="bg-secondary p-4 rounded-lg border border-border break-inside-avoid">
                                 <p className="text-muted-foreground italic">"{testimonial.comment}"</p>
                                 <p className="text-right font-semibold mt-2">- {testimonial.name}, {testimonial.title}</p>
