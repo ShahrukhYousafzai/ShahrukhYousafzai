@@ -40,6 +40,32 @@ const PrintablePortfolioPage = () => {
         }
     ];
 
+    const featuredOn = [
+        {
+            name: "United News of Bangladesh",
+            logo: "/Images/unb-logo.png",
+        },
+        {
+            name: "Editorialge",
+            logo: "/Images/editorialge.png",
+        }
+    ];
+
+    const clients = [
+      {
+        name: "RugDollz / RugLabz",
+        logo: "/Images/worked-with/rugdollz.webp",
+      },
+      {
+        name: "Solar Studios",
+        logo: "/Images/worked-with/SolarStudios.png",
+      },
+      {
+        name: "Toxic Skulls Club",
+        logo: "/Images/worked-with/TSC.png",
+      },
+    ];
+
     return (
         <div className="bg-background text-foreground font-body A4-sheet">
             <style jsx global>{`
@@ -86,6 +112,9 @@ const PrintablePortfolioPage = () => {
                     .border, .border-border, .border-primary\\/50 {
                         border-color: #dddddd !important;
                     }
+                    .logo-image {
+                        filter: brightness(0);
+                    }
                 }
 
                 @page {
@@ -114,6 +143,7 @@ const PrintablePortfolioPage = () => {
                     margin-bottom: 1rem;
                     padding-bottom: 0.5rem;
                     border-bottom: 2px solid hsl(var(--primary));
+                    break-after: avoid;
                 }
                 
                 .text-primary { color: hsl(var(--primary)); }
@@ -220,6 +250,46 @@ const PrintablePortfolioPage = () => {
                                         <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
                                     ))}
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                <Separator className="my-8 bg-border" />
+
+                {/* Featured On Section */}
+                <section className="break-inside-avoid">
+                    <h2 className="section-title">Featured On</h2>
+                    <div className="flex flex-wrap items-center justify-around gap-8">
+                        {featuredOn.map((feature, index) => (
+                            <div key={index} className="flex-shrink-0">
+                                <Image
+                                    src={feature.logo}
+                                    alt={feature.name}
+                                    width={180}
+                                    height={50}
+                                    className="object-contain logo-image"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                <Separator className="my-8 bg-border" />
+
+                {/* Worked With Section */}
+                <section className="break-inside-avoid">
+                    <h2 className="section-title">Worked With</h2>
+                    <div className="grid grid-cols-3 gap-8 items-center justify-items-center">
+                        {clients.map((client) => (
+                            <div key={client.name}>
+                                <Image
+                                    src={client.logo}
+                                    alt={client.name}
+                                    width={150}
+                                    height={60}
+                                    className="object-contain logo-image"
+                                />
                             </div>
                         ))}
                     </div>
