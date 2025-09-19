@@ -2,7 +2,7 @@ import { Play, Video, Download } from "lucide-react";
 
 export const apps = [
     {
-      title: 'Spark - AI Shorts Maker',
+      title: 'Instant AI Video Maker',
       description: 'An AI-powered tool that helps you create engaging short-form videos for platforms like TikTok, Reels, and YouTube Shorts. Automatically generate scripts, find visuals, and edit clips to produce viral content effortlessly.',
       image: '/Images/portfolio/apps/SparkAIShortsMaker.webp',
       aiHint: 'video shorts',
