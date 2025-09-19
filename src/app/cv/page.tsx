@@ -21,9 +21,11 @@ const PrintableCvPage = () => {
     return (
         <div className="bg-white text-gray-800 font-sans">
             <style jsx global>{`
+                body {
+                  background-color: #fff !important;
+                }
                 @media print {
                     body {
-                        background-color: #fff !important;
                         -webkit-print-color-adjust: exact !important;
                         print-color-adjust: exact !important;
                     }
