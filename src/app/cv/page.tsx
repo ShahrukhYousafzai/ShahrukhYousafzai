@@ -131,11 +131,32 @@ const PrintableCvPage = () => {
 
                     <section>
                         <h2 className="section-title">Skills</h2>
-                        <div className="flex flex-wrap gap-2">
-                            {cvData.skills.map(skill => (
-                                <Badge key={skill} className="bg-primary-light-cv text-orange-800 font-medium border border-orange-200 px-3 py-1 text-xs">{skill}</Badge>
+                        <div className="space-y-4">
+                            {Object.entries(cvData.skills).map(([category, skillsList]) => (
+                                <div key={category}>
+                                    <h3 className="font-bold text-md mb-2">{category}</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {skillsList.map(skill => (
+                                            <Badge key={skill} className="bg-primary-light-cv text-orange-800 font-medium border border-orange-200 px-3 py-1 text-xs">{skill}</Badge>
+                                        ))}
+                                    </div>
+                                </div>
                             ))}
                         </div>
+                    </section>
+
+                    <Separator className="my-6 border-cv" />
+                    
+                    <section>
+                        <h2 className="section-title">Achievements</h2>
+                        <ul className="space-y-3">
+                           {cvData.achievements.map((achievement, index) => (
+                                <li key={index} className="flex items-start gap-3">
+                                    <achievement.icon className="h-5 w-5 text-primary-cv mt-0.5 shrink-0" />
+                                    <p className="text-muted-cv text-sm">{achievement.text}</p>
+                                </li>
+                           ))}
+                        </ul>
                     </section>
 
                     <Separator className="my-6 border-cv" />
@@ -149,10 +170,26 @@ const PrintableCvPage = () => {
                                         <h3 className="text-md font-bold">{item.title}</h3>
                                         <p className="text-xs text-muted-cv">{item.date}</p>
                                     </div>
-                                    <p className="text-muted-cv text-sm mt-1">{item.description}</p>
+                                    <p className="text-muted-cv text-sm mt-1 leading-relaxed">{item.description}</p>
                                 </div>
                             ))}
                         </div>
+                    </section>
+
+                    <Separator className="my-6 border-cv" />
+
+                    <section>
+                        <h2 className="section-title">Key Projects</h2>
+                        <div className="space-y-3 text-sm">
+                            {cvData.keyProjects.map(project => (
+                                <div key={project.title}>
+                                    <p className="font-semibold">{project.title} <span className="font-normal text-muted-cv">{project.description}</span></p>
+                                </div>
+                            ))}
+                        </div>
+                        <p className="text-center text-xs text-muted-cv mt-4">
+                            Full project list available in my portfolio: <a href={cvData.contact.portfolio} target="_blank" rel="noopener noreferrer" className="text-primary-cv hover:underline">{cvData.contact.portfolio}</a>
+                        </p>
                     </section>
 
                     <Separator className="my-6 border-cv" />
@@ -171,20 +208,7 @@ const PrintableCvPage = () => {
                             ))}
                         </div>
                     </section>
-                    
-                    <Separator className="my-6 border-cv" />
 
-                    <section>
-                        <h2 className="section-title">Key Projects</h2>
-                        <div className="space-y-2 text-sm">
-                            {cvData.keyProjects.map(project => (
-                                <div key={project.title} className="flex justify-between">
-                                    <p className="font-semibold">{project.title} <span className="font-normal text-muted-cv">- {project.category}</span></p>
-                                    <p className="text-muted-cv text-right shrink-0 pl-4">{project.tags.slice(0, 3).join(', ')}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
                 </main>
             </div>
         </div>

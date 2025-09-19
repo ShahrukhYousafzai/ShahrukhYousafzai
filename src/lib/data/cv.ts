@@ -1,8 +1,8 @@
 
 import { socialLinks } from './social';
 import { about } from './about';
-import { skills } from './skills';
-import { projects } from '../data';
+import { Briefcase, School, Star, Download, Award } from "lucide-react";
+
 
 export const cvData = {
     name: 'Shahrukh Yousafzai',
@@ -13,17 +13,23 @@ export const cvData = {
         socials: socialLinks,
     },
     summary: "A highly motivated and experienced Game and App Developer with over 7 years of experience specializing in Unity3D and C#. Proven ability to manage the full project lifecycle, from concept to deployment, across 160+ successful freelance projects. Passionate about creating engaging, high-quality digital experiences by blending strong technical skills with a keen eye for design and user experience.",
-    skills: skills.map(s => s.name),
+    skills: {
+      "Game Development": ["Unity", "C#", "Photon", "Firebase"],
+      "App Development": ["Android", "iOS", ".NET", "XAML"],
+      "Web Development": ["React", "HTML", "CSS", "JS", "TypeScript"],
+      "Design Tools": ["Photoshop", "Figma"],
+      "AI & Emerging Tech": ["AI Chatbots", "Blockchain/Web3"],
+    },
     experience: [
         {
             date: "2017 - Present",
             title: "Freelance Developer",
-            description: "Delivered over 160 projects for a diverse range of international clients. Managed full project lifecycle including client communication, requirement gathering, development, testing, and deployment. Specialized in creating cross-platform games, multiplayer systems, and Web3 integrations."
+            description: "Delivered over 160 projects for a diverse range of international clients on platforms like Fiverr and Upwork. Managed full project lifecycle including client communication, requirement gathering, and development using Unity, Firebase, and Photon. Achieved consistent 5-star ratings and generated over $148K in revenue."
         },
         {
             date: "2019 - 2024",
             title: "Game Developer at Efface Studios",
-            description: "Led the design and development of numerous games and applications. Responsible for core game mechanics, system architecture, UI/UX implementation, and integration of third-party services like Photon and Firebase. Successfully launched titles that achieved over 500,000+ downloads on Google Play."
+            description: "Founded Efface Studios and led the design, development, and launch of numerous games and applications. Responsible for system architecture, UI/UX implementation, and monetization strategies. Successfully launched titles that achieved over 500,000+ organic downloads on Google Play and media recognition."
         },
     ],
     education: [
@@ -43,12 +49,40 @@ export const cvData = {
             institution: "Allied School, Usmania Campus (Private)"
         }
     ],
-    keyProjects: projects.filter(p => [
-        'Combat Heroes',
-        'RugDollz World',
-        'Solar Dominion',
-        'Basant Mela',
-        'Instant AI Video Maker',
-        'Multi-Avatar AI 3D Chatbot',
-    ])
+    keyProjects: [
+       { 
+        title: 'Basant Mela',
+        description: '(Unity3D, Simulation) – Achieved 500K+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
+       },
+       { 
+        title: 'Combat Heroes',
+        description: '(Unity3D, Multiplayer Shooter) – Developed a fast-paced 3D action game with a complete battle royale mode and single-player options.'
+       },
+       { 
+        title: 'RugDollz World',
+        description: '(Unity3D, Web3, MMO) – Led development on a large-scale Web3 mini-games library with PvP, racing, and NFT integration.'
+       },
+       { 
+        title: 'Multi-Avatar AI 3D Chatbot',
+        description: '(Unity3D, AI) – Created a customizable 3D chatbot with Wikipedia integration, TTS, voice recognition, and real-time translation.'
+       },
+    ],
+    achievements: [
+        {
+            icon: Download,
+            text: 'Attained 500K+ organic downloads on the Google Play Store for self-published games.'
+        },
+        {
+            icon: Award,
+            text: 'Games featured in tech publications like United News of Bangladesh & Editorialge.'
+        },
+        {
+            icon: Briefcase,
+            text: 'Over 7 years of freelance experience, successfully completing 160+ projects for international clients.'
+        },
+        {
+            icon: Star,
+            text: 'Earned over $148K on Fiverr/Upwork while maintaining a consistent 5-star rating.'
+        }
+    ]
 };
