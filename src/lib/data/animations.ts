@@ -169,7 +169,7 @@ export const animations = [
   {
     title: 'Titli Udi Bus Me Chadhi',
     description: 'A charming 2D animated Hindi nursery rhyme about a butterfly.',
-    image: '/Images/portfolio/animations/TitliUdi.jpg',
+    image: 'https://img.youtube.com/vi/rY0oIJlj3pA/0.jpg',
     aiHint: 'butterfly rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=rY0oIJlj3pA',
@@ -180,7 +180,7 @@ export const animations = [
   {
     title: 'Lakdi Ki Kathi (2D)',
     description: 'A 2D animated version of the classic Hindi song about a wooden horse.',
-    image: '/Images/portfolio/animations/LakdiKiKathi2D.jpg',
+    image: 'https://img.youtube.com/vi/vJ_grvnWO9A/0.jpg',
     aiHint: 'wooden horse',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=vJ_grvnWO9A',
@@ -191,7 +191,7 @@ export const animations = [
   {
     title: 'Ek Mota Hathi',
     description: 'A fun 2D animated rhyme about a fat elephant, perfect for kids.',
-    image: '/Images/portfolio/animations/EkMotaHathi.jpg',
+    image: 'https://img.youtube.com/vi/cvb7i5r4QPk/0.jpg',
     aiHint: 'fat elephant',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=cvb7i5r4QPk',
@@ -202,7 +202,7 @@ export const animations = [
   {
     title: 'Kukdoo Koo Hindi Rhyme',
     description: 'A lively 2D animation for the Kukdoo Koo Hindi nursery rhyme.',
-    image: '/Images/portfolio/animations/KukdooKoo.jpg',
+    image: 'https://img.youtube.com/vi/knwSN5BA-q8/0.jpg',
     aiHint: 'rooster rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=knwSN5BA-q8',
@@ -213,7 +213,7 @@ export const animations = [
   {
     title: 'Chal Mere Ghode',
     description: 'A 2D animated rhyme about riding a horse, "Chal Mere Ghode".',
-    image: '/Images/portfolio/animations/ChalMereGhode.jpg',
+    image: 'https://img.youtube.com/vi/5jqYOnc2xz0/0.jpg',
     aiHint: 'horse rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=5jqYOnc2xz0',
@@ -224,7 +224,7 @@ export const animations = [
   {
     title: 'Pani Barsa Cham Cham',
     description: 'A delightful 2D animation for the popular rainy day Hindi rhyme.',
-    image: '/Images/portfolio/animations/PaniBarsa.jpg',
+    image: 'https://img.youtube.com/vi/OuJF3E3Ju_M/0.jpg',
     aiHint: 'rain rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=OuJF3E3Ju_M',
@@ -235,7 +235,7 @@ export const animations = [
   {
     title: 'Aloo Kachaloo Beta',
     description: 'The classic Aloo Kachaloo rhyme brought to life with 2D animation.',
-    image: '/Images/portfolio/animations/AlooKachaloo.jpg',
+    image: 'https://img.youtube.com/vi/Q7JCOZHqqLo/0.jpg',
     aiHint: 'potato rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=Q7JCOZHqqLo',
@@ -246,7 +246,7 @@ export const animations = [
   {
     title: 'Nani Teri Morni Ko Mor Le Gaye',
     description: 'A 2D animated version of the famous Hindi children\'s song.',
-    image: '/Images/portfolio/animations/NaniTeriMorni.jpg',
+    image: 'https://img.youtube.com/vi/SAMaTVOnves/0.jpg',
     aiHint: 'peacock rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=SAMaTVOnves',
@@ -257,7 +257,7 @@ export const animations = [
   {
     title: 'Pyare Chanda Mama',
     description: 'A sweet 2D animated rhyme about the beloved moon.',
-    image: '/Images/portfolio/animations/PyareChandaMama.jpg',
+    image: 'https://img.youtube.com/vi/aO-bd-sj3xY/0.jpg',
     aiHint: 'moon rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=aO-bd-sj3xY',
@@ -268,7 +268,7 @@ export const animations = [
   {
     title: 'Machli Jal Ki Rani Hai',
     description: 'The iconic "fish is the queen of water" rhyme in a 2D animated format.',
-    image: '/Images/portfolio/animations/MachliJalKiRani.jpg',
+    image: 'https://img.youtube.com/vi/xzlqbT56U6w/0.jpg',
     aiHint: 'fish rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=xzlqbT56U6w',
@@ -279,7 +279,7 @@ export const animations = [
   {
     title: 'Chanda Mama Door Ke',
     description: 'A classic lullaby about the moon, presented in a charming 2D animation.',
-    image: '/Images/portfolio/animations/ChandaMamaDoorKe.jpg',
+    image: 'https://img.youtube.com/vi/2wa8-XERKsU/0.jpg',
     aiHint: 'moon rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=2wa8-XERKsU',
@@ -290,7 +290,7 @@ export const animations = [
   {
     title: 'Gubare Wala (2D)',
     description: 'A 2D animated rhyme about a balloon seller.',
-    image: '/Images/portfolio/animations/GubareWala2D.jpg',
+    image: 'https://img.youtube.com/vi/Y_2ZWCNFAQE/0.jpg',
     aiHint: 'balloon seller',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=Y_2ZWCNFAQE',
@@ -301,7 +301,7 @@ export const animations = [
   {
     title: 'Chidiya Rani',
     description: 'A beautiful 2D animated rhyme about a queen bird.',
-    image: '/Images/portfolio/animations/ChidiyaRani.jpg',
+    image: 'https://img.youtube.com/vi/fvZoXSvq8IA/0.jpg',
     aiHint: 'bird rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://youtu.be/fvZoXSvq8IA',
@@ -312,7 +312,7 @@ export const animations = [
   {
     title: 'Aaha Tamatar Bade Mazedar',
     description: 'A tasty 2D animated rhyme about yummy tomatoes.',
-    image: '/Images/portfolio/animations/AahaTamatar.jpg',
+    image: 'https://img.youtube.com/vi/Ucr1g08lCwQ/0.jpg',
     aiHint: 'tomato rhyme',
     tags: ['Nursery Rhyme', 'Kids', 'Hindi', '2D Animation', '2D'],
     link: 'https://www.youtube.com/watch?v=Ucr1g08lCwQ',
