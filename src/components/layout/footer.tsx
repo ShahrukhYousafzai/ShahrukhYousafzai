@@ -13,6 +13,7 @@ const Footer = () => {
           </p>
           <Link href="/cv" className="hover:text-primary transition-colors">Printable CV</Link>
           <Link href="/portfolio/pdf" className="hover:text-primary transition-colors">Printable Portfolio</Link>
+          <Link href="/portfolio/gamedesign-animation" className="hover:text-primary transition-colors">Game Design Portfolio</Link>
         </div>
         <div className="flex items-center gap-2">
           {socialLinks.map((social) => (
