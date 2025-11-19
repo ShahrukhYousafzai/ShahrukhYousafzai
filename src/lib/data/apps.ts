@@ -1,6 +1,18 @@
+
 import { Play, Video, Download } from "lucide-react";
 
 export const apps = [
+    {
+      title: 'AI Assignment Writer',
+      description: 'An AI-powered tool to help students draft, write, and format their assignments, essays, and reports with ease. Overcome writer\'s block and improve your writing quality. Has over 50K+ downloads!',
+      image: '/Images/portfolio/apps/AIAssignmentWriter.webp',
+      aiHint: 'assignment writer',
+      tags: ['AI', 'Mobile', 'Productivity', 'Education'],
+      link: 'https://play.google.com/store/apps/details?id=com.effacestudios.instant.studywritingassistant',
+      linkText: 'Play Store',
+      linkIcon: Play,
+      category: 'Apps',
+    },
     {
       title: 'Instant AI Video Maker',
       description: 'An AI-powered tool that helps you create engaging short-form videos for platforms like TikTok, Reels, and YouTube Shorts. Automatically generate scripts, find visuals, and edit clips to produce viral content effortlessly.',
@@ -10,17 +22,6 @@ export const apps = [
       link: 'https://apkpure.net/spark-ai-shorts-maker/com.effacestudios.spark',
       linkText: 'Download APK',
       linkIcon: Download,
-      category: 'Apps',
-    },
-    {
-      title: 'AI Assignment Writer',
-      description: 'An AI-powered tool to help students draft, write, and format their assignments, essays, and reports with ease. Overcome writer\'s block and improve your writing quality.',
-      image: '/Images/portfolio/apps/AIAssignmentWriter.webp',
-      aiHint: 'assignment writer',
-      tags: ['AI', 'Mobile', 'Productivity', 'Education'],
-      link: 'https://play.google.com/store/apps/details?id=com.effacestudios.instant.studywritingassistant',
-      linkText: 'Play Store',
-      linkIcon: Play,
       category: 'Apps',
     },
     {
