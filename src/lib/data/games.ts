@@ -39,6 +39,18 @@ export const games = [
       platform: 'Web3',
     },
     {
+      title: 'Propcity',
+      description: 'A township-style farming game with Web3 elements, plushy toy-like graphics, and blockchain token integration.',
+      image: '/Images/portfolio/games/Propcity.png',
+      aiHint: 'farming game',
+      tags: ['Unity3D', 'Web3', 'Farming', 'Simulation', '3D', 'Single Player'],
+      link: '',
+      linkText: '',
+      linkIcon: Play,
+      category: 'Games',
+      platform: 'Web3',
+    },
+    {
       title: 'Combat Heroes',
       description: 'A low-poly battle royale shooting game. Fast-paced action and stylized graphics for a thrilling last-man-standing experience.',
       image: '/Images/portfolio/games/CombatHeroes.png',
