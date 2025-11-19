@@ -163,6 +163,7 @@ const PortfolioSection = () => {
   const [activeTab, setActiveTab] = useState("Games");
   const [gamePlatform, setGamePlatform] = useState('All');
   const [dimensionFilter, setDimensionFilter] = useState('All');
+  const [animationDimensionFilter, setAnimationDimensionFilter] = useState('All');
   const [activeGameTag, setActiveGameTag] = useState('All');
   const [activeAppTag, setActiveAppTag] = useState('All');
 
@@ -186,6 +187,13 @@ const PortfolioSection = () => {
   const filteredAppProjects = useMemo(() => {
      return appProjects.filter(p => activeAppTag === 'All' || p.tags.includes(activeAppTag));
   }, [appProjects, activeAppTag]);
+
+  const filteredAnimationProjects = useMemo(() => {
+    return animationProjects.filter(p => {
+      return animationDimensionFilter === 'All' || p.tags.includes(animationDimensionFilter);
+    });
+  }, [animationProjects, animationDimensionFilter]);
+
 
   const availableGameCategories = useMemo(() => {
     const platformAndDimensionProjects = gameProjects.filter(p => {
@@ -298,7 +306,20 @@ const PortfolioSection = () => {
           </TabsContent>
 
           <TabsContent value="Animations">
-             <PaginatedProjects projects={animationProjects} />
+            <div className="mt-8 flex flex-wrap justify-center gap-4 mb-4">
+                <Select value={animationDimensionFilter} onValueChange={setAnimationDimensionFilter}>
+                  <SelectTrigger className="w-auto min-w-[180px] rounded-full px-4 py-2 border bg-muted/50 transition-all duration-300 hover:bg-muted data-[state=open]:ring-primary">
+                      <Layers className="mr-2 h-4 w-4" />
+                      <SelectValue placeholder="Select Dimension" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All Dimensions</SelectItem>
+                    <SelectItem value="2D">2D</SelectItem>
+                    <SelectItem value="3D">3D</SelectItem>
+                  </SelectContent>
+                </Select>
+            </div>
+            <PaginatedProjects projects={filteredAnimationProjects} />
           </TabsContent>
         </Tabs>
       </div>
