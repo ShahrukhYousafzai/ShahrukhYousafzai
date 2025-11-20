@@ -1,7 +1,7 @@
 
 'use client';
 
-import { about, socialLinks, skills, timeline, projects as allProjects, stats } from '@/lib/data';
+import { about, socialLinks, skills, timeline, projects as allProjects } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
@@ -12,46 +12,12 @@ import Image from 'next/image';
 const PrintableGameDesignPage = () => {
     
     const gameDesignSkills = skills.filter(s => [
-        'Unity', 'Game Development', 'Game Design', 'Figma', 'Photoshop', 'C#', '3D', '2D'
-    ].some(skillName => s.name.includes(skillName)));
+        'Unity', 'Game Development', 'Game Design', 'Figma', 'Photoshop', 'C#', '3D', '2D', 'Cinemachine', 'VFX', 'Animation'
+    ].some(skillName => s.name.includes(skillName) || s.tags?.includes(skillName as any)));
 
-    const featuredProjects = allProjects.filter(p => [
-        'RugDollz World',
-        'Solar Dominion',
-        'MultiPlanetary Inus',
-        'Basant Mela',
-        'Wrath of the Quest',
-        'UFO.KO - Cinematic Trailer',
-        'Main Tota: Hindi Nursery Rhyme',
-        'Lakdi Ki Kathi',
-    ].includes(p.title));
-
-
-    const featuredOn = [
-        {
-            name: "United News of Bangladesh",
-            logo: "/Images/unb-logo.png",
-        },
-        {
-            name: "Editorialge",
-            logo: "/Images/editorialge.png",
-        }
-    ];
-
-    const clients = [
-      {
-        name: "RugDollz / RugLabz",
-        logo: "/Images/worked-with/rugdollz.webp",
-      },
-      {
-        name: "Solar Studios",
-        logo: "/Images/worked-with/SolarStudios.png",
-      },
-      {
-        name: "Toxic Skulls Club",
-        logo: "/Images/worked-with/TSC.png",
-      },
-    ];
+    const featuredProjects = allProjects.filter(p => 
+        p.category === 'Games' || p.category === 'Animations'
+    );
 
     return (
         <div className="bg-background text-foreground font-body A4-sheet">
@@ -148,7 +114,7 @@ const PrintableGameDesignPage = () => {
             <div className="printable-content">
                 {/* Header */}
                 <header className="text-center mb-8">
-                    <h1 className="text-5xl font-bold font-headline">Shahrukh Yousafzai</h1>
+                    <h1 className="text-5xl font-bold font-headline">Shah Rukh Khan</h1>
                     <p className="text-2xl text-muted-foreground mt-2 font-headline">Game Designer & Animator</p>
                     <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-sm text-muted-foreground">
                         <a href={`mailto:${about.email}`} className="hover:text-primary">{about.email}</a>
@@ -236,4 +202,3 @@ const PrintableGameDesignPage = () => {
 };
 
 export default PrintableGameDesignPage;
-
