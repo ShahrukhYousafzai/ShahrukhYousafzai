@@ -193,13 +193,11 @@ const PrintableGameDesignPage = () => {
                                     ))}
                                 </div>
                                 {project.link && project.linkText && (
-                                     <div className="mt-4">
-                                        <Button asChild size="sm">
-                                            <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                                <project.linkIcon className="mr-2 h-4 w-4" />
-                                                {project.linkText}
-                                            </a>
-                                        </Button>
+                                     <div className="mt-3">
+                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary hover:underline">
+                                            <project.linkIcon className="h-4 w-4" />
+                                            <span>{project.linkText}</span>
+                                        </a>
                                     </div>
                                 )}
                             </div>
