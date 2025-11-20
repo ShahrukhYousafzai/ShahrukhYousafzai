@@ -8,7 +8,7 @@ export const games = [
       image: '/Images/portfolio/games/RugDollzWorld.jpg',
       aiHint: 'minigames world',
       tags: ['Unity3D', 'Web3', 'Multiplayer', 'Shooting', 'Racing', 'Action', 'RPG', '3D', 'AAA'],
-      link: 'https://rugdollz.com/gaming',
+      link: 'https://www.dollzworld.com/',
       linkText: 'Learn More',
       linkIcon: Play,
       category: 'Games',
