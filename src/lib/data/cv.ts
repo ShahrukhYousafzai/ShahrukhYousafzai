@@ -17,7 +17,7 @@ export const cvData = {
       "Game Development": ["Unity", "C#", "Photon", "Firebase"],
       "App Development": ["Android", "iOS", ".NET", "XAML"],
       "Web Development": ["React", "HTML", "CSS", "JS", "TypeScript"],
-      "Design Tools": ["Photoshop", "Figma"],
+      "Design Tools": ["Figma", "3D Animation"],
       "AI & Emerging Tech": ["AI Chatbots", "Blockchain/Web3"],
     },
     experience: [
@@ -51,16 +51,12 @@ export const cvData = {
     ],
     keyProjects: [
        { 
-        title: 'Basant Mela',
-        description: '(Unity3D, Simulation) – Achieved 500K+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
-       },
-       { 
-        title: 'RugDollz World',
-        description: '(Unity3D, Web3, MMO) – Led development on a large-scale Web3 mini-games library with PvP, racing, and NFT integration.'
-       },
-       { 
         title: 'Solar Dominion',
         description: '(Unity3D, Web3, Epic Games) – A multiplayer shooter on the Epic Games Store that rewards players with prizes for ranking up.'
+       },
+       {
+        title: 'Basant Mela',
+        description: '(Unity3D, Simulation) – Achieved 500K+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
        },
        { 
         title: 'Multiplanetary Inus',
