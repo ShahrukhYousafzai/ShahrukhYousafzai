@@ -127,13 +127,7 @@ const PrintableGameDesignPage = () => {
                     <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-sm text-muted-foreground">
                         <a href={`mailto:${about.email}`} className="hover:text-primary">{about.email}</a>
                         <span className="hidden sm:inline">|</span>
-                        <a href="https://shahrukhyousafzai.netlify.app/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Portfolio</a>
-                        {socialLinks.map(link => (
-                           <React.Fragment key={link.name}>
-                             <span className="hidden sm:inline">|</span>
-                            <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{link.name}</a>
-                           </React.Fragment>
-                        ))}
+                        <a href="https://shahrukhyousafzai.netlify.app/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">shahrukhyousafzai.netlify.app</a>
                     </div>
                 </header>
 
