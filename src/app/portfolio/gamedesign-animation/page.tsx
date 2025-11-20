@@ -15,9 +15,17 @@ const PrintableGameDesignPage = () => {
         'Unity', 'Game Development', 'Game Design', 'Figma', '3D Animation', 'C#', '3D', '2D', 'Cinemachine', 'VFX', 'Animation'
     ].some(skillName => s.name.includes(skillName) || (s as any).tags?.includes(skillName as any)));
 
-    const featuredProjects = allProjects.filter(p => 
-        p.category === 'Games' || p.category === 'Animations'
-    );
+    const featuredProjects = allProjects
+        .filter(p => p.category === 'Games' || p.category === 'Animations')
+        .sort((a, b) => {
+            if (a.category === 'Animations' && b.category !== 'Animations') {
+                return -1;
+            }
+            if (a.category !== 'Animations' && b.category === 'Animations') {
+                return 1;
+            }
+            return 0;
+        });
 
     return (
         <div className="bg-background text-foreground font-body A4-sheet">
