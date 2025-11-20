@@ -192,11 +192,11 @@ const PrintableGameDesignPage = () => {
                                         <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
                                     ))}
                                 </div>
-                                {project.link && project.linkText && (
+                                {project.link && (
                                      <div className="mt-3">
-                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary hover:underline">
-                                            <project.linkIcon className="h-4 w-4" />
-                                            <span>{project.linkText}</span>
+                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary hover:underline break-all">
+                                            <project.linkIcon className="h-4 w-4 shrink-0" />
+                                            <span>{project.link}</span>
                                         </a>
                                     </div>
                                 )}
