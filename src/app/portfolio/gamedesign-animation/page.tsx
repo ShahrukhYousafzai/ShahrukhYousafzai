@@ -12,8 +12,8 @@ import Image from 'next/image';
 const PrintableGameDesignPage = () => {
     
     const gameDesignSkills = skills.filter(s => [
-        'Unity', 'Game Development', 'Game Design', 'Figma', 'Photoshop', 'C#', '3D', '2D', 'Cinemachine', 'VFX', 'Animation'
-    ].some(skillName => s.name.includes(skillName) || s.tags?.includes(skillName as any)));
+        'Unity', 'Game Development', 'Game Design', 'Figma', '3D Animation', 'C#', '3D', '2D', 'Cinemachine', 'VFX', 'Animation'
+    ].some(skillName => s.name.includes(skillName) || (s as any).tags?.includes(skillName as any)));
 
     const featuredProjects = allProjects.filter(p => 
         p.category === 'Games' || p.category === 'Animations'
@@ -135,7 +135,7 @@ const PrintableGameDesignPage = () => {
                 <section>
                     <h2 className="section-title">Profile</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        A passionate and creative Game Designer and Animator with over 7 years of experience in the industry. Specializing in Unity3D, I bring game concepts to life through engaging mechanics, compelling narratives, and fluid animation. My work spans from full-scale commercial games to charming nursery rhymes, showcasing a versatile skill set in both 2D and 3D pipelines.
+                        A passionate and creative Game Designer and Animator with over 7 years of experience in the industry. Specializing in Unity3D, I bring game concepts to life through engaging mechanics and compelling narratives. My work spans from full-scale commercial games to captivating cinematic trailers and charming nursery rhymes, showcasing a versatile skill set in both 2D and 3D pipelines.
                     </p>
                 </section>
 
