@@ -4,7 +4,7 @@
 import { about, socialLinks, skills, timeline, projects as allProjects } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, Video } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
 import Image from 'next/image';
@@ -187,11 +187,21 @@ const PrintableGameDesignPage = () => {
                                 </div>
                                 <h3 className="text-lg font-bold font-headline">{project.title} <span className="text-sm font-normal text-muted-foreground">- {project.category}</span></h3>
                                 <p className="text-muted-foreground my-1">{project.description}</p>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-2 mt-2">
                                     {project.tags.map(tag => (
                                         <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
                                     ))}
                                 </div>
+                                {project.link && project.linkText && (
+                                     <div className="mt-4">
+                                        <Button asChild size="sm">
+                                            <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                                <project.linkIcon className="mr-2 h-4 w-4" />
+                                                {project.linkText}
+                                            </a>
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
