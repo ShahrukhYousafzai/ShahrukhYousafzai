@@ -24,7 +24,7 @@ export const cvData = {
         {
             date: "2017 - Present",
             title: "Freelance Developer",
-            description: "Delivered over 160 projects for a diverse range of international clients on platforms like Fiverr and Upwork. Managed full project lifecycle including client communication, requirement gathering, and development using Unity, Firebase, and Photon. Achieved consistent 5-star ratings and generated over $148K in revenue."
+            description: "Delivered over 160 projects for a diverse range of international clients on platforms like Fiverr and Upwork. Managed full project lifecycle including client communication, requirement gathering, and development using Unity, Firebase, and Photon, while achieving consistent 5-star ratings."
         },
         {
             date: "2019 - 2024",
@@ -78,7 +78,7 @@ export const cvData = {
         },
         {
             icon: Star,
-            text: 'Earned over $148K on Fiverr/Upwork while maintaining a consistent 5-star rating.'
+            text: 'Maintained a consistent 5-star rating across freelance platforms.'
         }
     ]
 };
