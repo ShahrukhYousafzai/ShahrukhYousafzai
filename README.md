@@ -3,14 +3,22 @@
 🌍 I’ve completed 160+ freelance projects and founded **Efface Studios**.<br>
 🧠 I specialize in cross-platform games, multiplayer systems, mobile apps, and Web3 integrations.<br>
 🚀 Currently expanding into advanced blockchain gaming and systems design.<br>
-⚡ Fun fact: I started programming at 12 and still use tabs over spaces!
+⚡ Fun fact: I started programming at 14 in 2017 and still use tabs over spaces!
+
+---
+
+## 🚀 Top Achievements:
+- **Basant Mela**: 500,000+ Downloads on Google Play (Reached #4 Trending in Sports category in Pakistan).
+- **AI Assignment Writer**: 50,000+ Downloads (A popular tool helping students worldwide).
+- **RugDollz World**: An innovative mini-games library with Web2/Web3 compatibility.
+- **Solar Dominion**: A high-quality multiplayer shooter adventure on the Epic Games Store.
 
 ---
 
 ## 🌐 Connect with Me:
-[![Fiverr](https://img.shields.io/badge/Fiverr-%2300B22D.svg?style=for-the-badge&logo=fiverr&logoColor=white)](fiverr.com/shahrukhkhan9)
+[![Fiverr](https://img.shields.io/badge/Fiverr-%2300B22D.svg?style=for-the-badge&logo=fiverr&logoColor=white)](https://www.fiverr.com/users/shahrukhkhan9/)
 [![Upwork](https://img.shields.io/badge/Upwork-%233FE04D.svg?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01d270e621d61cf22f)
-[![Twitter](https://img.shields.io/badge/X-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://x.com/SRKYousafzai)  
+[![Twitter](https://img.shields.io/badge/X-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://x.com/SRKYousafzaiPK)  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shahrukh-yousafzai-b86b2b225/)
 [![Email](https://img.shields.io/badge/Email-%23D14836.svg?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shahrukhyousafzaipk@gmail.com)
 [![Portfolio](https://img.shields.io/badge/Portfolio-%23000000?style=for-the-badge&logo=firefox&logoColor=%23FF7139)](https://shahrukhyousafzai.netlify.app/)
