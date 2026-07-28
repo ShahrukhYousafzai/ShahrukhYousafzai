@@ -1,4 +1,4 @@
-import { Download, Star, Calendar, Layers } from "lucide-react";
+import { Download, Star, Calendar, Layers, DollarSign } from "lucide-react";
 
 export const stats = [
   {
@@ -24,5 +24,11 @@ export const stats = [
     value: "Web2 · Web3 · AI",
     label: "Specialist Engineering Tracks",
     icon: Layers,
+  },
+  {
+    id: "earnings",
+    value: "$150K+",
+    label: "Earned on Freelance Platforms",
+    icon: DollarSign,
   },
 ];

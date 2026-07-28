@@ -28,7 +28,7 @@ const HeroSection = () => {
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             Creative engineering founder shipping production-scale
             software across three studios — games, creative services, and AI products.
-            1M+ downloads on Google Play. 76+ verified client reviews.
+            1M+ downloads on Google Play. $150K+ earned. 76+ verified client reviews.
           </p>
 
           {/* Studios — chips */}
