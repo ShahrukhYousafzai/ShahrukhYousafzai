@@ -184,6 +184,8 @@ const PrintableGameDesignPage = () => {
                                         src={project.image.startsWith('http') ? project.image : project.image}
                                         alt={project.title}
                                         fill
+                                        unoptimized
+                                        sizes="(max-width: 768px) 100vw, 80vw"
                                         className="object-contain"
                                     />
                                 </div>

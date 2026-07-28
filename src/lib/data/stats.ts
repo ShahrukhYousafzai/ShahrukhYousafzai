@@ -1,7 +1,28 @@
-import { Users, Briefcase, Code } from "lucide-react";
+import { Download, Star, Calendar, Layers } from "lucide-react";
 
 export const stats = [
-    { id: "jobs", value: "166+", label: "Total Jobs", icon: Users },
-    { id: "experience", value: "7+", label: "Years of Experience", icon: Briefcase },
-    { id: "start", value: "2017", label: "Started Development (Age 14)", icon: Code },
+  {
+    id: "downloads",
+    value: "1M+",
+    label: "App Downloads on Google Play",
+    icon: Download,
+  },
+  {
+    id: "reviews",
+    value: "76+",
+    label: "Verified Client Reviews Worldwide",
+    icon: Star,
+  },
+  {
+    id: "experience",
+    value: `${new Date().getFullYear() - 2017}+`,
+    label: "Years Shipping Production Software",
+    icon: Calendar,
+  },
+  {
+    id: "specialty",
+    value: "Web2 · Web3 · AI",
+    label: "Specialist Engineering Tracks",
+    icon: Layers,
+  },
 ];

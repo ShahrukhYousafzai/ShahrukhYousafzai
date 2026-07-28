@@ -1,31 +1,50 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { services } from "@/lib/data/services";
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-16 sm:py-24 bg-secondary">
-      <div className="container">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold font-headline sm:text-4xl">What I Offer</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            I specialize in turning ideas into engaging digital experiences. Here are the services I offer.
+    <section id="services" className="bg-surface border-y border-border/80">
+      <div className="container py-24 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 mb-14 md:mb-20">
+          <div>
+            <div className="section-label mb-3">Capabilities</div>
+            <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
+              Studios &amp;
+              <br />
+              <span className="text-muted-foreground">capabilities.</span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
+            Production tracks operated across all three entities. Each track is
+            run with senior-architect oversight and direct founder
+            accountability &mdash; the same accountability we extend to every
+            client engagement.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <ol className="divide-y divide-border/80 border-y border-border/80">
           {services.map((service, index) => (
-            <Card key={index} className="group relative overflow-hidden text-center bg-background/50 border-border/50 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1">
-              <CardHeader>
-                <div className="mx-auto w-fit rounded-full bg-primary/10 p-4 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/40">
-                   <service.icon className="h-8 w-8 text-primary transition-all duration-300 group-hover:text-primary-foreground" />
+            <li
+              key={service.title}
+              className="group grid grid-cols-[1fr_auto] items-baseline gap-6 py-7 md:grid-cols-[1fr_2fr] md:gap-10 md:py-9 transition-colors hover:bg-background"
+            >
+              <div>
+                <div className="flex items-center gap-3">
+                  <service.icon
+                    className="h-4 w-4 text-foreground/80"
+                    strokeWidth={1.5}
+                  />
+                  <h3 className="font-headline text-lg font-medium tracking-tight md:text-xl">
+                    {service.title}
+                  </h3>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <h3 className="text-xl font-bold font-headline">{service.title}</h3>
-              </CardContent>
-               <div className="absolute -bottom-10 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full bg-primary/10 blur-2xl transition-all duration-500 group-hover:h-32 group-hover:w-32 group-hover:bg-primary/20" />
-            </Card>
+              </div>
+              <p className="col-span-1 mt-2 text-sm leading-relaxed text-muted-foreground md:mt-0 md:text-base md:leading-[1.65]">
+                {service.description}
+              </p>
+
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

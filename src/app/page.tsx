@@ -1,14 +1,14 @@
 import Header from "@/components/layout/header";
 import HeroSection from "@/components/sections/hero";
+import StudiosSection from "@/components/sections/studios-section";
 import StatsSection from "@/components/sections/stats";
-import FeaturedOnSection from "@/components/sections/featured-on";
-import WorkedWithSection from "@/components/sections/worked-with";
 import AboutSection from "@/components/sections/about";
 import ServicesSection from "@/components/sections/services";
 import SkillsSection from "@/components/sections/skills";
 import PortfolioSection from "@/components/sections/portfolio";
-import AiRecommender from "@/components/sections/ai-recommender";
+import WorkedWithSection from "@/components/sections/worked-with";
 import TestimonialsSection from "@/components/sections/testimonials";
+import AiRecommender from "@/components/sections/ai-recommender";
 import ContactSection from "@/components/sections/contact";
 import Footer from "@/components/layout/footer";
 import Chatbot from "@/components/chatbot";
@@ -20,11 +20,11 @@ export default function Home() {
       <main className="flex-grow">
         <HeroSection />
         <StatsSection />
+        <StudiosSection />
         <AboutSection />
         <ServicesSection />
         <SkillsSection />
         <PortfolioSection />
-        <FeaturedOnSection />
         <WorkedWithSection />
         <TestimonialsSection />
         <AiRecommender />

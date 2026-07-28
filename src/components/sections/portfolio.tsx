@@ -1,83 +1,92 @@
-
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import React, { useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { projects } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Image from 'next/image';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Package, Globe, Layers, Bot, ZoomIn } from "lucide-react";
+import Image from "next/image";
+import { Package, Globe, Layers, Bot, ZoomIn, ExternalLink } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
 
 const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
-  <Card className="h-full flex flex-col overflow-hidden transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
-    <CardHeader className="p-0">
-       <Dialog>
-        <DialogTrigger asChild>
-          <div className="aspect-video relative bg-black group cursor-pointer">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-contain"
-              data-ai-hint={project.aiHint}
-            />
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <ZoomIn className="h-12 w-12 text-white" />
-            </div>
+  <article className="group flat-card flex flex-col overflow-hidden">
+    <Dialog>
+      <DialogTrigger asChild>
+        <div className="aspect-video relative bg-[hsl(var(--surface))] cursor-pointer overflow-hidden border-b border-border/80">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            unoptimized
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain p-3"
+            data-ai-hint={project.aiHint}
+          />
+          <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <ZoomIn className="h-6 w-6 text-background" strokeWidth={1.5} />
           </div>
-        </DialogTrigger>
-        <DialogContent className="max-w-4xl p-2">
-            <DialogHeader>
-                <DialogTitle className="sr-only">{project.title}</DialogTitle>
-            </DialogHeader>
-          <div className="relative aspect-video">
-             <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-contain"
-             />
-          </div>
-        </DialogContent>
-      </Dialog>
-    </CardHeader>
-    <div className="p-4 flex-grow flex flex-col">
-      <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
-      <div className="flex flex-wrap gap-1 my-3">
-        {project.tags.map(tag => (
-          <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+        </div>
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl border-border bg-background p-0">
+        <DialogHeader>
+          <DialogTitle className="sr-only">{project.title}</DialogTitle>
+        </DialogHeader>
+        <div className="relative aspect-video">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            unoptimized
+            sizes="(max-width: 1024px) 100vw, 80vw"
+            className="object-contain p-4"
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
+
+    <div className="flex flex-col gap-3 p-5">
+      <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+        {project.tags.slice(0, 2).map((tag) => (
+          <span key={tag} className="rounded-full border border-border/80 px-2 py-0.5">{tag}</span>
         ))}
       </div>
-      <CardDescription className="text-muted-foreground text-sm flex-grow">
+      <h3 className="font-headline text-base font-medium leading-snug tracking-tight">
+        {project.title}
+      </h3>
+      <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
         {project.description}
-      </CardDescription>
+      </p>
+
+      {project.linkText && (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-foreground hover:text-primary transition-colors"
+        >
+          {project.linkText}
+          <ExternalLink className="h-3 w-3" strokeWidth={1.5} />
+        </a>
+      )}
     </div>
-    <CardFooter className="p-4">
-        {project.linkText && (
-            <Button asChild className="w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
-                <project.linkIcon className="mr-2 h-4 w-4" /> {project.linkText}
-                </a>
-            </Button>
-        )}
-    </CardFooter>
-  </Card>
+  </article>
 );
 
-const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>}) => {
+const PaginatedProjects = ({
+  projects,
+  startIndex = 0,
+}: {
+  projects: Array<(typeof projects)[0]>;
+  startIndex?: number;
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   React.useEffect(() => {
     setCurrentPage(1);
   }, [projects]);
-  
+
   const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
 
   const paginatedProjects = projects.slice(
@@ -86,238 +95,238 @@ const PaginatedProjects = ({ projects }: { projects: Array<(typeof projects)[0]>
   );
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  const renderPagination = () => {
-    if (totalPages <= 1) return null;
-
-    const pageNumbers = [];
-    const maxPagesToShow = 5;
-    const halfMaxPages = Math.floor(maxPagesToShow / 2);
-    
-    let startPage = Math.max(1, currentPage - halfMaxPages);
-    let endPage = Math.min(totalPages, currentPage + halfMaxPages);
-
-    if (currentPage - halfMaxPages < 1) {
-      endPage = Math.min(totalPages, maxPagesToShow);
-    }
-    if (currentPage + halfMaxPages > totalPages) {
-      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
-    }
-
-    if (startPage > 1) {
-      pageNumbers.push(<PaginationItem key="1"><PaginationLink onClick={() => handlePageChange(1)}>1</PaginationLink></PaginationItem>);
-      if (startPage > 2) {
-        pageNumbers.push(<PaginationItem key="start-ellipsis"><PaginationEllipsis /></PaginationItem>);
-      }
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <PaginationItem key={i}>
-          <PaginationLink isActive={i === currentPage} onClick={() => handlePageChange(i)}>
-            {i}
-          </PaginationLink>
-        </PaginationItem>
-      );
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pageNumbers.push(<PaginationItem key="end-ellipsis"><PaginationEllipsis /></PaginationItem>);
-      }
-      pageNumbers.push(<PaginationItem key={totalPages}><PaginationLink onClick={() => handlePageChange(totalPages)}>{totalPages}</PaginationLink></PaginationItem>);
-    }
-
-    return (
-       <Pagination className="mt-8">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}/>
-          </PaginationItem>
-          {pageNumbers}
-          <PaginationItem>
-            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    );
-  };
+  if (totalPages <= 0) return null;
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-        {paginatedProjects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+      <div className="grid grid-cols-1 gap-px bg-border/80 sm:grid-cols-2 md:grid-cols-3 border border-border/80">
+        {paginatedProjects.map((project, i) => (
+          <div key={project.title} className="bg-background">
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
-      {renderPagination()}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-10 flex items-center justify-between border-t border-border/80 pt-6">            <div className="text-xs font-medium text-muted-foreground tabular-nums">
+            Page {currentPage} of {totalPages}
+          </div>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="h-9 rounded-lg border border-border/80 px-3 text-sm font-medium text-foreground hover:bg-surface disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+            >
+              ← Prev
+            </button>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="h-9 rounded-lg border border-border/80 px-3 text-sm font-medium text-foreground hover:bg-surface disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
 const PortfolioSection = () => {
   const [activeTab, setActiveTab] = useState("Games");
-  const [gamePlatform, setGamePlatform] = useState('All');
-  const [dimensionFilter, setDimensionFilter] = useState('All');
-  const [animationDimensionFilter, setAnimationDimensionFilter] = useState('All');
-  const [activeGameTag, setActiveGameTag] = useState('All');
-  const [activeAppTag, setActiveAppTag] = useState('All');
+  const [gamePlatform, setGamePlatform] = useState("All");
+  const [dimensionFilter, setDimensionFilter] = useState("All");
+  const [animationDimensionFilter, setAnimationDimensionFilter] = useState("All");
+  const [activeGameTag, setActiveGameTag] = useState("All");
+  const [activeAppTag, setActiveAppTag] = useState("All");
 
   const categories = ["Games", "Apps", "Animations"];
   const allGameCategories = ["All", "AAA", "Action", "Sports", "Multiplayer", "Single Player", "Card Game", "Casino", "Board Game", "RPG", "Fighting", "Simulation", "Racing", "Shooting", "Battle Royale", "Tower Defense", "Endless Runner"];
   const allAppCategories = ["All", "AI", "Chatbot", "Productivity", "Creative Tools", "Social", "Web", "Mobile", "Windows"];
 
-  const gameProjects = useMemo(() => projects.filter(p => p.category === 'Games'), []);
-  const appProjects = useMemo(() => projects.filter(p => p.category === 'Apps'), []);
-  const animationProjects = useMemo(() => projects.filter(p => p.category === 'Animations'), []);
+  const gameProjects = useMemo(() => projects.filter((p) => p.category === "Games"), []);
+  const appProjects = useMemo(() => projects.filter((p) => p.category === "Apps"), []);
+  const animationProjects = useMemo(() => projects.filter((p) => p.category === "Animations"), []);
 
-  const filteredGameProjects = useMemo(() => {
-    return gameProjects.filter(p => {
-      const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
-      const dimensionMatch = dimensionFilter === 'All' || p.tags.includes(dimensionFilter);
-      const tagMatch = activeGameTag === 'All' || p.tags.includes(activeGameTag);
-      return platformMatch && dimensionMatch && tagMatch;
-    });
-  }, [gameProjects, gamePlatform, dimensionFilter, activeGameTag]);
-  
-  const filteredAppProjects = useMemo(() => {
-     return appProjects.filter(p => activeAppTag === 'All' || p.tags.includes(activeAppTag));
-  }, [appProjects, activeAppTag]);
+  const filteredGameProjects = useMemo(
+    () =>
+      gameProjects.filter((p) => {
+        const platformMatch = gamePlatform === "All" || p.platform === gamePlatform;
+        const dimensionMatch = dimensionFilter === "All" || p.tags.includes(dimensionFilter);
+        const tagMatch = activeGameTag === "All" || p.tags.includes(activeGameTag);
+        return platformMatch && dimensionMatch && tagMatch;
+      }),
+    [gameProjects, gamePlatform, dimensionFilter, activeGameTag]
+  );
 
-  const filteredAnimationProjects = useMemo(() => {
-    return animationProjects.filter(p => {
-      return animationDimensionFilter === 'All' || p.tags.includes(animationDimensionFilter);
-    });
-  }, [animationProjects, animationDimensionFilter]);
+  const filteredAppProjects = useMemo(
+    () => appProjects.filter((p) => activeAppTag === "All" || p.tags.includes(activeAppTag)),
+    [appProjects, activeAppTag]
+  );
 
+  const filteredAnimationProjects = useMemo(
+    () =>
+      animationProjects.filter(
+        (p) => animationDimensionFilter === "All" || p.tags.includes(animationDimensionFilter)
+      ),
+    [animationProjects, animationDimensionFilter]
+  );
 
   const availableGameCategories = useMemo(() => {
-    const platformAndDimensionProjects = gameProjects.filter(p => {
-        const platformMatch = gamePlatform === 'All' || p.platform === gamePlatform;
-        const dimensionMatch = dimensionFilter === 'All' || p.tags.includes(dimensionFilter);
-        return platformMatch && dimensionMatch;
+    const platformAndDimensionProjects = gameProjects.filter((p) => {
+      const platformMatch = gamePlatform === "All" || p.platform === gamePlatform;
+      const dimensionMatch = dimensionFilter === "All" || p.tags.includes(dimensionFilter);
+      return platformMatch && dimensionMatch;
     });
-    const availableTags = new Set(platformAndDimensionProjects.flatMap(p => p.tags));
-    const categoriesWithProjects = allGameCategories.filter(cat => cat === 'All' || availableTags.has(cat));
-    return categoriesWithProjects;
+    const availableTags = new Set(platformAndDimensionProjects.flatMap((p) => p.tags));
+    return allGameCategories.filter((cat) => cat === "All" || availableTags.has(cat));
   }, [gameProjects, gamePlatform, dimensionFilter, allGameCategories]);
 
   const availableAppCategories = useMemo(() => {
-    const availableTags = new Set(appProjects.flatMap(p => p.tags));
-    const categoriesWithProjects = allAppCategories.filter(cat => cat === 'All' || availableTags.has(cat));
-    return categoriesWithProjects;
+    const availableTags = new Set(appProjects.flatMap((p) => p.tags));
+    return allAppCategories.filter((cat) => cat === "All" || availableTags.has(cat));
   }, [appProjects, allAppCategories]);
-  
-  // Reset active tag if it's not in the available categories
+
   React.useEffect(() => {
-    if (!availableGameCategories.includes(activeGameTag)) {
-      setActiveGameTag('All');
-    }
+    if (!availableGameCategories.includes(activeGameTag)) setActiveGameTag("All");
   }, [availableGameCategories, activeGameTag]);
 
   React.useEffect(() => {
-    if (!availableAppCategories.includes(activeAppTag)) {
-      setActiveAppTag('All');
-    }
+    if (!availableAppCategories.includes(activeAppTag)) setActiveAppTag("All");
   }, [availableAppCategories, activeAppTag]);
 
   return (
-    <section id="portfolio" className="py-16 sm:py-24 bg-secondary">
-      <div className="container">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold font-headline sm:text-4xl">My Portfolio</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            A selection of projects I've worked on.
+    <section id="portfolio" className="bg-surface border-y border-border/80">
+      <div className="container py-24 md:py-32">
+        {/* Header */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 mb-14 md:mb-20">
+          <div>
+            <div className="section-label mb-3">Portfolio</div>
+            <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
+              Products &amp;
+              <br />
+              <span className="text-muted-foreground">case studies.</span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
+            A curated selection from{" "}
+            <span className="text-foreground font-medium">Efface Studios</span>{" "}
+            and our agency delivery work. Basant Mela hit{" "}
+            <span className="text-primary font-medium">1M+ organic downloads</span> and #4
+            trending in Pakistan sports &mdash; most of these started as live
+            products shipped to real users.
           </p>
         </div>
-        <Tabs defaultValue="Games" value={activeTab} onValueChange={setActiveTab} className="mt-12">
-          <TabsList className="grid w-full grid-cols-3 md:w-1/2 mx-auto">
-            {categories.map((category) => (
-              <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-            ))}
-          </TabsList>
-          
-          <TabsContent value="Games">
-            <div className="mt-8">
-              <div className="flex flex-wrap justify-center gap-4 mb-4">
-                  <Tabs value={gamePlatform} onValueChange={setGamePlatform}>
-                    <TabsList className="flex-wrap h-auto bg-transparent p-0">
-                      <TabsTrigger value="All" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                        <Globe className="mr-2 h-4 w-4" /> All Platforms
-                      </TabsTrigger>
-                      <TabsTrigger value="Web2" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                        <Package className="mr-2 h-4 w-4" /> Web2
-                      </TabsTrigger>
-                      <TabsTrigger value="Web3" className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10">
-                        <Bot className="mr-2 h-4 w-4" /> Web3/Blockchain
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                  <Select value={dimensionFilter} onValueChange={setDimensionFilter}>
-                    <SelectTrigger className="w-auto min-w-[180px] rounded-full px-4 py-2 border bg-muted/50 transition-all duration-300 hover:bg-muted data-[state=open]:ring-primary">
-                       <Layers className="mr-2 h-4 w-4" />
-                       <SelectValue placeholder="Select Dimension" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="All">All Dimensions</SelectItem>
-                      <SelectItem value="2D">2D</SelectItem>
-                      <SelectItem value="3D">3D</SelectItem>
-                    </SelectContent>
-                  </Select>
-              </div>
-              
-              <Tabs value={activeGameTag} onValueChange={setActiveGameTag}>
-                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
-                  {availableGameCategories.map((category) => (
-                    <TabsTrigger 
-                      key={category} 
-                      value={category}
-                      className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
+
+        <Tabs
+          defaultValue="Games"
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full"
+        >
+          {/* Primary category tabs */}
+          <div className="flex flex-col gap-6 border-b border-border/80 pb-6 md:flex-row md:items-center md:justify-between">
+            <TabsList className="border-0 bg-transparent p-0 gap-0">
+              {categories.map((category, idx) => (
+                <TabsTrigger
+                  key={category}
+                  value={category}
+                  className="rounded-lg border border-transparent bg-transparent px-4 py-2 text-sm font-medium text-muted-foreground transition-colors data-[state=active]:border-primary/30 data-[state=active]:bg-primary/5 data-[state=active]:text-primary hover:text-foreground"
+                >
+                  {category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          <TabsContent value="Games" className="mt-8">
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <Tabs value={gamePlatform} onValueChange={setGamePlatform}>
+                <TabsList className="h-auto bg-transparent p-0 gap-1 flex-wrap">
+                  {["All", "Web2", "Web3"].map((pid) => (
+                    <TabsTrigger
+                      key={pid}
+                      value={pid}
+                      className="rounded-lg border bg-transparent px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors data-[state=active]:border-primary/30 data-[state=active]:bg-primary/5 data-[state=active]:text-primary hover:border-muted-foreground/40 hover:text-foreground"
                     >
-                      {category}
+                      {pid === "All" ? "All Platforms" : pid}
                     </TabsTrigger>
                   ))}
                 </TabsList>
               </Tabs>
-              
+
+              <Select value={dimensionFilter} onValueChange={setDimensionFilter}>
+                <SelectTrigger className="h-9 w-auto min-w-[160px] rounded-lg border border-border/80 bg-transparent px-3 text-sm font-medium text-foreground">
+                  <Layers className="mr-2 h-3.5 w-3.5" strokeWidth={1.5} />
+                  <SelectValue placeholder="Dimension" />
+                </SelectTrigger>
+                <SelectContent className="border-border bg-background">
+                  <SelectItem value="All">All Dimensions</SelectItem>
+                  <SelectItem value="2D">2D</SelectItem>
+                  <SelectItem value="3D">3D</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <Tabs value={activeGameTag} onValueChange={setActiveGameTag}>
+              <TabsList className="flex flex-wrap h-auto gap-1 bg-transparent p-0">
+                {availableGameCategories.map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="rounded-lg border border-border/80 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors data-[state=active]:border-primary/30 data-[state=active]:bg-primary/5 data-[state=active]:text-primary hover:border-muted-foreground/40 hover:text-foreground"
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+
+            <div className="mt-10">
               <PaginatedProjects projects={filteredGameProjects} />
             </div>
           </TabsContent>
 
-          <TabsContent value="Apps">
-             <Tabs value={activeAppTag} onValueChange={setActiveAppTag} className="mt-8">
-                <TabsList className="flex flex-wrap h-auto justify-center gap-2 bg-transparent p-0">
-                  {availableAppCategories.map((category) => (
-                    <TabsTrigger 
-                      key={category} 
-                      value={category}
-                      className="rounded-full px-4 py-2 border border-transparent transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=active]:border-primary hover:bg-primary/10"
-                    >
-                      {category}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-                <PaginatedProjects projects={filteredAppProjects} />
-              </Tabs>
+          <TabsContent value="Apps" className="mt-8">
+            <Tabs value={activeAppTag} onValueChange={setActiveAppTag}>
+              <TabsList className="flex flex-wrap h-auto gap-1 bg-transparent p-0">
+                {availableAppCategories.map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="rounded-lg border border-border/80 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors data-[state=active]:border-primary/30 data-[state=active]:bg-primary/5 data-[state=active]:text-primary hover:border-muted-foreground/40 hover:text-foreground"
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+            <div className="mt-10">
+              <PaginatedProjects projects={filteredAppProjects} />
+            </div>
           </TabsContent>
 
-          <TabsContent value="Animations">
-            <div className="mt-8 flex flex-wrap justify-center gap-4 mb-4">
-                <Select value={animationDimensionFilter} onValueChange={setAnimationDimensionFilter}>
-                  <SelectTrigger className="w-auto min-w-[180px] rounded-full px-4 py-2 border bg-muted/50 transition-all duration-300 hover:bg-muted data-[state=open]:ring-primary">
-                      <Layers className="mr-2 h-4 w-4" />
-                      <SelectValue placeholder="Select Dimension" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">All Dimensions</SelectItem>
-                    <SelectItem value="2D">2D</SelectItem>
-                    <SelectItem value="3D">3D</SelectItem>
-                  </SelectContent>
-                </Select>
+          <TabsContent value="Animations" className="mt-8">
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <Select
+                value={animationDimensionFilter}
+                onValueChange={setAnimationDimensionFilter}
+              >
+                <SelectTrigger className="h-9 w-auto min-w-[160px] rounded-lg border border-border/80 bg-transparent px-3 text-sm font-medium text-foreground">
+                  <Layers className="mr-2 h-3.5 w-3.5" strokeWidth={1.5} />
+                  <SelectValue placeholder="Dimension" />
+                </SelectTrigger>
+                <SelectContent className="border-border bg-background">
+                  <SelectItem value="All">All Dimensions</SelectItem>
+                  <SelectItem value="2D">2D</SelectItem>
+                  <SelectItem value="3D">3D</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <PaginatedProjects projects={filteredAnimationProjects} />
           </TabsContent>

@@ -56,7 +56,7 @@ export const cvData = {
        },
        {
         title: 'Basant Mela',
-        description: '(Unity3D, Simulation) – Achieved 500K+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
+        description: '(Unity3D, Simulation) – Achieved 1M+ organic downloads on Google Play and was featured in international media outlets like United News of Bangladesh.'
        },
        { 
         title: 'Multiplanetary Inus',
@@ -66,7 +66,7 @@ export const cvData = {
     achievements: [
         {
             icon: Download,
-            text: 'Attained 500K+ organic downloads on the Google Play Store for self-published games.'
+            text: 'Attained 1M+ organic downloads on the Google Play Store for self-published games.'
         },
         {
             icon: Award,

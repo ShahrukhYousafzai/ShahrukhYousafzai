@@ -242,6 +242,8 @@ const PrintablePortfolioPage = () => {
                                         src={project.image}
                                         alt={project.title}
                                         fill
+                                        unoptimized
+                                        sizes="(max-width: 768px) 100vw, 80vw"
                                         className="object-contain"
                                     />
                                 </div>
@@ -270,6 +272,8 @@ const PrintablePortfolioPage = () => {
                                     alt={feature.name}
                                     width={180}
                                     height={50}
+                                    unoptimized
+                                    sizes="180px"
                                     className="object-contain"
                                 />
                             </div>
@@ -291,6 +295,8 @@ const PrintablePortfolioPage = () => {
                                         alt={client.name}
                                         width={150}
                                         height={60}
+                                        unoptimized
+                                        sizes="150px"
                                         className="object-contain mb-4"
                                     />
                                 </div>

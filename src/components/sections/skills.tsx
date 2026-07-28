@@ -1,37 +1,76 @@
 import { skills, languages } from "@/lib/data/skills";
-import { Badge } from "@/components/ui/badge";
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="py-16 sm:py-24">
-      <div className="container">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold font-headline sm:text-4xl">Skills & Technologies</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            The tools and technologies I use to bring ideas to life.
+    <section id="skills" className="bg-background">
+      <div className="container py-24 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 mb-14 md:mb-20">
+          <div>
+            <div className="section-label mb-3">Tech Stack</div>
+            <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
+              Skills &amp;
+              <br />
+              <span className="text-muted-foreground">technologies.</span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
+            Tools of the trade &mdash; what I&rsquo;ve shipped against, what I
+            reach for, what&rsquo;s currently in the kit. The list evolves; the
+            discipline doesn&rsquo;t.
           </p>
         </div>
-        <div className="mt-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
+
+        {/* Skills as grid of mono-tagged entries */}
+        <div>
+          <div className="flex items-end justify-between border-b border-border/80 pb-3 mb-8">
+            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Toolkit</div>
+            <div className="text-xs font-medium text-muted-foreground tabular-nums">
+              {skills.length} tools
+            </div>
+          </div>
+
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-0 md:grid-cols-3 lg:grid-cols-4">
             {skills.map((skill, index) => (
-              <div key={index} className="flex flex-col items-center gap-4 text-center">
-                <div className="p-4 bg-secondary rounded-full transition-all duration-300 hover:bg-primary/10 hover:shadow-glow-primary">
-                  <skill.icon className="h-10 w-10 text-primary" />
+              <li
+                key={skill.name}
+                className="group flex items-center justify-between gap-3 border-b border-border/80 py-5"
+              >
+                <div className="flex items-center gap-3">
+                  <skill.icon
+                    className="h-4 w-4 text-foreground/80"
+                    strokeWidth={1.5}
+                  />
+                  <span className="font-medium">{skill.name}</span>
                 </div>
-                <p className="font-semibold">{skill.name}</p>
-              </div>
+                <span className="text-xs text-muted-foreground tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold font-headline">Languages</h3>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {languages.map((lang, index) => (
-              <Badge key={index} variant="secondary" className="px-4 py-2 text-sm border-primary/50 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
-                {lang}
-              </Badge>
-            ))}
+
+        {/* Languages */}
+        <div className="mt-20">
+          <div className="flex items-end justify-between border-b border-border/80 pb-3 mb-8">
+            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Languages</div>
+            <div className="text-xs font-medium text-muted-foreground tabular-nums">
+              {languages.length} spoken / written
+            </div>
           </div>
+          <ul className="flex flex-wrap gap-x-6 gap-y-3">
+            {languages.map((lang, index) => (
+              <li
+                key={lang}
+                className="text-sm font-medium"
+              >
+                <span className="mr-2 text-muted-foreground/60 tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {lang}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

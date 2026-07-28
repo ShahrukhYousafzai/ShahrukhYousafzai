@@ -38,7 +38,8 @@ const FeaturedOnSection = () => {
                                   width={feature.width}
                                   height={feature.height}
                                   className="object-contain"
-                                  unoptimized={feature.logo.endsWith('.gif')}
+                                  unoptimized
+                                  sizes="(max-width: 768px) 50vw, 180px"
                                 />
                             </a>
                         ))}

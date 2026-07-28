@@ -16,7 +16,7 @@ export const games = [
     },
     {
       title: 'Basant Mela',
-      description: 'Realistic Kite Flying and Fighting Simulator. Reached #4 trending in sports on Google Play with 500K+ downloads in Pakistan.',
+      description: 'Realistic Kite Flying and Fighting Simulator. Reached #4 trending in sports on Google Play with 1M+ downloads in Pakistan.',
       image: '/Images/portfolio/games/BasantMela.webp',
       aiHint: 'kite game',
       tags: ['Unity3D', 'Simulation', 'Sports', '3D', 'Single Player'],

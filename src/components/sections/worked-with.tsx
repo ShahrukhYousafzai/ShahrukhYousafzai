@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Globe, Twitter } from "lucide-react";
+import { Globe, Twitter, ShieldCheck } from "lucide-react";
 
 const clients = [
   {
@@ -11,6 +9,7 @@ const clients = [
     x: "https://x.com/RugdollzNFT",
     width: 200,
     height: 60,
+    tag: "Web3 NFT Gaming",
   },
   {
     name: "Solar Studios",
@@ -19,6 +18,7 @@ const clients = [
     x: "https://x.com/solar_dex",
     width: 180,
     height: 50,
+    tag: "Web3 DEX & Tools",
   },
   {
     name: "Toxic Skulls Club",
@@ -27,47 +27,92 @@ const clients = [
     x: "https://x.com/ToxicSkullsClub",
     width: 150,
     height: 60,
+    tag: "Web3 NFT Collection",
   },
 ];
 
 const WorkedWithSection = () => {
   return (
-    <section id="worked-with" className="py-16 sm:py-24">
-      <div className="container">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold font-headline sm:text-4xl">Worked With</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            I've had the privilege of collaborating with some incredible teams in the Web3 space.
+    <section id="worked-with" className="bg-surface">
+      <div className="container py-24 md:py-32">
+        {/* Header */}
+        <div className="mb-14 md:mb-20">
+          <div className="section-label mb-3">Trusted By</div>
+          <h2 className="font-headline text-3xl font-bold leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
+            Companies I&rsquo;ve
+            <br />
+            <span className="text-muted-foreground">shipped with.</span>
+          </h2>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Selected Web3 collaborators I&rsquo;ve built multiplayer infrastructure,
+            smart-contract integrations, and production game backends for — 2022 to
+            present.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {/* Logo card grid */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {clients.map((client) => (
-            <Card key={client.name} className="flex flex-col justify-between items-center text-center p-6 bg-secondary/50 transform hover:-translate-y-1 transition-all duration-300 hover:shadow-glow-primary">
-              <CardContent className="flex-grow flex items-center justify-center py-6">
+            <article
+              key={client.name}
+              className="group relative flex flex-col items-center rounded-2xl border border-border/60 bg-background p-8 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+            >
+              {/* Verified badge */}
+              <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full border border-success/30 bg-success/5 px-2.5 py-1 text-[10px] font-semibold text-success">
+                <ShieldCheck className="h-3 w-3" strokeWidth={2} />
+                Verified
+              </div>
+
+              {/* Logo */}
+              <div className="flex h-20 w-full items-center justify-center">
                 <Image
                   src={client.logo}
                   alt={`${client.name} Logo`}
                   width={client.width}
                   height={client.height}
-                  className="object-contain"
+                  className="object-contain opacity-80 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105"
+                  unoptimized
+                  sizes="200px"
                 />
-              </CardContent>
-              <div className="w-full">
-                <h3 className="text-lg font-semibold font-headline mb-4">{client.name}</h3>
-                <CardFooter className="flex gap-4 p-0">
-                  <Button variant="outline" asChild className="w-full">
-                    <a href={client.website} target="_blank" rel="noopener noreferrer">
-                      <Globe className="mr-2 h-4 w-4" /> Website
-                    </a>
-                  </Button>
-                  <Button variant="outline" asChild className="w-full">
-                    <a href={client.x} target="_blank" rel="noopener noreferrer">
-                      <Twitter className="mr-2 h-4 w-4" /> X Profile
-                    </a>
-                  </Button>
-                </CardFooter>
               </div>
-            </Card>
+
+              {/* Name & tag */}
+              <div className="mt-6 text-center">
+                <h3 className="font-headline text-lg font-semibold tracking-tight">
+                  {client.name}
+                </h3>
+                <p className="mt-1.5 text-sm font-medium text-muted-foreground">
+                  {client.tag}
+                </p>
+              </div>
+
+              {/* Links */}
+              <div className="mt-6 flex items-center gap-2">
+                <a
+                  href={client.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:text-primary hover:bg-primary/5"
+                  aria-label={`${client.name} website`}
+                >
+                  <Globe className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  Website
+                </a>
+                <a
+                  href={client.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:text-primary hover:bg-primary/5"
+                  aria-label={`${client.name} X profile`}
+                >
+                  <Twitter className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  X
+                </a>
+              </div>
+
+              {/* Subtle glow on hover */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            </article>
           ))}
         </div>
       </div>
