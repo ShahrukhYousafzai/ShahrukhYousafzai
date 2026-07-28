@@ -1,4 +1,4 @@
-import { Download, Star, Calendar, Layers, DollarSign } from "lucide-react";
+import { Download, Star, Calendar, Layers, DollarSign, RefreshCw } from "lucide-react";
 
 export const stats = [
   {
@@ -28,7 +28,13 @@ export const stats = [
   {
     id: "earnings",
     value: "$150K+",
-    label: "Earned on Freelance Platforms",
+    label: "Earned on Fiverr & Upwork",
     icon: DollarSign,
+  },
+  {
+    id: "repeat",
+    value: "75%",
+    label: "Repeat Client Rate",
+    icon: RefreshCw,
   },
 ];

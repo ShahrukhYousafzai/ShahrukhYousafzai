@@ -12,7 +12,7 @@ export const cvData = {
         portfolio: 'https://shahrukhyousafzai.netlify.app/',
         socials: socialLinks,
     },
-    summary: "A highly motivated and experienced Game and App Developer with over 7 years of experience specializing in Unity3D and C#. Proven ability to manage the full project lifecycle, from concept to deployment, across 160+ successful freelance projects. Passionate about creating engaging, high-quality digital experiences by blending strong technical skills with a keen eye for design and user experience.",
+    summary: "A highly motivated and experienced Game and App Developer with over 7 years of experience specializing in Unity3D and C#. Proven ability to manage the full project lifecycle, from concept to deployment, across 169+ successful freelance projects. Passionate about creating engaging, high-quality digital experiences by blending strong technical skills with a keen eye for design and user experience.",
     skills: {
       "Game Development": ["Unity", "C#", "Photon", "Firebase"],
       "App Development": ["Android", "iOS", ".NET", "XAML"],
@@ -24,7 +24,7 @@ export const cvData = {
         {
             date: "2017 - Present",
             title: "Freelance Developer",
-            description: "Delivered over 160 projects for a diverse range of international clients on platforms like Fiverr and Upwork. Managed full project lifecycle including client communication, requirement gathering, and development using Unity, Firebase, and Photon, while achieving consistent 5-star ratings."
+            description: "Delivered 169 orders on Fiverr alone, plus dozens more on Upwork. Managed full project lifecycle including client communication, requirement gathering, and development using Unity, Firebase, and Photon, while achieving consistent 5-star ratings."
         },
         {
             date: "2019 - 2024",
@@ -74,7 +74,7 @@ export const cvData = {
         },
         {
             icon: Briefcase,
-            text: 'Over 7 years of freelance experience, successfully completing 160+ projects for international clients.'
+            text: 'Over 7 years of freelance experience, successfully completing 169+ projects for international clients.'
         },
         {
             icon: Star,

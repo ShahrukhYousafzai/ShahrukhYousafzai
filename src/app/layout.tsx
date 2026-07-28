@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: '%s · Shahrukh Yousafzai',
   },
   description:
-    'Founder of a creative engineering operation based in Pakistan, shipping worldwide. 9+ years shipping production software. $150K+ earned. 1M+ app downloads on Google Play. 76+ verified client reviews. Web2, Web3, and AI specialist.',
+    'Founder of a creative engineering operation based in Pakistan, shipping worldwide. 9+ years. $150K+ earned across platforms. 169 orders shipped. 75% repeat clients. 1M+ app downloads on Google Play. 76+ verified client reviews. Web2, Web3, and AI specialist.',
   keywords: [
     'Shahrukh Yousafzai',
     'AFS Creative Studio',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Shahrukh Yousafzai — Founder of AFS Creative Studio, Efface Studios & AFS Agentics',
     description:
-      'Founder authority behind AFS Creative Studio (creative services), Efface Studios (games product house since 2017), and AFS Agentics (AI product studio). 9+ years. $150K+ earned. 1M+ downloads. 76+ verified reviews.',
+      'Founder authority behind AFS Creative Studio (creative services), Efface Studios (games product house since 2017), and AFS Agentics (AI product studio). 9+ years. $150K+ earned across Fiverr & Upwork. 169 orders. 75% repeat clients. 1M+ downloads. 76+ verified reviews.',
     type: 'website',
     url: 'https://shahrukhyousafzai.pk',
     siteName: 'Shahrukh Yousafzai',
