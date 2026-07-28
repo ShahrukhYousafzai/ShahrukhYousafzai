@@ -16,7 +16,7 @@ export const timeline = [
     {
         date: "2017 – Present",
         title: "Efface Studios · Live Titles",
-        description: "Basant Mela (1M+ downloads, #4 trending in Pakistan sports), RugDollz World (Web3 multiplayer), Solar Dominion (Web3 AAA), RoughDollz card/board/casino titles, plus the AI app line.",
+        description: "Basant Mela (1M+ downloads, #4 trending in Pakistan sports), Web3 multiplayer client projects, plus the AI app line.",
         icon: Gamepad2,
     },
     {

@@ -20,7 +20,7 @@ const entityVisual = [
     code: "02 · Product",
     role: "Games product house · since 2017",
     long:
-      "Founded in 2017 as a games-focused studio. Google Play publisher. Basant Mela hit 1M+ organic downloads and #4 trending in Pakistan sports. Web3 multiplayer with RugDollz + Solar Dominion.",
+      "Founded in 2017 as a games-focused studio. Google Play publisher. Our own IP: Basant Mela hit 1M+ organic downloads and #4 trending in Pakistan sports. Also builds Web3 multiplayer titles for clients.",
     icon: Gamepad2,
     href: "https://play.google.com/store/apps/developer?id=Efface+Studios&hl=en",
     cta: "See live apps",

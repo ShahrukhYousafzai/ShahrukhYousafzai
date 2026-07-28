@@ -18,7 +18,7 @@ export const about = {
         {
             name: "Efface Studios",
             role: "Games Studio (Product House)",
-            description: "Founded 2017 as a games-focused development studio. Our Google Play publisher. Shipped Basant Mela (1M+ downloads), RugDollz World (Web3 multiplayer), Solar Dominion, and the AI app line.",
+            description: "Founded 2017 as a games-focused development studio. Our Google Play publisher. Shipped Basant Mela (1M+ downloads), built Web3 multiplayer titles for clients, and runs the AI app line.",
         },
         {
             name: "AFS Agentics",
