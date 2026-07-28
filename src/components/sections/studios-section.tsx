@@ -66,11 +66,11 @@ const StudiosSection = () => {
         </div>
 
         {/* Bento grid: 1 large + 2 standard */}
-        <div className="grid grid-cols-1 gap-px bg-border/80 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-px bg-border/80 md:grid-cols-3">
           {entityVisual.map((entity, i) => (
             <article
               key={entity.name}
-              className={`group relative flex flex-col bg-background p-7 md:p-10 transition-colors duration-300 hover:bg-surface ${
+              className={`group relative flex flex-col bg-background p-5 md:p-7 transition-colors duration-300 hover:bg-surface ${
                 i === 0 ? "md:col-span-1" : ""
               } ${entity.accent} border-t md:border-t-0`}
             >
