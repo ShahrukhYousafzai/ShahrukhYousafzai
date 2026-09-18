@@ -34,7 +34,7 @@ export const timeline = [
     {
         date: "2024 – Present",
         title: "Founded AFS Agentics (AI Product Studio)",
-        description: "Founder-led AI product company — Pakistan-rooted, globally shipping. First product: InfiniteCode, a free ad-supported AI coding tool in private beta. Desktop today, CLI + Web playground next. Open-weight frontier models, swap-in bring-your-own.",
+        description: "Founder-led AI product company — Pakistan-rooted, globally shipping. First product: LoopCode, a free ad-supported AI coding tool in private beta. Desktop today, CLI + Web playground next. Open-weight frontier models, swap-in bring-your-own.",
         icon: Bot,
     },
 ];

@@ -52,7 +52,7 @@ const HeroSection = () => {
               Efface Studios
             </a>
             <a
-              href="https://afs-agentics.github.io/afs-agentics-website/"
+              href="http://afs-agentics.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-violet/30 bg-violet/5 px-4 py-2 text-sm font-medium text-violet hover:bg-violet/10 transition-colors"

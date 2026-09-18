@@ -857,7 +857,7 @@ const AiRecommender = () => {
             </TabsList>
             <div className="hidden md:flex items-center gap-2 text-xs font-medium text-muted-foreground">
               <Bot className="h-3.5 w-3.5" strokeWidth={1.5} />
-              InfiniteCode
+              LoopCode
             </div>
           </div>
 

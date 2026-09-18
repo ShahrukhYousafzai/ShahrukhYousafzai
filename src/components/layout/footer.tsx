@@ -18,7 +18,7 @@ const Footer = () => {
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
               Founder of a creative engineering operation based in Pakistan, shipping worldwide. Efface
               Studios (games product house since 2017, started in Bahawalpur), AFS Creative Studio (creative
-              agency), and AFS Agentics (AI product studio — InfiniteCode in
+               agency), and AFS Agentics (AI product studio — LoopCode in
               private beta).
             </p>
           </div>

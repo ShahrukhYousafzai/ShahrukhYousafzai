@@ -10,7 +10,7 @@ export const services = [
   {
     title: "AI & Automation Product Studio",
     icon: Bot,
-    description: "What we ship internally at AFS Agentics & Efface Studios — AI mobile apps, automation pipelines, RAG systems, model integration. The build blocks behind InfiniteCode and our product lines.",
+      description: "What we ship internally at AFS Agentics & Efface Studios — AI mobile apps, automation pipelines, RAG systems, model integration. The build blocks behind LoopCode and our product lines.",
   },
   {
     title: "Creative Production & VFX",

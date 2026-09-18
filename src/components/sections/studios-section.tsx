@@ -31,12 +31,12 @@ const entityVisual = [
   {
     name: "AFS Agentics",
     code: "03 · Pre-launch",
-    role: "AI product studio · InfiniteCode in private beta",
+    role: "AI product studio · LoopCode in private beta",
     long:
-      "Founder-led AI product company. We don&rsquo;t sell consulting &mdash; we ship AI products. First: InfiniteCode, a free, ad-supported AI coding tool. Desktop today, CLI + Web playground next.",
+      "Founder-led AI product company. We don&rsquo;t sell consulting &mdash; we ship AI products. First: LoopCode, a free, ad-supported AI coding tool. Desktop today, CLI + Web playground next.",
     icon: Bot,
-    href: "https://afs-agentics.github.io/afs-agentics-website/",
-    cta: "Meet InfiniteCode",
+    href: "http://afs-agentics.vercel.app",
+    cta: "Meet LoopCode",
     accent: "border-violet/40 hover:border-violet",
     iconColor: "text-violet",
     ribbon: "Pre-launch",
