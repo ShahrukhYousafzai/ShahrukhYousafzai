@@ -29,7 +29,7 @@ ${services.map(s => `- ${s.title}`).join('\n')}
 ${skills.map(s => s.name).join(', ')}
 
 # Projects
-${projects.map(p => `## ${p.title} (${p.category})\n- Description: ${p.description}\n- Tags: ${p.tags.join(', ')}\n- Platform: ${p.platform || 'N/A'}`).join('\n\n')}
+${projects.map(p => `## ${p.title} (${p.category})\n- Description: ${p.description}\n- Tags: ${p.tags.join(', ')}\n- Platform: ${(p as any).platform || 'N/A'}`).join('\n\n')}
 
 # Project Costing Information (from Quote Generator examples)
 - A "Prototype" module for a game costs between $500 and $1500.

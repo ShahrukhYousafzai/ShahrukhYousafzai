@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Project } from "@/lib/data";
 import { projects } from "@/lib/data";
 import Image from "next/image";
 import { Package, Globe, Layers, Bot, ZoomIn, ExternalLink } from "lucide-react";
@@ -75,21 +76,21 @@ const ProjectCard = ({ project }: { project: (typeof projects)[0] }) => (
 );
 
 const PaginatedProjects = ({
-  projects,
+  items,
   startIndex = 0,
 }: {
-  projects: Array<(typeof projects)[0]>;
+  items: Project[];
   startIndex?: number;
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [projects]);
+  }, [items]);
 
-  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+  const totalPages = Math.ceil(items.length / PROJECTS_PER_PAGE);
 
-  const paginatedProjects = projects.slice(
+  const paginatedProjects = items.slice(
     (currentPage - 1) * PROJECTS_PER_PAGE,
     currentPage * PROJECTS_PER_PAGE
   );
@@ -288,7 +289,7 @@ const PortfolioSection = () => {
             </Tabs>
 
             <div className="mt-10">
-              <PaginatedProjects projects={filteredGameProjects} />
+              <PaginatedProjects items={filteredGameProjects} />
             </div>
           </TabsContent>
 
@@ -307,7 +308,7 @@ const PortfolioSection = () => {
               </TabsList>
             </Tabs>
             <div className="mt-10">
-              <PaginatedProjects projects={filteredAppProjects} />
+              <PaginatedProjects items={filteredAppProjects} />
             </div>
           </TabsContent>
 
@@ -328,7 +329,7 @@ const PortfolioSection = () => {
                 </SelectContent>
               </Select>
             </div>
-            <PaginatedProjects projects={filteredAnimationProjects} />
+              <PaginatedProjects items={filteredAnimationProjects} />
           </TabsContent>
         </Tabs>
       </div>
