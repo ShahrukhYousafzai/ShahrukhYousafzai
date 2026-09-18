@@ -6,14 +6,14 @@ import LenisScroller from '@/components/lenis-scroller';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Shahrukh Yousafzai — Founder, AFS Creative Studio · Efface Studios · AFS Agentics',
+    default: 'Shahrukh Yousafzai — Founder, AFS Creative · Efface Studios · AFS Agentics',
     template: '%s · Shahrukh Yousafzai',
   },
   description:
     'Founder of a creative engineering operation based in Pakistan, shipping worldwide. 9+ years. $150K+ earned across platforms. 169 orders shipped. 75% repeat clients. 1M+ app downloads on Google Play. 76+ verified client reviews. Web2, Web3, and AI specialist.',
   keywords: [
     'Shahrukh Yousafzai',
-    'AFS Creative Studio',
+    'AFS Creative',
     'Efface Studios',
     'AFS Agentics',
     'Game Developer',
@@ -26,16 +26,16 @@ export const metadata: Metadata = {
   authors: [{ name: 'Shahrukh Yousafzai', url: 'https://shahrukhyousafzai.pk' }],
   creator: 'Shahrukh Yousafzai',
   openGraph: {
-    title: 'Shahrukh Yousafzai — Founder of AFS Creative Studio, Efface Studios & AFS Agentics',
+    title: 'Shahrukh Yousafzai — Founder of AFS Creative, Efface Studios & AFS Agentics',
     description:
-      'Founder authority behind AFS Creative Studio (creative services), Efface Studios (games product house since 2017), and AFS Agentics (AI product studio). 9+ years. $150K+ earned across Fiverr & Upwork. 169 orders. 75% repeat clients. 1M+ downloads. 76+ verified reviews.',
+      'Founder authority behind AFS Creative (creative services), Efface Studios (games product house since 2017), and AFS Agentics (AI product studio). 9+ years. $150K+ earned across Fiverr & Upwork. 169 orders. 75% repeat clients. 1M+ downloads. 76+ verified reviews.',
     type: 'website',
     url: 'https://shahrukhyousafzai.pk',
     siteName: 'Shahrukh Yousafzai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shahrukh Yousafzai — Founder, AFS Creative Studio · Efface Studios · AFS Agentics',
+    title: 'Shahrukh Yousafzai — Founder, AFS Creative · Efface Studios · AFS Agentics',
     description:
       'Founder authority. Production-scale digital products. Web2 · Web3 · AI.',
   },

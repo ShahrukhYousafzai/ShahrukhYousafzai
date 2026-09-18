@@ -17,7 +17,7 @@ const Footer = () => {
             </div>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
               Founder of a creative engineering operation based in Pakistan, shipping worldwide. Efface
-              Studios (games product house since 2017, started in Bahawalpur), AFS Creative Studio (creative
+              Studios (games product house since 2017, started in Bahawalpur), AFS Creative (creative
                agency), and AFS Agentics (AI product studio — LoopCode in
               private beta).
             </p>
@@ -129,7 +129,7 @@ const Footer = () => {
         {/* Bottom: signature */}
         <div className="flex flex-col gap-3 border-t border-border/80 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Shahrukh Yousafzai · Founder of Efface Studios · AFS Creative Studio · AFS Agentics
+            &copy; {new Date().getFullYear()} Shahrukh Yousafzai · Founder of Efface Studios · AFS Creative · AFS Agentics
           </p>
           <p className="text-xs text-muted-foreground/70">
             Built with rigor · Pakistan

@@ -9,12 +9,6 @@ import { cn } from "@/lib/utils";
 import { navLinks } from "@/lib/data/nav";
 import { socialLinks } from "@/lib/data/social";
 
-const entityLabelMap: Record<string, string> = {
-  "AFS Creative Studio": "AFS Creative",
-  "Efface Studios": "Efface",
-  "AFS Agentics": "AFS Agentics",
-};
-
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,7 +70,7 @@ const Header = () => {
               className="flex h-8 items-center gap-1.5 border border-border/80 px-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
             >
               <entity.icon className="h-3 w-3" strokeWidth={1.5} />
-              {entityLabelMap[entity.name] ?? entity.name}
+              {entity.name}
             </a>
           ))}
           <div className="ml-2 flex items-center gap-1 border-l border-border/80 pl-2">

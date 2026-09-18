@@ -3,11 +3,11 @@ import { about } from "@/lib/data/about";
 
 const entityVisual = [
   {
-    name: "AFS Creative Studio",
+    name: "AFS Creative",
     code: "01 · Agency",
     role: "Creative services · managed engineering squads",
     long:
-      "Binational technical delivery for funded startups and mid-market companies. Monthly retainers, white-label execution, and senior-architect oversight. The cash engine.",
+      "Binational technical delivery for funded startups and mid-market companies. Monthly retainers, white-label execution, and senior-architect oversight.",
     icon: Building2,
     href: "https://afscreativestudio.netlify.app",
     cta: "Visit the agency",
@@ -59,7 +59,7 @@ const StudiosSection = () => {
           </div>
           <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
             {about.headline} Efface Studios has been shipping games to Google
-            Play since 2017. AFS Creative Studio is the creative services arm. AFS
+            Play since 2017. AFS Creative is the creative services arm. AFS
             Agentics is where we take the swappable, open-weight AI playbook
             mainstream.
           </p>

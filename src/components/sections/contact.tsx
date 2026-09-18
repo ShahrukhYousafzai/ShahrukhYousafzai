@@ -61,7 +61,7 @@ const ContactSection = () => {
               rel="noopener noreferrer"
               className="text-foreground link-underline font-medium"
             >
-              AFS Creative Studio
+              AFS Creative
             </a>
             .
           </p>

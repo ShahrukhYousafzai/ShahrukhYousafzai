@@ -27,7 +27,7 @@ export const timeline = [
     },
     {
         date: "2023 – Present",
-        title: "Founded AFS Creative Studio",
+        title: "Founded AFS Creative",
         description: "Scaled into a Pakistan-based creative engineering firm on Upwork. Managed-engineering-squads + retainers + white-label delivery for startups and companies worldwide. Built the founder brand and delivery engine from Lahore.",
         icon: Building2,
     },

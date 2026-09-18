@@ -148,7 +148,7 @@ export default function CVPage() {
                 <div className="flex items-start gap-2">
                   <Building2 className="mt-0.5 h-3 w-3 shrink-0 text-blue-500" />
                   <div>
-                    <p className="text-[11px] font-semibold text-[#1a1a2e]">AFS Creative Studio</p>
+                     <p className="text-[11px] font-semibold text-[#1a1a2e]">AFS Creative</p>
                     <p className="text-[10px] text-gray-500">Creative services agency</p>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export default function CVPage() {
                 production-scale software across three studios — games, creative services, and AI
                 products. Delivered 169+ freelance projects for clients in 21+ countries with a
                 consistent 5.0 rating and 75% repeat client rate. Founded Efface Studios (Google
-                Play publisher, 1M+ downloads), AFS Creative Studio (managed engineering squads for
+                 Play publisher, 1M+ downloads), AFS Creative (managed engineering squads for
                 startups worldwide), and AFS Agentics (AI product company). Proficient in Unity, C#,
                 multiplayer systems, Web3 integrations, and full-stack development.
               </p>

@@ -40,7 +40,7 @@ const HeroSection = () => {
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
             >
               <Building2 className="h-4 w-4" />
-              AFS Creative Studio
+              AFS Creative
             </a>
             <a
               href="https://play.google.com/store/apps/developer?id=Efface+Studios&hl=en"

@@ -2,7 +2,7 @@ import { Twitter, Linkedin, Mail, Gamepad2, Briefcase, Bot } from "lucide-react"
 import { IconFiverr, IconUpwork } from "@/components/icons";
 
 export const socialLinks = [
-    { name: 'AFS Creative Studio', url: 'https://afscreativestudio.netlify.app', icon: Briefcase, isEntity: true },
+    { name: 'AFS Creative', url: 'https://afscreativestudio.netlify.app', icon: Briefcase, isEntity: true },
     { name: 'Efface Studios', url: 'https://play.google.com/store/apps/developer?id=Efface+Studios&hl=en', icon: Gamepad2, isEntity: true },
     { name: 'AFS Agentics', url: 'http://afs-agentics.vercel.app', icon: Bot, isEntity: true },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/shahrukh-yousafzai-pk/', icon: Linkedin },
