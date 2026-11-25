@@ -220,18 +220,3 @@
   animation: fade-up 0.6s ease-out forwards;
 }
 
-/* CV Print Styles */
-@media print {
-  @page {
-    size: A4;
-    margin: 0;
-  }
-  body {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  .cv-page {
-    width: 210mm;
-    min-height: 297mm;
-  }
-}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { socialLinks } from "@/lib/data/social";
 
@@ -28,63 +27,28 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Middle: columns */}
-        <div className="grid grid-cols-1 gap-8 py-10 md:grid-cols-2 md:gap-12">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Resources</div>
-            <ul className="divide-y divide-border/80">
-              {[
-                { href: "/cv", label: "Printable CV", note: "PDF" },
-                {
-                  href: "/portfolio/pdf",
-                  label: "Printable Portfolio",
-                  note: "PDF",
-                },
-                {
-                  href: "/portfolio/gamedesign-animation",
-                  label: "Game Design",
-                  note: "Web",
-                },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
-                  >
-                    <span className="font-headline text-sm font-medium">
-                      {link.label}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                      {link.note}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Middle: channels */}
+        <div className="max-w-md py-10">
+          <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Channels</div>
+          <ul className="divide-y divide-border/80">
+            {channelLinks.map((social) => (
+              <li key={social.name}>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
+                >
+                  <span className="flex items-center gap-2 font-headline text-sm font-medium">
+                    <social.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    {social.name}
+                  </span>
 
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Channels</div>
-            <ul className="divide-y divide-border/80">
-              {channelLinks.map((social) => (
-                <li key={social.name}>
-                  <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.name}
-                    className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
-                  >
-                    <span className="flex items-center gap-2 font-headline text-sm font-medium">
-                      <social.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      {social.name}
-                    </span>
-
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Bottom: signature */}

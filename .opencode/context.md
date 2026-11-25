@@ -10,7 +10,7 @@
 
 ## Project Type
 - Application (Portfolio/CV site)
-- Single-page marketing site with routes: `/`, `/cv`, `/portfolio/gamedesign-animation`, `/portfolio/pdf`
+- Single-page marketing site with route: `/`
 
 ## Infrastructure
 - Container: None detected (apphosting.yaml present for Google App Hosting)
