@@ -28,9 +28,9 @@ const Footer = () => {
         </div>
 
         {/* Middle: channels */}
-        <div className="max-w-md py-10">
+        <div className="py-10">
           <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Channels</div>
-          <ul className="divide-y divide-border/80">
+          <ul className="flex flex-wrap items-center gap-x-10 gap-y-4">
             {channelLinks.map((social) => (
               <li key={social.name}>
                 <a
@@ -38,13 +38,10 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
+                  className="flex items-center gap-2 font-headline text-sm font-medium transition-colors hover:text-primary"
                 >
-                  <span className="flex items-center gap-2 font-headline text-sm font-medium">
-                    <social.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
-                    {social.name}
-                  </span>
-
+                  <social.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  {social.name}
                 </a>
               </li>
             ))}
