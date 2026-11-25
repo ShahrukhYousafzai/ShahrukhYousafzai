@@ -1,6 +1,6 @@
 # 💫 About Me:
 🎮 I’m **Shahrukh Yousafzai** – a Unity Game Developer with over 7 years of experience.<br>
-🌍 I’ve completed 160+ freelance projects and founded **Efface Studios**.<br>
+🌍 I’ve completed 160+ freelance projects and work independently with clients worldwide.<br>
 🧠 I specialize in cross-platform games, multiplayer systems, mobile apps, and Web3 integrations.<br>
 🚀 Currently expanding into advanced blockchain gaming and systems design.<br>
 ⚡ Fun fact: I started programming at 14 in 2017 and still use tabs over spaces!

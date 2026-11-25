@@ -36,8 +36,7 @@ const Header = () => {
     </>
   );
 
-  const entityLinks = socialLinks.filter((s) => s.isEntity);
-  const channelLinks = socialLinks.filter((s) => !s.isEntity);
+  const channelLinks = socialLinks;
 
   return (
     <header
@@ -52,7 +51,7 @@ const Header = () => {
             Shahrukh Yousafzai
           </span>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:inline">
-            · Founder · 2017 — ∞</span>
+            · Independent · 2017 — ∞</span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -60,20 +59,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden items-center gap-1 md:flex">
-          {entityLinks.map((entity) => (
-            <a
-              key={entity.name}
-              href={entity.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={entity.name}
-              className="flex h-8 items-center gap-1.5 border border-border/80 px-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
-            >
-              <entity.icon className="h-3 w-3" strokeWidth={1.5} />
-              {entity.name}
-            </a>
-          ))}
-          <div className="ml-2 flex items-center gap-1 border-l border-border/80 pl-2">
+          <div className="flex items-center gap-1">
             {channelLinks.slice(0, 3).map((social) => (
               <a
                 key={social.name}
@@ -107,31 +93,13 @@ const Header = () => {
                     Shahrukh Yousafzai
                   </div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                    Founder · 3 Studios
+                    Independent Creative Engineer
                   </div>
                 </div>
                 <nav className="flex flex-col gap-5 px-6 py-6">
                   <NavItems isMobile={true} />
                 </nav>
                 <div className="mt-auto space-y-5 border-t border-border/80 px-6 py-6">
-                  <div>
-                    <div className="eyebrow mb-3">The Studios</div>
-                    <ul className="space-y-2">
-                      {entityLinks.map((entity) => (
-                        <li key={entity.name}>
-                          <a
-                            href={entity.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
-                          >
-                            <entity.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
-                            {entity.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                   <div>
                     <div className="eyebrow mb-3">Channels</div>
                     <div className="flex gap-2">

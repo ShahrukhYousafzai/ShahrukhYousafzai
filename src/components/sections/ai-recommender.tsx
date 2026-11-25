@@ -821,13 +821,13 @@ const AiRecommender = () => {
           <div>
             <div className="section-label mb-3">AI Tools</div>
             <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
-              Try our
+              Try my
               <br />
               <span className="text-muted-foreground">AI tools.</span>
             </h2>
           </div>
           <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
-            Built and run out of our AI studio. Use these to brainstorm a game
+            Built and run by me. Use these to brainstorm a game
             idea, generate a full Game Design Document, or get a scoped quote
             you can hand to a delivery team. The output is yours.
           </p>

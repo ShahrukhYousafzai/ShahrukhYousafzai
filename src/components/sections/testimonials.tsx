@@ -18,7 +18,7 @@ const TestimonialsSection = () => {
           <div>
             <div className="section-label mb-3">Client Reviews</div>
             <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
-              Founder
+              Client
               <br />
               <span className="text-muted-foreground">track record.</span>
             </h2>

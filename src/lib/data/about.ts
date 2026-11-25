@@ -1,29 +1,7 @@
 export const about = {
-    headline: "I build production-scale digital products and run the studios that ship them.",
+    headline: "I build production-scale digital products and ship them end to end.",
     description:
-        "I'm the founder of a creative engineering operation based in Pakistan, shipping worldwide. Efface Studios is our games-focused product studio on Google Play (founded 2017 in Bahawalpur — Basant Mela hit 1M+ organic downloads and #4 trending in Pakistan sports). AFS Creative is our creative services arm — managed engineering squads and retainers for startups and companies worldwide. AFS Agentics is our founder-led AI product company, currently shipping LoopCode — a free, ad-supported AI coding tool in private beta. I started writing code at 14, led multiplayer Web3 integrations for RugDollz and Solar Dominion, and today I'm building the delivery engine — senior-architect oversight, managed engineering squads, and quarterly product releases.",
+        "I'm an independent creative engineer based in Pakistan, shipping worldwide. Over the last 9+ years I've designed, built, and launched games and apps that have reached over a million downloads on Google Play — including Basant Mela, which hit 1M+ organic downloads and #4 trending in Pakistan sports. Alongside my own products, I work directly with startups and companies as a hands-on senior engineer, leading multiplayer Web3 integrations for titles like RugDollz and Solar Dominion. I also build AI products from the ground up — currently LoopCode, a free, ad-supported AI coding tool in private beta. I started writing code at 14, and today I take products from architecture through release myself.",
     email: "shahrukhyousafzaipk@gmail.com",
-    location: "Lahore, Pakistan · Efface started in Bahawalpur",
-    entities: [
-        {
-            name: "Shahrukh Yousafzai",
-            role: "Founder Authority",
-            description: "Personal brand, founder voice, and trust layer for everything the studios ship.",
-        },
-        {
-            name: "AFS Creative",
-            role: "Creative Services",
-            description: "Managed engineering squads, monthly retainers, and white-label delivery for funded startups and mid-market companies.",
-        },
-        {
-            name: "Efface Studios",
-            role: "Games Studio (Product House)",
-            description: "Founded 2017 as a games-focused development studio. Our Google Play publisher. Shipped Basant Mela (1M+ downloads), built Web3 multiplayer titles for clients, and runs the AI app line.",
-        },
-        {
-            name: "AFS Agentics",
-            role: "AI Product Studio (Pre-Launch)",
-            description: "Founder-led AI product company. Design, build, and ship AI products that work in the real world. First product: LoopCode — a free, ad-supported AI coding tool. Desktop today, CLI + Web playground next. 'AI like electricity: available to anyone who can plug in.'",
-        },
-    ],
+    location: "Lahore, Pakistan · Started in Bahawalpur",
 };

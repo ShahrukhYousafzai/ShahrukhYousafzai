@@ -9,11 +9,11 @@ const AboutSection = () => {
         {/* Header */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 mb-16 md:mb-24">
           <div>
-            <div className="section-label mb-3">The Founder</div>
+            <div className="section-label mb-3">About</div>
             <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
               About
               <br />
-              <span className="text-muted-foreground">the founder.</span>
+              <span className="text-muted-foreground">me.</span>
             </h2>
           </div>
           <div className="md:pt-3">

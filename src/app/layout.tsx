@@ -6,38 +6,37 @@ import LenisScroller from '@/components/lenis-scroller';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Shahrukh Yousafzai — Founder, AFS Creative · Efface Studios · AFS Agentics',
+    default: 'Shahrukh Yousafzai — Independent Creative Engineer',
     template: '%s · Shahrukh Yousafzai',
   },
   description:
-    'Founder of a creative engineering operation based in Pakistan, shipping worldwide. 9+ years. $150K+ earned across platforms. 169 orders shipped. 75% repeat clients. 1M+ app downloads on Google Play. 76+ verified client reviews. Web2, Web3, and AI specialist.',
+    'Independent creative engineer based in Pakistan, shipping worldwide. 9+ years. $150K+ earned across platforms. 169 orders shipped. 75% repeat clients. 1M+ app downloads on Google Play. 76+ verified client reviews. Web2, Web3, and AI specialist.',
   keywords: [
     'Shahrukh Yousafzai',
-    'AFS Creative',
-    'Efface Studios',
-    'AFS Agentics',
+    'Independent Developer',
+    'Creative Engineer',
     'Game Developer',
     'AI Engineer',
     'Web3',
     'Unity',
-    'Pakistan Software Agency',
-    'Binational Engineering',
+    'Pakistan Software Developer',
+    'Multiplayer Engineering',
   ],
   authors: [{ name: 'Shahrukh Yousafzai', url: 'https://shahrukhyousafzai.pk' }],
   creator: 'Shahrukh Yousafzai',
   openGraph: {
-    title: 'Shahrukh Yousafzai — Founder of AFS Creative, Efface Studios & AFS Agentics',
+    title: 'Shahrukh Yousafzai — Independent Creative Engineer',
     description:
-      'Founder authority behind AFS Creative (creative services), Efface Studios (games product house since 2017), and AFS Agentics (AI product studio). 9+ years. $150K+ earned across Fiverr & Upwork. 169 orders. 75% repeat clients. 1M+ downloads. 76+ verified reviews.',
+      'Independent creative engineer building production-scale games, apps, and AI products. 9+ years. $150K+ earned across Fiverr & Upwork. 169 orders. 75% repeat clients. 1M+ downloads. 76+ verified reviews.',
     type: 'website',
     url: 'https://shahrukhyousafzai.pk',
     siteName: 'Shahrukh Yousafzai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shahrukh Yousafzai — Founder, AFS Creative · Efface Studios · AFS Agentics',
+    title: 'Shahrukh Yousafzai — Independent Creative Engineer',
     description:
-      'Founder authority. Production-scale digital products. Web2 · Web3 · AI.',
+      'Independent engineer. Production-scale digital products. Web2 · Web3 · AI.',
   },
   robots: {
     index: true,

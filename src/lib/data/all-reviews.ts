@@ -350,7 +350,7 @@ export const allReviews = [
       country: "United Kingdom"
     },
     {
-      review: "Shahrukh @ Efface Studios is fantastic... GREAT software - GREAT support!! Will use time and time again!",
+      review: "Shahrukh is fantastic... GREAT software - GREAT support!! Will use time and time again!",
       author: "dstar_204",
       country: "United Kingdom"
     },

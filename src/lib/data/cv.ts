@@ -28,8 +28,8 @@ export const cvData = {
         },
         {
             date: "2019 - 2024",
-            title: "Game Developer at Efface Studios",
-            description: "Led the design, development, and launch of numerous games and applications. Responsible for system architecture, UI/UX implementation, and monetization strategies. Successfully launched titles that achieved over 500,000+ organic downloads on Google Play and media recognition."
+            title: "Independent Game & App Developer",
+            description: "Led the design, development, and launch of numerous self-published games and applications. Responsible for system architecture, UI/UX implementation, and monetization strategies. Successfully launched titles that achieved over 500,000+ organic downloads on Google Play and media recognition."
         },
     ],
     education: [

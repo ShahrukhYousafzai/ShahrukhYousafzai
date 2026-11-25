@@ -215,9 +215,9 @@ const PortfolioSection = () => {
             </h2>
           </div>
           <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
-            A curated selection from{" "}
-            <span className="text-foreground font-medium">Efface Studios</span>{" "}
-            and our agency delivery work. Basant Mela hit{" "}
+            A curated selection of products I&rsquo;ve designed, built, and
+            shipped myself &mdash; alongside client work delivered end to end.
+            Basant Mela hit{" "}
             <span className="text-primary font-medium">1M+ organic downloads</span> and #4
             trending in Pakistan sports &mdash; most of these started as live
             products shipped to real users.

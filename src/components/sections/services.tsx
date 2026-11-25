@@ -8,16 +8,16 @@ const ServicesSection = () => {
           <div>
             <div className="section-label mb-3">Capabilities</div>
             <h2 className="font-headline text-3xl font-medium leading-[1.05] tracking-tight md:text-4xl lg:text-5xl">
-              Studios &amp;
+              Services &amp;
               <br />
               <span className="text-muted-foreground">capabilities.</span>
             </h2>
           </div>
           <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
-            Production tracks operated across all three entities. Each track is
-            run with senior-architect oversight and direct founder
-            accountability &mdash; the same accountability we extend to every
-            client engagement.
+            Production tracks I run end to end. Each track comes with
+            senior-architect oversight and direct accountability from me
+            &mdash; the same accountability I extend to every client
+            engagement.
           </p>
         </div>
 

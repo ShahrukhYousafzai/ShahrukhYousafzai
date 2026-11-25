@@ -3,8 +3,7 @@ import { MapPin } from "lucide-react";
 import { socialLinks } from "@/lib/data/social";
 
 const Footer = () => {
-  const entityLinks = socialLinks.filter((s) => s.isEntity);
-  const channelLinks = socialLinks.filter((s) => !s.isEntity);
+  const channelLinks = socialLinks;
 
   return (
     <footer className="border-t border-border/80 bg-background">
@@ -16,10 +15,9 @@ const Footer = () => {
               Shahrukh Yousafzai
             </div>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-              Founder of a creative engineering operation based in Pakistan, shipping worldwide. Efface
-              Studios (games product house since 2017, started in Bahawalpur), AFS Creative (creative
-               agency), and AFS Agentics (AI product studio — LoopCode in
-              private beta).
+              Independent creative engineer based in Pakistan, shipping worldwide. Games, apps, and
+              AI products built end to end — including LoopCode, a free AI coding tool in private
+              beta.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2 md:items-end">
@@ -31,44 +29,7 @@ const Footer = () => {
         </div>
 
         {/* Middle: columns */}
-        <div className="grid grid-cols-1 gap-8 py-10 md:grid-cols-3 md:gap-12">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">The Studios</div>
-            <ul className="divide-y divide-border/80">
-              {entityLinks.map((entity) => (
-                <li key={entity.name}>
-                  <a
-                    href={entity.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
-                  >
-                    <span className="flex items-center gap-2 font-headline text-sm font-medium">
-                      <entity.icon className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      {entity.name}
-                    </span>
-
-                  </a>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="https://www.upwork.com/agencies/1704225235961491456/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-baseline justify-between gap-4 py-3 hover:text-primary transition-colors"
-                >
-                  <span className="font-headline text-sm font-medium">
-                    Upwork Agency
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                    &rarr;
-                  </span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
+        <div className="grid grid-cols-1 gap-8 py-10 md:grid-cols-2 md:gap-12">
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Resources</div>
             <ul className="divide-y divide-border/80">
@@ -129,7 +90,7 @@ const Footer = () => {
         {/* Bottom: signature */}
         <div className="flex flex-col gap-3 border-t border-border/80 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Shahrukh Yousafzai · Founder of Efface Studios · AFS Creative · AFS Agentics
+            &copy; {new Date().getFullYear()} Shahrukh Yousafzai · Independent Creative Engineer
           </p>
           <p className="text-xs text-muted-foreground/70">
             Built with rigor · Pakistan

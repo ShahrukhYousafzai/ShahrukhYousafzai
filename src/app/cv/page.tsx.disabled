@@ -14,9 +14,6 @@ import {
   Download,
   Star,
   Briefcase,
-  Gamepad2,
-  Building2,
-  Bot,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -142,32 +139,6 @@ export default function CVPage() {
               </div>
             </Section>
 
-            {/* Studios Founded */}
-            <Section title="Studios Founded" sidebar>
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <Building2 className="mt-0.5 h-3 w-3 shrink-0 text-blue-500" />
-                  <div>
-                     <p className="text-[11px] font-semibold text-[#1a1a2e]">AFS Creative</p>
-                    <p className="text-[10px] text-gray-500">Creative services agency</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Gamepad2 className="mt-0.5 h-3 w-3 shrink-0 text-green-500" />
-                  <div>
-                    <p className="text-[11px] font-semibold text-[#1a1a2e]">Efface Studios</p>
-                    <p className="text-[10px] text-gray-500">Games product house (2017)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Bot className="mt-0.5 h-3 w-3 shrink-0 text-purple-500" />
-                  <div>
-                    <p className="text-[11px] font-semibold text-[#1a1a2e]">AFS Agentics</p>
-                    <p className="text-[10px] text-gray-500">AI product studio</p>
-                  </div>
-                </div>
-              </div>
-            </Section>
           </div>
 
           {/* ─── MAIN CONTENT ─── */}
@@ -175,13 +146,12 @@ export default function CVPage() {
             {/* Professional Summary */}
             <Section title="Professional Summary">
               <p className="text-[11.5px] leading-relaxed text-gray-700">
-                Creative engineering founder with {currentYear - 2017}+ years of experience shipping
-                production-scale software across three studios — games, creative services, and AI
-                products. Delivered 169+ freelance projects for clients in 21+ countries with a
-                consistent 5.0 rating and 75% repeat client rate. Founded Efface Studios (Google
-                 Play publisher, 1M+ downloads), AFS Creative (managed engineering squads for
-                startups worldwide), and AFS Agentics (AI product company). Proficient in Unity, C#,
-                multiplayer systems, Web3 integrations, and full-stack development.
+                Independent creative engineer with {currentYear - 2017}+ years of experience shipping
+                production-scale software — games, apps, and AI products. Delivered 169+ freelance
+                projects for clients in 21+ countries with a consistent 5.0 rating and 75% repeat
+                client rate. Self-published titles on Google Play with 1M+ downloads, led multiplayer
+                Web3 integrations for client titles, and built AI products end to end. Proficient in
+                Unity, C#, multiplayer systems, Web3 integrations, and full-stack development.
               </p>
             </Section>
 
@@ -231,7 +201,7 @@ export default function CVPage() {
                   result="NFT blockchain-based MMORPG with decentralized gaming ecosystem"
                 />
                 <ProjectItem
-                   name="LoopCode (AFS Agentics)"
+                   name="LoopCode"
                   tech="AI, Desktop App"
                   result="Free ad-supported AI coding tool · Private beta · CLI + Web playground upcoming"
                 />
@@ -246,7 +216,7 @@ export default function CVPage() {
                 <AchievementItem text="$150K+ earned across freelance platforms serving clients in 21+ countries" />
                 <AchievementItem text="75% repeat client rate — majority of clients return for multiple projects" />
                 <AchievementItem text="Games featured in tech publications including United News of Bangladesh & Editorialge" />
-                <AchievementItem text="Founded and scaled 3 studios simultaneously while completing BS Digital Marketing" />
+                <AchievementItem text="Built and shipped multiple products independently while completing BS Digital Marketing" />
               </ul>
             </Section>
 

@@ -1,4 +1,4 @@
-import { ArrowDown, Building2, Gamepad2, Bot } from "lucide-react";
+import { ArrowDown, Gamepad2, Bot, Layers } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -11,7 +11,7 @@ const HeroSection = () => {
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Founder &amp; Creative Engineer
+            Independent Creative Engineer
           </span>
           <span className="hidden sm:inline">Bahawalpur · Lahore</span>
           <span>Since 2017</span>
@@ -26,40 +26,25 @@ const HeroSection = () => {
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Creative engineering founder shipping production-scale
-            software across three studios — games, creative services, and AI products.
+            Independent creative engineer shipping production-scale
+            software — games, apps, and AI products, built end to end.
             1M+ downloads on Google Play. $150K+ earned across platforms. 169 orders shipped. 75% repeat clients. 76+ verified reviews.
           </p>
 
-          {/* Studios — chips */}
+          {/* Focus areas — chips */}
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="https://afscreativestudio.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
-            >
-              <Building2 className="h-4 w-4" />
-              AFS Creative
-            </a>
-            <a
-              href="https://play.google.com/store/apps/developer?id=Efface+Studios&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/5 px-4 py-2 text-sm font-medium text-success hover:bg-success/10 transition-colors"
-            >
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 text-sm font-medium text-primary">
               <Gamepad2 className="h-4 w-4" />
-              Efface Studios
-            </a>
-            <a
-              href="http://afs-agentics.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-violet/30 bg-violet/5 px-4 py-2 text-sm font-medium text-violet hover:bg-violet/10 transition-colors"
-            >
+              Games &amp; Apps
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/5 px-4 py-2 text-sm font-medium text-success">
+              <Layers className="h-4 w-4" />
+              Web3 &amp; Multiplayer
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-violet/30 bg-violet/5 px-4 py-2 text-sm font-medium text-violet">
               <Bot className="h-4 w-4" />
-              AFS Agentics
-            </a>
+              AI Products
+            </span>
           </div>
 
           {/* CTA row */}

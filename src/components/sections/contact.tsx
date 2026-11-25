@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Send, Building2, Linkedin } from "lucide-react";
+import { Mail, Send, Linkedin } from "lucide-react";
 import { about } from "@/lib/data/about";
 import { socialLinks } from "@/lib/data/social";
 
@@ -29,7 +29,7 @@ const ContactSection = () => {
   });
 
   const onSubmit = (data: ContactFormValues) => {
-    const subject = encodeURIComponent(`Founder inquiry — ${data.name}`);
+    const subject = encodeURIComponent(`Project inquiry — ${data.name}`);
     const body = encodeURIComponent(`Name: ${data.name}\n\nEmail: ${data.email}\n\nMessage:\n${data.message}`);
     const mailtoLink = `mailto:${about.email}?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
@@ -52,18 +52,9 @@ const ContactSection = () => {
             </h2>
           </div>
           <p className="text-base leading-relaxed text-muted-foreground md:pt-3 md:text-lg">
-            For collaboration, speaking, founder-to-founder introductions, or
-            hiring our studios &mdash; drop a line below. For active
-            projects, jump straight to{" "}
-            <a
-              href="https://afscreativestudio.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground link-underline font-medium"
-            >
-              AFS Creative
-            </a>
-            .
+            For collaboration, speaking, introductions, or a new project
+            &mdash; drop a line below. I work directly with every client, so
+            your message comes straight to me.
           </p>
         </div>
 
@@ -145,31 +136,13 @@ const ContactSection = () => {
                   <Mail className="mt-0.5 h-4 w-4 text-foreground/80" strokeWidth={1.5} />
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-medium text-muted-foreground">
-                      Email · Founder Direct
+                      Email · Direct
                     </div>
                     <a
                       href={`mailto:${about.email}`}
                       className="mt-1 block break-all font-headline text-base font-medium text-foreground hover:text-primary transition-colors"
                     >
                       {about.email}
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li className="py-5">
-                <div className="flex items-start gap-4">
-                  <Building2 className="mt-0.5 h-4 w-4 text-foreground/80" strokeWidth={1.5} />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs font-medium text-muted-foreground">
-                      Agency
-                    </div>
-                    <a
-                      href="https://afscreativestudio.netlify.app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 block font-headline text-base font-medium text-foreground hover:text-primary transition-colors"
-                    >
-                      afscreativestudio.netlify.app &rarr;
                     </a>
                   </div>
                 </div>
@@ -199,7 +172,7 @@ const ContactSection = () => {
             <div className="mt-7 border-t border-border/80 pt-5">
               <div className="text-xs font-medium text-muted-foreground mb-2">Response time</div>
               <p className="text-sm text-muted-foreground">
-                ~24 hours · routed directly to the founder
+                ~24 hours · replies come directly from me
               </p>
             </div>
           </aside>
